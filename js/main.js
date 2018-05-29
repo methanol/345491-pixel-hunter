@@ -33,7 +33,8 @@ selectSlide(screens[0]);
 let current = 0;
 
 const select = (index) => {
-  index = (index < 0) ? 0 : (index >= screens.length) ? (screens.length - 1) : index;
+  index = (index < 0) ? 0 : index;
+  index = (index >= screens.length) ? (screens.length - 1) : index;
   current = index;
   selectSlide(screens[current]);
 };
@@ -58,10 +59,10 @@ document.body.appendChild(miceArrows);
 const arrowClickLeft = miceArrows.children[1];
 const arrowClickRight = miceArrows.children[2];
 
-arrowClickLeft.addEventListener(`click`, (evt) => {
+arrowClickLeft.addEventListener(`click`, () => {
   select(current - 1);
 });
 
-arrowClickRight.addEventListener(`click`, (evt) => {
+arrowClickRight.addEventListener(`click`, () => {
   select(current + 1);
 });
