@@ -34,13 +34,10 @@ selectSlide(screens[0]);
 let currentScreen = 0;
 
 const selectScreen = (index) => {
-  if (index < 0) {
-    index = 0;
-  } else if (index >= screens.length) {
-    index = (screens.length - 1)
+  if (index >= 0 && index < screens.length) {
+    currentScreen = index;
+    selectSlide(screens[currentScreen]);
   }
-  currentScreen = index;
-  selectSlide(screens[currentScreen]);
 };
 
 document.addEventListener(`keydown`, (evt) => {
