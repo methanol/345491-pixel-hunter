@@ -1,7 +1,7 @@
 # Личный проект «Пиксель хантер» [![Build status][travis-image]][travis-url]
 
 * Студент: [Михаил Седых](https://up.htmlacademy.ru/ecmascript/5/user/345491).
-* Наставник: `Неизвестно`.
+* Наставник: Всеволод Артемьев.
 
 ---
 
