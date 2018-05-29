@@ -1,4 +1,5 @@
 'use strict';
+
 const RIGHT_ARROW = 39;
 const LEFT_ARROW = 37;
 const mouseClickArrows = `<style>
@@ -30,22 +31,25 @@ const selectSlide = (element) => {
 
 selectSlide(screens[0]);
 
-let current = 0;
+let currentScreen = 0;
 
-const select = (index) => {
-  index = (index < 0) ? 0 : index;
-  index = (index >= screens.length) ? (screens.length - 1) : index;
-  current = index;
-  selectSlide(screens[current]);
+const selectScreen = (index) => {
+  if (index < 0) {
+    index = 0;
+  } else if (index >= screens.length) {
+    index = (screens.length - 1)
+  }
+  currentScreen = index;
+  selectSlide(screens[currentScreen]);
 };
 
 document.addEventListener(`keydown`, (evt) => {
   switch (evt.keyCode) {
     case RIGHT_ARROW:
-      select(current + 1);
+      selectScreen(currentScreen + 1);
       break;
     case LEFT_ARROW:
-      select(current - 1);
+      selectScreen(currentScreen - 1);
       break;
   }
 });
@@ -60,9 +64,9 @@ const arrowClickLeft = miceArrows.children[1];
 const arrowClickRight = miceArrows.children[2];
 
 arrowClickLeft.addEventListener(`click`, () => {
-  select(current - 1);
+  selectScreen(currentScreen - 1);
 });
 
 arrowClickRight.addEventListener(`click`, () => {
-  select(current + 1);
+  selectScreen(currentScreen + 1);
 });
