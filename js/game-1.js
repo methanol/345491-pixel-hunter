@@ -79,7 +79,7 @@ const btnBack = document.querySelector(`button.back`);
 
 const goBack = (btn) => {
   btn.addEventListener(`click`, () => {
-    selectSlide(greetingElement)
+    selectSlide(greetingElement);
   });
 };
 
@@ -101,7 +101,7 @@ question2.forEach((it) => {
   checkReady(it.nextElementSibling);
 });
 
-/*checkReady(question1[0].nextElementSibling, gameTwoElement, ((question1[0].checked) || (question1[1].checked)) && ((question2[0].checked) || (question2[1].checked)));
+/*  checkReady(question1[0].nextElementSibling, gameTwoElement, ((question1[0].checked) || (question1[1].checked)) && ((question2[0].checked) || (question2[1].checked)));
 checkReady(question1[1].nextElementSibling, gameTwoElement, ((question1[0].checked) || (question1[1].checked)) && ((question2[0].checked) || (question2[1].checked)));
 checkReady(question2[0].nextElementSibling, gameTwoElement, ((question1[0].checked) || (question1[1].checked)) && ((question2[0].checked) || (question2[1].checked)));
 checkReady(question2[1].nextElementSibling, gameTwoElement, ((question1[0].checked) || (question1[1].checked)) && ((question2[0].checked) || (question2[1].checked)));*/

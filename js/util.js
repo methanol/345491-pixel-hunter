@@ -13,7 +13,7 @@ const selectSlide = (element) => {
 
 export {selectSlide};
 
-/*export const goBack = (btn, slide) => {
+/*  export const goBack = (btn, slide) => {
   btn.addEventListener(`click`, () => {
     selectSlide(slide)
   });

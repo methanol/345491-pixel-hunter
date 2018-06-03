@@ -129,7 +129,7 @@ const btnBack = document.querySelector(`button.back`);
 
 const goBack = (btn) => {
   btn.addEventListener(`click`, () => {
-    selectSlide(greetingElement)
+    selectSlide(greetingElement);
   });
 };
 

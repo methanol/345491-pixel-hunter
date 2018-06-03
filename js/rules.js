@@ -48,14 +48,14 @@ const btnBack = document.querySelector(`button.back`);
 
 const goBack = (btn) => {
   btn.addEventListener(`click`, () => {
-    selectSlide(greetingElement)
+    selectSlide(greetingElement);
   });
 };
 
 goBack(btnBack);
 
 rulesInput.addEventListener(`change`, () => {
-  if (rulesInput.value == ``) {
+  if (rulesInput.value === ``) {
     rulesButton.disabled = true;
   } else {
     rulesButton.disabled = false;
