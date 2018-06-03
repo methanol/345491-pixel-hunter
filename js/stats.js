@@ -1,6 +1,5 @@
-import {render} from './util.js';
-import {selectSlide} from './util.js';
-import greetingElement from './greeting.js';
+import {render, selectSlide} from './util.js';
+import greeting from './greeting.js';
 
 const template = `<header class="header">
   <div class="header__back">
@@ -121,18 +120,18 @@ const template = `<header class="header">
   </div>
 </footer>`;
 
-const statsElement = render(template);
+const stats = render(template);
 
-selectSlide(statsElement);
+selectSlide(stats);
 
 const btnBack = document.querySelector(`button.back`);
 
-const goBack = (btn) => {
+const clickBackBtn = (btn) => {
   btn.addEventListener(`click`, () => {
-    selectSlide(greetingElement);
+    selectSlide(greeting);
   });
 };
 
-goBack(btnBack);
+clickBackBtn(btnBack);
 
-export default statsElement;
+export default stats;

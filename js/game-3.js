@@ -1,7 +1,6 @@
-import {render} from './util.js';
-import {selectSlide} from './util.js';
-import statsElement from './stats.js';
-import greetingElement from './greeting.js';
+import {render, selectSlide} from './util.js';
+import stats from './stats.js';
+import greeting from './greeting.js';
 
 const template = `<header class="header">
   <div class="header__back">
@@ -56,25 +55,25 @@ const template = `<header class="header">
   </div>
 </footer>`;
 
-const gameThreeElement = render(template);
+const gameThree = render(template);
 
-selectSlide(gameThreeElement);
+selectSlide(gameThree);
 
 const options = document.querySelectorAll(`.game__option`);
 const btnBack = document.querySelector(`button.back`);
 
-const goBack = (btn) => {
+const clickBackBtn = (btn) => {
   btn.addEventListener(`click`, () => {
-    selectSlide(greetingElement);
+    selectSlide(greeting);
   });
 };
 
-goBack(btnBack);
+clickBackBtn(btnBack);
 
 options.forEach((it) => {
   it.addEventListener(`click`, () => {
-    selectSlide(statsElement);
+    selectSlide(stats);
   });
 });
 
-export default gameThreeElement;
+export default gameThree;

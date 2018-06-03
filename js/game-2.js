@@ -1,7 +1,6 @@
-import {render} from './util.js';
-import {selectSlide} from './util.js';
-import gameThreeElement from './game-3.js';
-import greetingElement from './greeting.js';
+import {render, selectSlide} from './util.js';
+import gameThree from './game-3.js';
+import greeting from './greeting.js';
 
 const template = `<header class="header">
   <div class="header__back">
@@ -58,30 +57,30 @@ const template = `<header class="header">
   </div>
 </footer>`;
 
-const gameTwoElement = render(template);
+const gameTwo = render(template);
 
-selectSlide(gameTwoElement);
+selectSlide(gameTwo);
 
-const question1 = document.querySelectorAll(`input[name="question1"]`);
+const questionArr1 = document.querySelectorAll(`input[name="question1"]`);
 const btnBack = document.querySelector(`button.back`);
 
-const goBack = (btn) => {
+const clickBackBtn = (btn) => {
   btn.addEventListener(`click`, () => {
-    selectSlide(greetingElement);
+    selectSlide(greeting);
   });
 };
 
-goBack(btnBack);
+clickBackBtn(btnBack);
 
 function checkReady(radio) {
-  radio.addEventListener(`mousedown`, () => {
-    if ((question1[0].checked) || (question1[1].checked)) {
-      selectSlide(gameThreeElement);
+  radio.parentElement.addEventListener(`change`, () => {
+    if ((questionArr1[0].checked) || (questionArr1[1].checked)) {
+      selectSlide(gameThree);
     }
   });
 }
 
-checkReady(question1[0].nextElementSibling);
-checkReady(question1[1].nextElementSibling);
+checkReady(questionArr1[0]);
+checkReady(questionArr1[1]);
 
-export default gameTwoElement;
+export default gameTwo;

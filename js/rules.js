@@ -1,7 +1,6 @@
-import {render} from './util.js';
-import {selectSlide} from './util.js';
-import gameOneElement from './game-1.js';
-import greetingElement from './greeting.js';
+import {render, selectSlide} from './util.js';
+import gameOne from './game-1.js';
+import greeting from './greeting.js';
 
 const template = `<header class="header">
   <div class="header__back">
@@ -38,32 +37,28 @@ const template = `<header class="header">
   </div>
 </footer>`;
 
-const rulesElement = render(template);
+const rules = render(template);
 
-selectSlide(rulesElement);
+selectSlide(rules);
 
 const rulesInput = document.querySelector(`.rules__input`);
 const rulesButton = document.querySelector(`.rules__button`);
 const btnBack = document.querySelector(`button.back`);
 
-const goBack = (btn) => {
+const clickBackBtn = (btn) => {
   btn.addEventListener(`click`, () => {
-    selectSlide(greetingElement);
+    selectSlide(greeting);
   });
 };
 
-goBack(btnBack);
+clickBackBtn(btnBack);
 
 rulesInput.addEventListener(`change`, () => {
-  if (rulesInput.value === ``) {
-    rulesButton.disabled = true;
-  } else {
-    rulesButton.disabled = false;
-  }
+  rulesButton.disabled = (rulesInput.value === ``) ? true : false;
 });
 
 rulesButton.addEventListener(`click`, () => {
-  selectSlide(gameOneElement);
+  selectSlide(gameOne);
 });
 
-export default rulesElement;
+export default rules;

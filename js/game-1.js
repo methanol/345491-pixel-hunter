@@ -1,7 +1,6 @@
-import {render} from './util.js';
-import {selectSlide} from './util.js';
-import gameTwoElement from './game-2.js';
-import greetingElement from './greeting.js';
+import {render, selectSlide} from './util.js';
+import gameTwo from './game-2.js';
+import greeting from './greeting.js';
 
 const template = `<header class="header">
   <div class="header__back">
@@ -69,36 +68,36 @@ const template = `<header class="header">
   </div>
 </footer>`;
 
-const gameOneElement = render(template);
+const gameOne = render(template);
 
-selectSlide(gameOneElement);
+selectSlide(gameOne);
 
-const question1 = document.querySelectorAll(`input[name="question1"]`);
-const question2 = document.querySelectorAll(`input[name="question2"]`);
+const questionArr1 = document.querySelectorAll(`input[name="question1"]`);
+const questionArr2 = document.querySelectorAll(`input[name="question2"]`);
 const btnBack = document.querySelector(`button.back`);
 
-const goBack = (btn) => {
+const clickBackBtn = (btn) => {
   btn.addEventListener(`click`, () => {
-    selectSlide(greetingElement);
+    selectSlide(greeting);
   });
 };
 
-goBack(btnBack);
+clickBackBtn(btnBack);
 
 function checkReady(radio) {
-  radio.addEventListener(`mousedown`, () => {
-    if (((question1[0].checked) || (question1[1].checked)) && ((question2[0].checked) || (question2[1].checked))) {
-      selectSlide(gameTwoElement);
+  radio.parentElement.addEventListener(`change`, () => {
+    if (((questionArr1[0].checked) || (questionArr1[1].checked)) && ((questionArr2[0].checked) || (questionArr2[1].checked))) {
+      selectSlide(gameTwo);
     }
   });
 }
 
-question1.forEach((it) => {
-  checkReady(it.nextElementSibling);
+questionArr1.forEach((it) => {
+  checkReady(it);
 });
 
-question2.forEach((it) => {
-  checkReady(it.nextElementSibling);
+questionArr2.forEach((it) => {
+  checkReady(it);
 });
 
 /*  checkReady(question1[0].nextElementSibling, gameTwoElement, ((question1[0].checked) || (question1[1].checked)) && ((question2[0].checked) || (question2[1].checked)));
@@ -106,4 +105,4 @@ checkReady(question1[1].nextElementSibling, gameTwoElement, ((question1[0].check
 checkReady(question2[0].nextElementSibling, gameTwoElement, ((question1[0].checked) || (question1[1].checked)) && ((question2[0].checked) || (question2[1].checked)));
 checkReady(question2[1].nextElementSibling, gameTwoElement, ((question1[0].checked) || (question1[1].checked)) && ((question2[0].checked) || (question2[1].checked)));*/
 
-export default gameOneElement;
+export default gameOne;

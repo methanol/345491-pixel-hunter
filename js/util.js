@@ -1,4 +1,4 @@
-export const render = (template) => {
+const render = (template) => {
   const wrapper = document.createElement(`div`);
   wrapper.innerHTML = template.trim();
   return wrapper;
@@ -11,7 +11,7 @@ const selectSlide = (element) => {
   mainScreen.appendChild(element);
 };
 
-export {selectSlide};
+export {selectSlide, render};
 
 /*  export const goBack = (btn, slide) => {
   btn.addEventListener(`click`, () => {

@@ -1,6 +1,5 @@
-import {render} from './util.js';
-import {selectSlide} from './util.js';
-import rulesElement from './rules.js';
+import {render, selectSlide} from './util.js';
+import rules from './rules.js';
 
 const template = `<div class="greeting central--blur">
     <div class="greeting__logo"><img src="img/logo_big.png" width="201" height="89" alt="Pixel Hunter"></div>
@@ -26,14 +25,14 @@ const template = `<div class="greeting central--blur">
     </div>
   </footer>`;
 
-const greetingElement = render(template);
+const greeting = render(template);
 
-selectSlide(greetingElement);
+selectSlide(greeting);
 
 const greetingContinue = document.querySelector(`.greeting__continue`);
 
 greetingContinue.addEventListener(`click`, () => {
-  selectSlide(rulesElement);
+  selectSlide(rules);
 });
 
-export default greetingElement;
+export default greeting;

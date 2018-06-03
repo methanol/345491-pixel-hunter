@@ -5,6 +5,6 @@ const template = `<div id="intro" class="intro">
   <p class="intro__motto"><sup>*</sup> Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf Sparnaay.</p>
 </div>`;
 
-const introElement = render(template);
+const intro = render(template);
 
-export default introElement;
+export default intro;
