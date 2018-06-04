@@ -69,12 +69,9 @@ const template = `<header class="header">
 </footer>`;
 
 const gameOne = render(template);
-
-selectSlide(gameOne);
-
-const questionArr1 = document.querySelectorAll(`input[name="question1"]`);
-const questionArr2 = document.querySelectorAll(`input[name="question2"]`);
-const btnBack = document.querySelector(`button.back`);
+const questions1 = gameOne.querySelectorAll(`input[name="question1"]`);
+const questions2 = gameOne.querySelectorAll(`input[name="question2"]`);
+const btnBack = gameOne.querySelector(`button.back`);
 
 const clickBackBtn = (btn) => {
   btn.addEventListener(`click`, () => {
@@ -86,23 +83,18 @@ clickBackBtn(btnBack);
 
 function checkReady(radio) {
   radio.parentElement.addEventListener(`change`, () => {
-    if (((questionArr1[0].checked) || (questionArr1[1].checked)) && ((questionArr2[0].checked) || (questionArr2[1].checked))) {
+    if (((questions1[0].checked) || (questions1[1].checked)) && ((questions2[0].checked) || (questions2[1].checked))) {
       selectSlide(gameTwo);
     }
   });
 }
 
-questionArr1.forEach((it) => {
+questions1.forEach((it) => {
   checkReady(it);
 });
 
-questionArr2.forEach((it) => {
+questions2.forEach((it) => {
   checkReady(it);
 });
-
-/*  checkReady(question1[0].nextElementSibling, gameTwoElement, ((question1[0].checked) || (question1[1].checked)) && ((question2[0].checked) || (question2[1].checked)));
-checkReady(question1[1].nextElementSibling, gameTwoElement, ((question1[0].checked) || (question1[1].checked)) && ((question2[0].checked) || (question2[1].checked)));
-checkReady(question2[0].nextElementSibling, gameTwoElement, ((question1[0].checked) || (question1[1].checked)) && ((question2[0].checked) || (question2[1].checked)));
-checkReady(question2[1].nextElementSibling, gameTwoElement, ((question1[0].checked) || (question1[1].checked)) && ((question2[0].checked) || (question2[1].checked)));*/
 
 export default gameOne;

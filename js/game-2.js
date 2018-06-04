@@ -58,11 +58,8 @@ const template = `<header class="header">
 </footer>`;
 
 const gameTwo = render(template);
-
-selectSlide(gameTwo);
-
-const questionArr1 = document.querySelectorAll(`input[name="question1"]`);
-const btnBack = document.querySelector(`button.back`);
+const questions1 = gameTwo.querySelectorAll(`input[name="question1"]`);
+const btnBack = gameTwo.querySelector(`button.back`);
 
 const clickBackBtn = (btn) => {
   btn.addEventListener(`click`, () => {
@@ -74,13 +71,13 @@ clickBackBtn(btnBack);
 
 function checkReady(radio) {
   radio.parentElement.addEventListener(`change`, () => {
-    if ((questionArr1[0].checked) || (questionArr1[1].checked)) {
+    if ((questions1[0].checked) || (questions1[1].checked)) {
       selectSlide(gameThree);
     }
   });
 }
 
-checkReady(questionArr1[0]);
-checkReady(questionArr1[1]);
+checkReady(questions1[0]);
+checkReady(questions1[1]);
 
 export default gameTwo;

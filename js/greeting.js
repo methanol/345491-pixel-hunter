@@ -26,10 +26,7 @@ const template = `<div class="greeting central--blur">
   </footer>`;
 
 const greeting = render(template);
-
-selectSlide(greeting);
-
-const greetingContinue = document.querySelector(`.greeting__continue`);
+const greetingContinue = greeting.querySelector(`.greeting__continue`);
 
 greetingContinue.addEventListener(`click`, () => {
   selectSlide(rules);

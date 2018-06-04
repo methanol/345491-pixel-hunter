@@ -121,10 +121,7 @@ const template = `<header class="header">
 </footer>`;
 
 const stats = render(template);
-
-selectSlide(stats);
-
-const btnBack = document.querySelector(`button.back`);
+const btnBack = stats.querySelector(`button.back`);
 
 const clickBackBtn = (btn) => {
   btn.addEventListener(`click`, () => {

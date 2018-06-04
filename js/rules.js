@@ -38,12 +38,9 @@ const template = `<header class="header">
 </footer>`;
 
 const rules = render(template);
-
-selectSlide(rules);
-
-const rulesInput = document.querySelector(`.rules__input`);
-const rulesButton = document.querySelector(`.rules__button`);
-const btnBack = document.querySelector(`button.back`);
+const rulesInput = rules.querySelector(`.rules__input`);
+const rulesButton = rules.querySelector(`.rules__button`);
+const btnBack = rules.querySelector(`button.back`);
 
 const clickBackBtn = (btn) => {
   btn.addEventListener(`click`, () => {

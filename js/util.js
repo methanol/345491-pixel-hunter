@@ -12,18 +12,3 @@ const selectSlide = (element) => {
 };
 
 export {selectSlide, render};
-
-/*  export const goBack = (btn, slide) => {
-  btn.addEventListener(`click`, () => {
-    selectSlide(slide)
-  });
-};
-
-export const checkReady = (radio, screen, cond) => {
-  radio.addEventListener(`mousedown`, () => {
-    alert(`click`);
-    if (cond) {
-      selectSlide(screen);
-    }
-  });
-}*/

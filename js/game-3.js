@@ -56,11 +56,8 @@ const template = `<header class="header">
 </footer>`;
 
 const gameThree = render(template);
-
-selectSlide(gameThree);
-
-const options = document.querySelectorAll(`.game__option`);
-const btnBack = document.querySelector(`button.back`);
+const options = gameThree.querySelectorAll(`.game__option`);
+const btnBack = gameThree.querySelector(`button.back`);
 
 const clickBackBtn = (btn) => {
   btn.addEventListener(`click`, () => {
