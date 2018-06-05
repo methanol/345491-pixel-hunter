@@ -42,13 +42,9 @@ const rulesInput = rules.querySelector(`.rules__input`);
 const rulesButton = rules.querySelector(`.rules__button`);
 const btnBack = rules.querySelector(`button.back`);
 
-const clickBackBtn = (btn) => {
-  btn.addEventListener(`click`, () => {
-    selectSlide(greeting);
-  });
-};
-
-clickBackBtn(btnBack);
+btnBack.addEventListener(`click`, () => {
+  selectSlide(greeting);
+});
 
 rulesInput.addEventListener(`change`, () => {
   rulesButton.disabled = (rulesInput.value === ``) ? true : false;

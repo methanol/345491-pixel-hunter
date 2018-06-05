@@ -123,12 +123,8 @@ const template = `<header class="header">
 const stats = render(template);
 const btnBack = stats.querySelector(`button.back`);
 
-const clickBackBtn = (btn) => {
-  btn.addEventListener(`click`, () => {
-    selectSlide(greeting);
-  });
-};
-
-clickBackBtn(btnBack);
+btnBack.addEventListener(`click`, () => {
+  selectSlide(greeting);
+});
 
 export default stats;

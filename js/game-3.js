@@ -59,13 +59,9 @@ const gameThree = render(template);
 const options = gameThree.querySelectorAll(`.game__option`);
 const btnBack = gameThree.querySelector(`button.back`);
 
-const clickBackBtn = (btn) => {
-  btn.addEventListener(`click`, () => {
-    selectSlide(greeting);
-  });
-};
-
-clickBackBtn(btnBack);
+btnBack.addEventListener(`click`, () => {
+  selectSlide(greeting);
+});
 
 options.forEach((it) => {
   it.addEventListener(`click`, () => {

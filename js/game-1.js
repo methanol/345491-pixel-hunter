@@ -69,32 +69,23 @@ const template = `<header class="header">
 </footer>`;
 
 const gameOne = render(template);
-const questions1 = gameOne.querySelectorAll(`input[name="question1"]`);
 const questions2 = gameOne.querySelectorAll(`input[name="question2"]`);
+let questions1 = gameOne.querySelectorAll(`input[name="question1"]`);
+
+questions1 = [...questions1, ...questions2];
+
 const btnBack = gameOne.querySelector(`button.back`);
 
-const clickBackBtn = (btn) => {
-  btn.addEventListener(`click`, () => {
-    selectSlide(greeting);
-  });
-};
+btnBack.addEventListener(`click`, () => {
+  selectSlide(greeting);
+});
 
-clickBackBtn(btnBack);
-
-function checkReady(radio) {
-  radio.parentElement.addEventListener(`change`, () => {
+questions1.forEach((it) => {
+  it.parentElement.addEventListener(`change`, () => {
     if (((questions1[0].checked) || (questions1[1].checked)) && ((questions2[0].checked) || (questions2[1].checked))) {
       selectSlide(gameTwo);
     }
   });
-}
-
-questions1.forEach((it) => {
-  checkReady(it);
-});
-
-questions2.forEach((it) => {
-  checkReady(it);
 });
 
 export default gameOne;
