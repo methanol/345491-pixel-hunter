@@ -46,7 +46,7 @@ btnBack.addEventListener(`click`, () => {
   selectSlide(greeting);
 });
 
-rulesInput.addEventListener(`change`, () => {
+rulesInput.addEventListener(`input`, () => {
   rulesButton.disabled = (rulesInput.value === ``) ? true : false;
 });
 

@@ -65,12 +65,10 @@ btnBack.addEventListener(`click`, () => {
   selectSlide(greeting);
 });
 
-questions1.forEach((it) => {
-  it.parentElement.addEventListener(`change`, () => {
-    if ((questions1[0].checked) || (questions1[1].checked)) {
-      selectSlide(gameThree);
-    }
-  });
+gameTwo.addEventListener(`change`, () => {
+  if ((questions1[0].checked) || (questions1[1].checked)) {
+    selectSlide(gameThree);
+  }
 });
 
 export default gameTwo;
