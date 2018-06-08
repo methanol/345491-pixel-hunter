@@ -1,4 +1,5 @@
 import {assert} from 'chai';
+import getScore from '.././get-score.js';
 
 const GAME1_SCORE = {
   lives: 3,
@@ -11,46 +12,8 @@ const GAME2_SCORE = {
 };
 
 const GAME3_SCORE = {
-  lives: 1,
-  answers: [{success: false, speed: `normal`}, {success: false, speed: `normal`}, {success: false, speed: `normal`}, {success: false, speed: `normal`}, {success: false, speed: `normal`}, {success: false, speed: `normal`}, {success: false, speed: `normal`}, {success: false, speed: `normal`}, {success: false, speed: `normal`}, {success: true, speed: `fast`}]
-};
-
-const getScore = (answers, lives) => {
-  let totalScore = 0;
-
-  if (typeof (lives) !== `number`) {
-    throw new Error(`type of lives should be number`);
-  }
-
-  if (!Array.isArray(answers)) {
-    throw new Error(`type of answers should be array`);
-  }
-
-  if (answers.length < 10) {
-    return -1;
-  }
-
-  answers.forEach((it) => {
-    if (it.success) {
-      switch (it.speed) {
-        case `normal`:
-          totalScore += 100;
-          break;
-        case `slow`:
-          totalScore += 50;
-          break;
-        case `fast`:
-          totalScore += 150;
-          break;
-        default:
-          throw new Error(`type of speed is not correct`);
-      }
-    }
-  });
-
-  totalScore += lives * 50;
-
-  return totalScore;
+  lives: 3,
+  answers: [{success: false, speed: `normal`}, {success: false, speed: `normal`}, {success: true, speed: `normal`}, {success: true, speed: `normal`}, {success: true, speed: `normal`}, {success: true, speed: `normal`}, {success: true, speed: `normal`}, {success: true, speed: `normal`}, {success: true, speed: `normal`}, {success: true, speed: `fast`}]
 };
 
 describe(`Score calculation`, () => {
@@ -63,8 +26,8 @@ describe(`Score calculation`, () => {
     assert.equal(getScore(GAME2_SCORE.answers, GAME2_SCORE.lives), -1);
   });
 
-  it(`player get score 200`, () => {
-    assert.equal(getScore(GAME3_SCORE.answers, GAME3_SCORE.lives), 200);
+  it(`player get score 900`, () => {
+    assert.equal(getScore(GAME3_SCORE.answers, GAME3_SCORE.lives), 900);
   });
 
   it(`incorrect number`, () => {
