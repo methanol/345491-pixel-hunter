@@ -41,13 +41,9 @@ const getScore = (answers, lives) => {
 
   if (totalLIves < 0) {
     totalScore = 0;
-  } else {
-    totalScore += totalLIves * 50;
-  }
-
-  if (totalLIves < 0) {
     return -1;
   } else {
+    totalScore += totalLIves * 50;
     return totalScore;
   }
 };
