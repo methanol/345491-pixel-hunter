@@ -22,23 +22,19 @@ const getScore = (answers, lives) => {
   }
 
   for (let i = 0; i < answers.length; i++) {
-    if (totalLIves < 0) {
-      break;
-    } else {
-      if (answers[i].success) {
-        switch (answers[i].speed) {
-          case NORMAL_MODE:
-            totalScore += NORMAL_SCORE;
-            break;
-          case SLOW_MODE:
-            totalScore += SLOW_SCORE;
-            break;
-          case FAST_MODE:
-            totalScore += FAST_SCORE;
-            break;
-          default:
-            throw new Error(`type of speed is not correct`);
-        }
+    if (answers[i].success) {
+      switch (answers[i].speed) {
+        case NORMAL_MODE:
+          totalScore += NORMAL_SCORE;
+          break;
+        case SLOW_MODE:
+          totalScore += SLOW_SCORE;
+          break;
+        case FAST_MODE:
+          totalScore += FAST_SCORE;
+          break;
+        default:
+          throw new Error(`type of speed is not correct`);
       }
     }
   }
@@ -49,7 +45,11 @@ const getScore = (answers, lives) => {
     totalScore += totalLIves * 50;
   }
 
-  return totalScore;
+  if (totalLIves < 0) {
+    return -1;
+  } else {
+    return totalScore;
+  }
 };
 
 export default getScore;

@@ -34,6 +34,10 @@ describe(`Score calculation`, () => {
     assert.throws(() => getScore(GAME1_SCORE.answers, []), /type of lives should be number/);
   });
 
+  it(`incorrect counts of lives`, () => {
+    assert.equal(getScore(GAME3_SCORE.answers, -3), -1);
+  });
+
   it(`incorrect array`, () => {
     assert.throws(() => getScore(4, GAME3_SCORE.lives), /type of answers should be array/);
   });
