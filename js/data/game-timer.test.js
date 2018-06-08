@@ -20,8 +20,7 @@ describe(`timer counting`, () => {
   });
 
   it(`incorrect number`, () => {
-    let timer4 = new CreateTimer(`abcd`);
-    assert.throws(() => timer4, /type of time should be number/);
+    assert.throws(() => new CreateTimer(`abcd`), /type of time should be number/);
   });
 
 });

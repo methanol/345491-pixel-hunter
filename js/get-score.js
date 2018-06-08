@@ -9,6 +9,10 @@ const getScore = (answers, lives) => {
   let totalScore = 0;
   let totalLIves = lives;
 
+  if (totalLIves < 0) {
+    return -1;
+  }
+
   if (typeof (lives) !== `number`) {
     throw new Error(`type of lives should be number`);
   }
@@ -39,13 +43,8 @@ const getScore = (answers, lives) => {
     }
   }
 
-  if (totalLIves < 0) {
-    totalScore = 0;
-    return -1;
-  } else {
-    totalScore += totalLIves * 50;
-    return totalScore;
-  }
+  totalScore += totalLIves * 50;
+  return totalScore;
 };
 
 export default getScore;
