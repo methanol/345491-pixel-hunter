@@ -1,13 +1,13 @@
+const NORMAL_SCORE = 100;
+const SLOW_SCORE = 50;
+const FAST_SCORE = 150;
+const NORMAL_MODE = `normal`;
+const SLOW_MODE = `slow`;
+const FAST_MODE = `fast`;
+
 const getScore = (answers, lives) => {
   let totalScore = 0;
   let totalLIves = lives;
-
-  const NORMAL_SCORE = 100;
-  const SLOW_SCORE = 50;
-  const FAST_SCORE = 150;
-  const NORMAL_MODE = `normal`;
-  const SLOW_MODE = `slow`;
-  const FAST_MODE = `fast`;
 
   if (typeof (lives) !== `number`) {
     throw new Error(`type of lives should be number`);
@@ -22,7 +22,7 @@ const getScore = (answers, lives) => {
   }
 
   for (let i = 0; i < answers.length; i++) {
-    if (totalLIves < 1) {
+    if (totalLIves < 0) {
       break;
     } else {
       if (answers[i].success) {
@@ -39,13 +39,11 @@ const getScore = (answers, lives) => {
           default:
             throw new Error(`type of speed is not correct`);
         }
-      } else {
-        totalLIves -= 1;
       }
     }
   }
 
-  if (totalLIves < 1) {
+  if (totalLIves < 0) {
     totalScore = 0;
   } else {
     totalScore += totalLIves * 50;

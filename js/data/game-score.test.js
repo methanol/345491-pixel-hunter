@@ -26,8 +26,8 @@ describe(`Score calculation`, () => {
     assert.equal(getScore(GAME2_SCORE.answers, GAME2_SCORE.lives), -1);
   });
 
-  it(`player get score 900`, () => {
-    assert.equal(getScore(GAME3_SCORE.answers, GAME3_SCORE.lives), 900);
+  it(`player get score 1000`, () => {
+    assert.equal(getScore(GAME3_SCORE.answers, GAME3_SCORE.lives), 1000);
   });
 
   it(`incorrect number`, () => {
