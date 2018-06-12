@@ -13,4 +13,4 @@ const footerTemplate = `<footer class="footer">
   </div>
 </footer>`;
 
-mainScreen.insertAdjacentElement('afterend', render(footerTemplate));
+mainScreen.insertAdjacentElement(`afterend`, render(footerTemplate));

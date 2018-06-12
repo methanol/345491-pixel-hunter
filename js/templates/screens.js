@@ -1,19 +1,19 @@
 const gameScreenTemplate = (level) => {
-  `<div class="game">
+  return `<div class="game">
     <p class="game__task">${level.gameTask}</p>
     ${level.gameContent}
     <div class="stats">
-      <ul class="stats">
-        ${level.gameStat.map((it) => {
-          `<li class="stats__result stats__result--${it}"></li>`
-        }).join(``)}
-      </ul>
+    <ul class="stats">
+    ${level.gameStat.map((it) => {
+    `<li class="stats__result stats__result--${it}"></li>`
+  }).join(``)}
+    </ul>
     </div>
   </div>`
 };
 
 const resultScreenTemplate = (stat1, stat2, stat3) => {
-  <div class="result">
+  return `<div class="result">
     <h1>Победа!</h1>
     <table class="result__table">
       <tr>
@@ -91,5 +91,5 @@ const resultScreenTemplate = (stat1, stat2, stat3) => {
         <td colspan="5" class="result__total  result__total--final">950</td>
       </tr>
     </table>
-  </div>
+  </div>`
 }

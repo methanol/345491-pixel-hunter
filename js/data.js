@@ -1,17 +1,17 @@
 const startState = {
   lives: 3,
   time: 30,
-  currentSlide: `intro`;
-}
+  currentSlide: `intro`
+};
 
 const gamelevels = {
-  `intro`: {
+  intro: {
     content: `<div id="intro" class="intro">
       <h1 class="intro__asterisk">*</h1>
       <p class="intro__motto"><sup>*</sup> Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf Sparnaay.</p>
     </div>`
   },
-  `greeting`: {
+  greeting: {
     content: `<div class="greeting central--blur">
       <div class="greeting__logo"><img src="img/logo_big.png" width="201" height="89" alt="Pixel Hunter"></div>
       <h1 class="greeting__asterisk">*</h1>
@@ -26,7 +26,7 @@ const gamelevels = {
       <div class="greeting__continue"><span><img src="img/arrow_right.svg" width="64" height="64" alt="Next"></span></div>
     </div>`
   },
-  `rules`: {
+  rules: {
     content: `<div class="rules">
       <h1 class="rules__title">Правила</h1>
       <p class="rules__description">Угадай 10 раз для каждого изображения фото <img
@@ -44,7 +44,7 @@ const gamelevels = {
       </form>
     </div>`
   },
-  `game-1`: {
+  game1: {
     gameTask: `Угадайте для каждого изображения фото или рисунок?`,
     gameContent: `<form class="game__content">
       <div class="game__option">
@@ -72,7 +72,7 @@ const gamelevels = {
     </form>`,
     gameStat: [`wrong`, `slow`, `fast`, `correct`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`]
   },
-  `game-2`: {
+  game2: {
     gameTask: `Угадай, фото или рисунок?`,
     gameContent: `<form class="game__content  game__content--wide">
       <div class="game__option">
@@ -89,7 +89,7 @@ const gamelevels = {
     </form>`,
     gameStat: [`wrong`, `slow`, `fast`, `correct`, `wrong`, `unknown`, `slow`, `unknown`, `fast`, `unknown`]
   },
-  `game-3`: {
+  game3: {
     gameTask: `Найдите рисунок среди изображений`,
     gameContent: `<form class="game__content  game__content--triple">
       <div class="game__option">
@@ -104,7 +104,7 @@ const gamelevels = {
     </form>`,
     gameStat: [`wrong`, `slow`, `fast`, `correct`, `wrong`, `unknown`, `slow`, `unknown`, `fast`, `unknown`]
   },
-  `result`: {
+  result: {
     gameStat1: [`wrong`, `slow`, `fast`, `correct`, `wrong`, `unknown`, `slow`, `unknown`, `fast`, `unknown`],
     gameStat2: [`wrong`, `slow`, `fast`, `correct`, `wrong`, `unknown`, `slow`, `wrong`, `fast`, `wrong`],
     gameStat3: [`wrong`, `slow`, `fast`, `correct`, `wrong`, `unknown`, `slow`, `unknown`, `fast`, `unknown`],

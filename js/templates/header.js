@@ -3,7 +3,8 @@ import {startState} from '.././data.js';
 
 const mainScreen = document.querySelector(`.central`);
 
-const headerTemplate = (game) => {`<header class="header">
+const headerTemplate = (game) => {
+  return `<header class="header">
   <div class="header__back">
     <button class="back">
       <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
@@ -15,6 +16,7 @@ const headerTemplate = (game) => {`<header class="header">
     ${new Array(3 - game.lives).fill(`<img src="img/heart__empty.svg" class="game__heart" alt="Life" width="32" height="32">`).join(``)}
     ${new Array(game.lives).fill(`<img src="img/heart__full.svg" class="game__heart" alt="Life" width="32" height="32">`).join(``)}
   </div>
-</header>`};
+</header>`
+};
 
-mainScreen.insertAdjacentElement('beforebegin', render(headerTemplate(startState)));
+mainScreen.insertAdjacentElement(`beforebegin`, render(headerTemplate(startState)));
