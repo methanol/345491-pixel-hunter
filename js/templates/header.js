@@ -16,7 +16,7 @@ const headerTemplate = (game) => {
     ${new Array(3 - game.lives).fill(`<img src="img/heart__empty.svg" class="game__heart" alt="Life" width="32" height="32">`).join(``)}
     ${new Array(game.lives).fill(`<img src="img/heart__full.svg" class="game__heart" alt="Life" width="32" height="32">`).join(``)}
   </div>
-</header>`
+</header>`;
 };
 
 mainScreen.insertAdjacentElement(`beforebegin`, render(headerTemplate(startState)));
