@@ -1,17 +1,6 @@
-const gameScreenTemplate = (level) => {
-  return `<div class="game">
-    <p class="game__task">${level.gameTask}</p>
-    ${level.gameContent}
-    <div class="stats">
-    <ul class="stats">
-    ${level.gameStat.map((it) =>
-    `<li class="stats__result stats__result--${it}"></li>`).join(``)}
-    </ul>
-    </div>
-  </div>`;
-};
+import {render, selectSlide} from '.././util.js';
 
-const resultScreenTemplate = (stat1, stat2, stat3) => {
+const resultScreenTemplate = (result) => {
   return `<div class="result">
     <h1>Победа!</h1>
     <table class="result__table">
@@ -19,7 +8,7 @@ const resultScreenTemplate = (stat1, stat2, stat3) => {
         <td class="result__number">1.</td>
         <td colspan="2">
           <ul class="stats">
-          ${stat1.map((it) =>
+          ${result.map((it) =>
     `<li class="stats__result stats__result--${it}"></li>`).join(``)}
           </ul>
         </td>
@@ -56,7 +45,7 @@ const resultScreenTemplate = (stat1, stat2, stat3) => {
         <td class="result__number">2.</td>
         <td>
           <ul class="stats">
-            ${stat2.map((it) =>
+            ${result.map((it) =>
     `<li class="stats__result stats__result--${it}"></li>`).join(``)}
           </ul>
         </td>
@@ -69,7 +58,7 @@ const resultScreenTemplate = (stat1, stat2, stat3) => {
         <td class="result__number">3.</td>
         <td colspan="2">
           <ul class="stats">
-          ${stat3.map((it) =>
+          ${result.map((it) =>
     `<li class="stats__result stats__result--${it}"></li>`).join(``)}
           </ul>
         </td>
@@ -88,4 +77,14 @@ const resultScreenTemplate = (stat1, stat2, stat3) => {
       </tr>
     </table>
   </div>`;
+};
+
+const renderStat = () => {
+  selectSlide(render(resultScreenTemplate(result)));
+
+  const btnBack = document.querySelector(`button.back`);
+
+  btnBack.addEventListener(`click`, () => {
+    selectSlide(render(backSlide));
+  });
 };
