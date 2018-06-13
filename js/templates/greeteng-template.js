@@ -23,6 +23,7 @@ const renderGreeting = (goNext) => {
 
   greetingContinue.addEventListener(`click`, () => {
     goNext();
+  }
 };
 
 export {renderGreeting, greetingTemplate};

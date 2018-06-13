@@ -16,6 +16,7 @@ const renderIntro = (goNext) => {
 
   introAsterisk.addEventListener(`click`, () => {
     goNext();
+  }
 };
 
 export default renderIntro;
