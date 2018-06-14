@@ -1,6 +1,7 @@
 import {render} from '.././util.js';
 import getFooterTemplate from './footer-template.js';
 import getHeaderTemplate from './header-template.js';
+import startState from '.././data.js';
 
 const gameThreeTemplate = (state) => {
   return `<div class="game">
@@ -18,19 +19,18 @@ const gameThreeTemplate = (state) => {
     </form>
     <div class="stats">
     <ul class="stats">
-    ${state.map((it) =>
+    ${state.answers.map((it) =>
     `<li class="stats__result stats__result--${it}"></li>`).join(``)}
     </ul>
     </div>
   </div>`;
 };
 
-const renderThirdGame = (data, state) => {
-  state.isGameScreen = true;
+const renderThirdGame = (data) => {
 
   const template = `<div>
-  ${getHeaderTemplate(state)}
-  ${gameThreeTemplate(state)}
+  ${getHeaderTemplate()}
+  ${gameThreeTemplate(startState)}
   ${getFooterTemplate()}
   </div>`;
   const element = render(template);
@@ -43,7 +43,7 @@ const renderThirdGame = (data, state) => {
 
   options.forEach((it) => {
     it.addEventListener(`click`, () => {
-      state.answers[3] = (options[0].checked) ? `correct` : `wrong`;
+      startState.answers[3] = (options[0].checked) ? `correct` : `wrong`;
 
       data.showNextScreen();
     });

@@ -1,6 +1,7 @@
 import {render} from '.././util.js';
 import getFooterTemplate from './footer-template.js';
 import getHeaderTemplate from './header-template.js';
+import startState from '.././data.js';
 
 const rulesTemplate = () => {
   return `<div class="rules">
@@ -21,11 +22,11 @@ const rulesTemplate = () => {
   </div>`;
 };
 
-const renderRules = (data, state) => {
-  state.isGameScreen = false;
+const renderRules = (data) => {
+  startState.isGameScreen = false;
 
   const template = `<div>
-  ${getHeaderTemplate(state)}
+  ${getHeaderTemplate()}
   ${rulesTemplate()}
   ${getFooterTemplate()}
   </div>`;
@@ -44,7 +45,7 @@ const renderRules = (data, state) => {
   });
 
   rulesButton.addEventListener(`click`, () => {
-    state.userName = rulesInput.value;
+    startState.userName = rulesInput.value;
     data.showNextScreen();
   });
 

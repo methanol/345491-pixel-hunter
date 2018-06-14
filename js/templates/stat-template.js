@@ -1,6 +1,7 @@
 import {render} from '.././util.js';
 import getFooterTemplate from './footer-template.js';
 import getHeaderTemplate from './header-template.js';
+import startState from '.././data.js';
 
 const statTemplate = (result) => {
   return `<div class="result">
@@ -10,7 +11,7 @@ const statTemplate = (result) => {
         <td class="result__number">1.</td>
         <td colspan="2">
           <ul class="stats">
-          ${result.map((it) =>
+          ${result.answers.map((it) =>
     `<li class="stats__result stats__result--${it}"></li>`).join(``)}
           </ul>
         </td>
@@ -47,7 +48,7 @@ const statTemplate = (result) => {
         <td class="result__number">2.</td>
         <td>
           <ul class="stats">
-            ${result.map((it) =>
+            ${result.answers.map((it) =>
     `<li class="stats__result stats__result--${it}"></li>`).join(``)}
           </ul>
         </td>
@@ -60,7 +61,7 @@ const statTemplate = (result) => {
         <td class="result__number">3.</td>
         <td colspan="2">
           <ul class="stats">
-          ${result.map((it) =>
+          ${result.answers.map((it) =>
     `<li class="stats__result stats__result--${it}"></li>`).join(``)}
           </ul>
         </td>
@@ -81,12 +82,12 @@ const statTemplate = (result) => {
   </div>`;
 };
 
-const renderStat = (data, state) => {
-  state.isGameScreen = false;
+const renderStat = (data) => {
+  startState.isGameScreen = false;
 
   const template = `<div>
-  ${getHeaderTemplate(state)}
-  ${statTemplate()}
+  ${getHeaderTemplate()}
+  ${statTemplate(startState)}
   ${getFooterTemplate()}
   </div>`;
   const element = render(template);

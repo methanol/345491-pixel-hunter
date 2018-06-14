@@ -4,7 +4,7 @@ const startState = {
   currentSlide: `intro`,
   userName: ``,
   answers: [`unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`],
-  isGameScreen: true
+  isGameScreen: false
 };
 
 export default startState;

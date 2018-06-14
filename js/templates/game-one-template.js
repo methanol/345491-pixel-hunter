@@ -1,6 +1,7 @@
 import {render} from '.././util.js';
 import getFooterTemplate from './footer-template.js';
 import getHeaderTemplate from './header-template.js';
+import startState from '.././data.js';
 
 const gameOneTemplate = (state) => {
   return `<div class="game">
@@ -37,11 +38,11 @@ const gameOneTemplate = (state) => {
   </div>`;
 };
 
-const renderFirstGame = (data, state) => {
-  state.isGameScreen = true;
+const renderFirstGame = (data) => {
+  startState.isGameScreen = true;
   const template = `<div>
-  ${getHeaderTemplate(state)}
-  ${gameOneTemplate(state)}
+  ${getHeaderTemplate()}
+  ${gameOneTemplate(startState)}
   ${getFooterTemplate()}
   </div>`;
   const element = render(template);
@@ -55,8 +56,8 @@ const renderFirstGame = (data, state) => {
 
   element.addEventListener(`change`, () => {
     if (((questions1[0].checked) || (questions1[1].checked)) && ((questions2[0].checked) || (questions2[1].checked))) {
-      state.answers[0] = (questions1[0].checked) ? `correct` : `wrong`;
-      state.answers[1] = (questions2[0].checked) ? `correct` : `wrong`;
+      startState.answers[0] = (questions1[0].checked) ? `correct` : `wrong`;
+      startState.answers[1] = (questions2[0].checked) ? `correct` : `wrong`;
 
       data.showNextScreen();
     }
