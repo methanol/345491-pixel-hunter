@@ -1,6 +1,3 @@
-import {startState} from '.././data.js';
-
-const mainScreen = document.querySelector(`.central`);
 const MAX_LIVES = 3;
 
 const getHeaderTemplate = (game) => {
