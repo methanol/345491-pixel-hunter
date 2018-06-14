@@ -1,5 +1,5 @@
-import {render, selectSlide} from '.././util.js';
-import getFooterTemplate from `./footer-template.js`;
+import {render} from '.././util.js';
+import getFooterTemplate from './footer-template.js';
 
 const introTemplate = () => {
   return `<div id="main" class="central__content">
@@ -21,7 +21,7 @@ const renderIntro = (data) => {
 
   introAsterisk.addEventListener(`click`, () => {
     data.showNextScreen();
-  }
+  });
 
   return element;
 };

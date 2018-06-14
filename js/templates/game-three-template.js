@@ -1,6 +1,6 @@
-import {render, selectSlide} from '.././util.js';
-import getFooterTemplate from `./footer-template.js`;
-import getHeaderTemplate from `./header-template.js`;
+import {render} from '.././util.js';
+import getFooterTemplate from './footer-template.js';
+import getHeaderTemplate from './header-template.js';
 
 const gameThreeTemplate = (state) => {
   return `<div class="game">

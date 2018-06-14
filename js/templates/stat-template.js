@@ -1,8 +1,8 @@
-import {render, selectSlide} from './util.js';
-import getFooterTemplate from `./footer-template.js`;
-import getHeaderTemplate from `./header-template.js`;
+import {render} from '.././util.js';
+import getFooterTemplate from './footer-template.js';
+import getHeaderTemplate from './header-template.js';
 
-const resultScreenTemplate = (result) => {
+const statTemplate = (result) => {
   return `<div class="result">
     <h1>Победа!</h1>
     <table class="result__table">
@@ -81,7 +81,7 @@ const resultScreenTemplate = (result) => {
   </div>`;
 };
 
-const renderStat = (data, state) {
+const renderStat = (data, state) => {
   state.isGameScreen = false;
 
   const template = `<div>
@@ -97,6 +97,6 @@ const renderStat = (data, state) {
   });
 
   return element;
-}
+};
 
 export default renderStat;

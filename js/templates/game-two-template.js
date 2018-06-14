@@ -1,6 +1,6 @@
-import {render, selectSlide} from '.././util.js';
-import getFooterTemplate from `./footer-template.js`;
-import getHeaderTemplate from `./header-template.js`;
+import {render} from '.././util.js';
+import getFooterTemplate from './footer-template.js';
+import getHeaderTemplate from './header-template.js';
 
 const gameTwoTemplate = (state) => {
   return `<div class="game">
@@ -21,7 +21,7 @@ const gameTwoTemplate = (state) => {
     <div class="stats">
       <ul class="stats">
       ${state.answers.map((it) =>
-      `<li class="stats__result stats__result--${it}"></li>`).join(``)}
+    `<li class="stats__result stats__result--${it}"></li>`).join(``)}
       </ul>
     </div>
   </div>`;

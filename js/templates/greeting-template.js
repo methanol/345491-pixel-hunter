@@ -1,5 +1,5 @@
-import {render, selectSlide} from '.././util.js';
-import getFooterTemplate from `./footer-template.js`;
+import {render} from '.././util.js';
+import getFooterTemplate from './footer-template.js';
 
 const greetingTemplate = () => {
   return `<div class="greeting central--blur">
@@ -28,7 +28,7 @@ const renderGreeting = (data) => {
 
   greetingContinue.addEventListener(`click`, () => {
     data.showNextScreen();
-  };
+  });
 
   return element;
 };
