@@ -21,9 +21,11 @@ const rulesTemplate = () => {
   </div>`;
 };
 
-const renderRules = (nextPage, backSlide, state) => {
+const renderRules = (data, state) => {
+  state.isGameScreen = false;
+
   const template = `<div>
-  ${getHeaderTemplate()}
+  ${getHeaderTemplate(state)}
   ${rulesTemplate()}
   ${getFooterTemplate()}
   </div>`;
@@ -34,7 +36,7 @@ const renderRules = (nextPage, backSlide, state) => {
   const btnBack = element.querySelector(`button.back`);
 
   btnBack.addEventListener(`click`, () => {
-    selectSlide(backSlide);
+    data.goBack();
   });
 
   rulesInput.addEventListener(`input`, () => {
@@ -43,7 +45,7 @@ const renderRules = (nextPage, backSlide, state) => {
 
   rulesButton.addEventListener(`click`, () => {
     state.userName = rulesInput.value;
-    selectSlide(nextPage);
+    data.showNextScreen();
   });
 
   return element;

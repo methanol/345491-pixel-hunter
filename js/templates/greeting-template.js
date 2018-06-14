@@ -17,7 +17,7 @@ const greetingTemplate = () => {
   </div>`;
 };
 
-const renderGreeting = (nextPage) => {
+const renderGreeting = (data) => {
   const template = `<div>
   ${greetingTemplate()}
   ${getFooterTemplate()}
@@ -27,7 +27,7 @@ const renderGreeting = (nextPage) => {
   const greetingContinue = element.querySelector(`.greeting__continue`);
 
   greetingContinue.addEventListener(`click`, () => {
-    selectSlide(nextPage);
+    data.showNextScreen();
   };
 
   return element;

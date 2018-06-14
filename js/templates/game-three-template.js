@@ -25,7 +25,9 @@ const gameThreeTemplate = (state) => {
   </div>`;
 };
 
-const renderThirdGame = (nextPage, backSlide, state) => {
+const renderThirdGame = (data, state) => {
+  state.isGameScreen = true;
+
   const template = `<div>
   ${getHeaderTemplate(state)}
   ${gameThreeTemplate(state)}
@@ -36,14 +38,14 @@ const renderThirdGame = (nextPage, backSlide, state) => {
   const btnBack = element.querySelector(`button.back`);
 
   btnBack.addEventListener(`click`, () => {
-    selectSlide(backSlide);
+    data.goBack();
   });
 
   options.forEach((it) => {
     it.addEventListener(`click`, () => {
       state.answers[3] = (options[0].checked) ? `correct` : `wrong`;
 
-      selectSlide(nextPage);
+      data.showNextScreen();
     });
   });
 

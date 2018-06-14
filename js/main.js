@@ -1,3 +1,3 @@
-import startGame from './controller.js';
+import goNextScreen from './controller.js';
 
-startGame();
+goNextScreen(`intro`);

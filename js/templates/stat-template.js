@@ -1,4 +1,6 @@
-import {render, selectSlide} from '.././util.js';
+import {render, selectSlide} from './util.js';
+import getFooterTemplate from `./footer-template.js`;
+import getHeaderTemplate from `./header-template.js`;
 
 const resultScreenTemplate = (result) => {
   return `<div class="result">
@@ -79,12 +81,22 @@ const resultScreenTemplate = (result) => {
   </div>`;
 };
 
-const renderStat = () => {
-  selectSlide(render(resultScreenTemplate(result)));
+const renderStat = (data, state) {
+  state.isGameScreen = false;
 
-  const btnBack = document.querySelector(`button.back`);
+  const template = `<div>
+  ${getHeaderTemplate(state)}
+  ${statTemplate()}
+  ${getFooterTemplate()}
+  </div>`;
+  const element = render(template);
+  const btnBack = element.querySelector(`button.back`);
 
   btnBack.addEventListener(`click`, () => {
-    selectSlide(render(backSlide));
+    data.goBack();
   });
-};
+
+  return element;
+}
+
+export default renderStat;

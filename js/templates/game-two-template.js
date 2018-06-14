@@ -27,7 +27,9 @@ const gameTwoTemplate = (state) => {
   </div>`;
 };
 
-const renderSecondGame = (nextPage, backSlide, state) => {
+const renderSecondGame = (data, state) => {
+  state.isGameScreen = true;
+
   const template = `<div>
   ${getHeaderTemplate(state)}
   ${gameTwoTemplate(state)}
@@ -39,14 +41,14 @@ const renderSecondGame = (nextPage, backSlide, state) => {
   const btnBack = element.querySelector(`button.back`);
 
   btnBack.addEventListener(`click`, () => {
-    selectSlide(backSlide);
+    data.goBack();
   });
 
   element.addEventListener(`change`, () => {
     if ((questions1[0].checked) || (questions1[1].checked)) {
       state.answers[2] = (questions1[0].checked) ? `correct` : `wrong`;
 
-      selectSlide(nextPage);
+      data.showNextScreen();
     }
   });
 

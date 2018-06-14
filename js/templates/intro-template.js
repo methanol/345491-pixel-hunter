@@ -10,7 +10,7 @@ const introTemplate = () => {
   </div>`;
 };
 
-const renderIntro = (nextPage) => {
+const renderIntro = (data) => {
   const template = `<div>
   ${introTemplate()}
   ${getFooterTemplate()}
@@ -20,7 +20,7 @@ const renderIntro = (nextPage) => {
   const introAsterisk = element.querySelector(`.intro__asterisk`);
 
   introAsterisk.addEventListener(`click`, () => {
-    selectSlide(nextPage);
+    data.showNextScreen();
   }
 
   return element;
