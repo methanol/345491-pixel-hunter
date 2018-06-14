@@ -1,7 +1,9 @@
 import {render, selectSlide} from './util.js';
-import greeting from './greeting.js';
+import getFooterTemplate from `./footer-template.js`;
+import getHeaderTemplate from `./header-template.js`;
 
-const template = `<header class="header">
+const statTemplate = () => {
+  return `<header class="header">
   <div class="header__back">
     <button class="back">
       <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
@@ -119,6 +121,7 @@ const template = `<header class="header">
     <a href="https://vk.com/htmlacademy" class="social-link  social-link--vk">Вконтакте</a>
   </div>
 </footer>`;
+};
 
 const stats = render(template);
 const btnBack = stats.querySelector(`button.back`);
@@ -127,4 +130,20 @@ btnBack.addEventListener(`click`, () => {
   selectSlide(greeting);
 });
 
-export default stats;
+const renderStat = (backSlide, state) {
+  const template = `<div>
+  ${getHeaderTemplate()}
+  ${statTemplate()}
+  ${getFooterTemplate()}
+  </div>`;
+  const element = render(template);
+  const btnBack = element.querySelector(`button.back`);
+
+  btnBack.addEventListener(`click`, () => {
+    selectSlide(greeting);
+  });
+
+  return element;
+}
+
+export default renderStat;

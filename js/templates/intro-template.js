@@ -1,4 +1,5 @@
 import {render, selectSlide} from '.././util.js';
+import getFooterTemplate from `./footer-template.js`;
 
 const introTemplate = () => {
   return `<div id="main" class="central__content">
@@ -9,14 +10,20 @@ const introTemplate = () => {
   </div>`;
 };
 
-const renderIntro = (goNext) => {
-  selectSlide(render(introTemplate));
+const renderIntro = (nextPage) => {
+  const template = `<div>
+  ${introTemplate()}
+  ${getFooterTemplate()}
+  </div>`;
+  const element = render(template);
 
-  const introAsterisk = document.querySelector(`.intro__asterisk`);
+  const introAsterisk = element.querySelector(`.intro__asterisk`);
 
   introAsterisk.addEventListener(`click`, () => {
-    goNext();
+    selectSlide(nextPage);
   }
+
+  return element;
 };
 
 export default renderIntro;

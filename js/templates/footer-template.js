@@ -1,8 +1,4 @@
-import {render} from '.././util.js';
-
-const mainScreen = document.querySelector(`.central`);
-
-const footerTemplate = () => {
+const getFooterTemplate = () => {
   return `<footer class="footer">
   <a href="https://htmlacademy.ru" class="social-link social-link--academy">HTML Academy</a>
   <span class="footer__made-in">Сделано в <a href="https://htmlacademy.ru" class="footer__link">HTML Academy</a> &copy; 2016</span>
@@ -15,8 +11,4 @@ const footerTemplate = () => {
 </footer>`;
 };
 
-const renderFooter = () => {
-  mainScreen.insertAdjacentElement(`afterend`, render(footerTemplate));
-};
-
-export default renderFooter;
+export default getFooterTemplate;

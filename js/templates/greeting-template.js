@@ -1,4 +1,5 @@
 import {render, selectSlide} from '.././util.js';
+import getFooterTemplate from `./footer-template.js`;
 
 const greetingTemplate = () => {
   return `<div class="greeting central--blur">
@@ -16,14 +17,20 @@ const greetingTemplate = () => {
   </div>`;
 };
 
-const renderGreeting = (goNext) => {
-  selectSlide(render(greetingtemplate));
+const renderGreeting = (nextPage) => {
+  const template = `<div>
+  ${greetingTemplate()}
+  ${getFooterTemplate()}
+  </div>`;
+  const element = render(template);
 
-  const greetingContinue = document.querySelector(`.greeting__continue`);
+  const greetingContinue = element.querySelector(`.greeting__continue`);
 
   greetingContinue.addEventListener(`click`, () => {
-    goNext();
-  }
+    selectSlide(nextPage);
+  };
+
+  return element;
 };
 
-export {renderGreeting, greetingTemplate};
+export default renderGreeting;

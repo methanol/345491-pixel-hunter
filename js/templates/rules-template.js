@@ -1,4 +1,6 @@
 import {render, selectSlide} from '.././util.js';
+import getFooterTemplate from `./footer-template.js`;
+import getHeaderTemplate from `./header-template.js`;
 
 const rulesTemplate = () => {
   return `<div class="rules">
@@ -19,15 +21,20 @@ const rulesTemplate = () => {
   </div>`;
 };
 
-const renderRules = (goNext, backSlide, stat) => {
-  selectSlide(render(rulesTemplate));
+const renderRules = (nextPage, backSlide, state) => {
+  const template = `<div>
+  ${getHeaderTemplate()}
+  ${rulesTemplate()}
+  ${getFooterTemplate()}
+  </div>`;
+  const element = render(template);
 
-  const rulesInput = document.querySelector(`.rules__input`);
-  const rulesButton = document.querySelector(`.rules__button`);
-  const btnBack = document.querySelector(`button.back`);
+  const rulesInput = element.querySelector(`.rules__input`);
+  const rulesButton = element.querySelector(`.rules__button`);
+  const btnBack = element.querySelector(`button.back`);
 
   btnBack.addEventListener(`click`, () => {
-    selectSlide(render(backSlide));
+    selectSlide(backSlide);
   });
 
   rulesInput.addEventListener(`input`, () => {
@@ -35,7 +42,11 @@ const renderRules = (goNext, backSlide, stat) => {
   });
 
   rulesButton.addEventListener(`click`, () => {
-    stat.userName = rulesInput.value;
-    goNext();
+    state.userName = rulesInput.value;
+    selectSlide(nextPage);
   });
+
+  return element;
 };
+
+export default renderRules;
