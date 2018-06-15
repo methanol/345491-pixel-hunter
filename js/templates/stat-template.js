@@ -2,6 +2,7 @@ import {render} from '.././util.js';
 import getFooterTemplate from './footer-template.js';
 import getHeaderTemplate from './header-template.js';
 import startState from '.././data.js';
+import {getResult} from '.././controller.js';
 
 const statTemplate = (result) => {
   return `<div class="result">
@@ -40,7 +41,7 @@ const statTemplate = (result) => {
         <td class="result__total">-100</td>
       </tr>
       <tr>
-        <td colspan="5" class="result__total  result__total--final">950</td>
+        <td colspan="5" class="result__total  result__total--final">${getResult(startState.answers)}</td>
       </tr>
     </table>
     <table class="result__table">
@@ -76,13 +77,13 @@ const statTemplate = (result) => {
         <td class="result__total">100</td>
       </tr>
       <tr>
-        <td colspan="5" class="result__total  result__total--final">950</td>
+        <td colspan="5" class="result__total  result__total--final">${getResult(startState.answers)}</td>
       </tr>
     </table>
   </div>`;
 };
 
-const renderStat = (data) => {
+const renderStat = ({goBack}) => {
   startState.isGameScreen = false;
 
   const template = `<div>
@@ -94,7 +95,7 @@ const renderStat = (data) => {
   const btnBack = element.querySelector(`button.back`);
 
   btnBack.addEventListener(`click`, () => {
-    data.goBack();
+    goBack();
   });
 
   return element;

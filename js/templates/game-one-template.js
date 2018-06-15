@@ -3,12 +3,12 @@ import getFooterTemplate from './footer-template.js';
 import getHeaderTemplate from './header-template.js';
 import startState from '.././data.js';
 
-const gameOneTemplate = (state) => {
+const gameOneTemplate = (array, photo1, photo2) => {
   return `<div class="game">
     <p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>
     <form class="game__content">
       <div class="game__option">
-        <img src="http://placehold.it/468x458" alt="Option 1" width="468" height="458">
+        <img src=${photo1} alt="Option 1" width="468" height="458">
         <label class="game__answer game__answer--photo">
           <input name="question1" type="radio" value="photo">
           <span>Фото</span>
@@ -19,7 +19,7 @@ const gameOneTemplate = (state) => {
         </label>
       </div>
       <div class="game__option">
-        <img src="http://placehold.it/468x458" alt="Option 2" width="468" height="458">
+        <img src=${photo2} alt="Option 2" width="468" height="458">
         <label class="game__answer  game__answer--photo">
           <input name="question2" type="radio" value="photo">
           <span>Фото</span>
@@ -32,17 +32,17 @@ const gameOneTemplate = (state) => {
     </form>
     <div class="stats">
       <ul class="stats">
-      ${state.answers.map((it) => `<li class="stats__result stats__result--${it}"></li>`).join(``)}
+      ${array.map((it) => `<li class="stats__result stats__result--${it}"></li>`).join(``)}
       </ul>
     </div>
   </div>`;
 };
 
-const renderFirstGame = (data) => {
+const renderFirstGame = ({goBack, showNextScreen}) => {
   startState.isGameScreen = true;
   const template = `<div>
   ${getHeaderTemplate()}
-  ${gameOneTemplate(startState)}
+  ${gameOneTemplate(startState.answers, startState.photos[0], startState.photos[1])}
   ${getFooterTemplate()}
   </div>`;
   const element = render(template);
@@ -51,19 +51,135 @@ const renderFirstGame = (data) => {
   const btnBack = element.querySelector(`button.back`);
 
   btnBack.addEventListener(`click`, () => {
-    data.goBack();
+    goBack();
   });
 
   element.addEventListener(`change`, () => {
     if (((questions1[0].checked) || (questions1[1].checked)) && ((questions2[0].checked) || (questions2[1].checked))) {
-      startState.answers[0] = (questions1[0].checked) ? `correct` : `wrong`;
-      startState.answers[1] = (questions2[0].checked) ? `correct` : `wrong`;
+      if ((questions1[1].checked) && (questions2[1].checked)) {
+        startState.answers[startState.counter] = `correct`;
+      } else {
+        startState.answers[startState.counter] = `wrong`;
+        if (startState.lives >= 0) {
+          startState.lives--;
+        }
+      }
 
-      data.showNextScreen();
+      startState.counter++;
+
+      showNextScreen();
     }
   });
 
   return element;
 };
 
-export default renderFirstGame;
+const renderFourthGame = ({goBack, showNextScreen}) => {
+  startState.isGameScreen = true;
+  const template = `<div>
+  ${getHeaderTemplate()}
+  ${gameOneTemplate(startState.answers, startState.photos[6], startState.photos[7])}
+  ${getFooterTemplate()}
+  </div>`;
+  const element = render(template);
+  const questions2 = element.querySelectorAll(`input[name="question2"]`);
+  const questions1 = element.querySelectorAll(`input[name="question1"]`);
+  const btnBack = element.querySelector(`button.back`);
+
+  btnBack.addEventListener(`click`, () => {
+    goBack();
+  });
+
+  element.addEventListener(`change`, () => {
+    if (((questions1[0].checked) || (questions1[1].checked)) && ((questions2[0].checked) || (questions2[1].checked))) {
+      if ((questions1[1].checked) && (questions2[1].checked)) {
+        startState.answers[startState.counter] = `correct`;
+      } else {
+        startState.answers[startState.counter] = `wrong`;
+        if (startState.lives >= 0) {
+          startState.lives--;
+        }
+      }
+
+      startState.counter++;
+
+      showNextScreen();
+    }
+  });
+
+  return element;
+};
+
+const renderSeventhGame = ({goBack, showNextScreen}) => {
+  startState.isGameScreen = true;
+  const template = `<div>
+  ${getHeaderTemplate()}
+  ${gameOneTemplate(startState.answers, startState.photos[12], startState.photos[13])}
+  ${getFooterTemplate()}
+  </div>`;
+  const element = render(template);
+  const questions2 = element.querySelectorAll(`input[name="question2"]`);
+  const questions1 = element.querySelectorAll(`input[name="question1"]`);
+  const btnBack = element.querySelector(`button.back`);
+
+  btnBack.addEventListener(`click`, () => {
+    goBack();
+  });
+
+  element.addEventListener(`change`, () => {
+    if (((questions1[0].checked) || (questions1[1].checked)) && ((questions2[0].checked) || (questions2[1].checked))) {
+      if ((questions1[1].checked) && (questions2[1].checked)) {
+        startState.answers[startState.counter] = `correct`;
+      } else {
+        startState.answers[startState.counter] = `wrong`;
+        if (startState.lives >= 0) {
+          startState.lives--;
+        }
+      }
+
+      startState.counter++;
+
+      showNextScreen();
+    }
+  });
+
+  return element;
+};
+
+const renderFinalGame = ({goBack, showNextScreen}) => {
+  startState.isGameScreen = true;
+  const template = `<div>
+  ${getHeaderTemplate()}
+  ${gameOneTemplate(startState.answers, startState.photos[18], startState.photos[19])}
+  ${getFooterTemplate()}
+  </div>`;
+  const element = render(template);
+  const questions2 = element.querySelectorAll(`input[name="question2"]`);
+  const questions1 = element.querySelectorAll(`input[name="question1"]`);
+  const btnBack = element.querySelector(`button.back`);
+
+  btnBack.addEventListener(`click`, () => {
+    goBack();
+  });
+
+  element.addEventListener(`change`, () => {
+    if (((questions1[0].checked) || (questions1[1].checked)) && ((questions2[0].checked) || (questions2[1].checked))) {
+      if ((questions1[1].checked) && (questions2[1].checked)) {
+        startState.answers[startState.counter] = `correct`;
+      } else {
+        startState.answers[startState.counter] = `wrong`;
+        if (startState.lives >= 0) {
+          startState.lives--;
+        }
+      }
+
+      startState.counter++;
+
+      showNextScreen();
+    }
+  });
+
+  return element;
+};
+
+export {renderFirstGame, renderFourthGame, renderSeventhGame, renderFinalGame};
