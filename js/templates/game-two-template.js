@@ -1,7 +1,7 @@
 import {render} from '.././util.js';
 import getFooterTemplate from './footer-template.js';
 import getHeaderTemplate from './header-template.js';
-import startState from '.././data.js';
+import {startState} from '.././data.js';
 
 const gameTwoTemplate = (array, photo1) => {
   return `<div class="game">
@@ -28,11 +28,11 @@ const gameTwoTemplate = (array, photo1) => {
   </div>`;
 };
 
-const renderSecondGame = ({goBack, showNextScreen}) => {
+const renderSecondGame = ({goBack, showNextScreen, photo1}) => {
 
   const template = `<div>
   ${getHeaderTemplate()}
-  ${gameTwoTemplate(startState.answers, startState.photos[2])}
+  ${gameTwoTemplate(startState.answers, photo1)}
   ${getFooterTemplate()}
   </div>`;
   const element = render(template);
@@ -46,7 +46,11 @@ const renderSecondGame = ({goBack, showNextScreen}) => {
 
   element.addEventListener(`change`, () => {
     if ((questions1[0].checked) || (questions1[1].checked)) {
-      if (questions1[0].checked) {
+      let answerCode = [];
+      answerCode[0] = (questions1[0].checked) ? 1 : 0;
+      answerCode[1] = (questions1[1].checked) ? 1 : 0;
+
+      if (answerCode.join(``) === startState.keyCodes[startState.counter]) {
         startState.answers[startState.counter] = `correct`;
       } else {
         startState.answers[startState.counter] = `wrong`;
@@ -64,76 +68,4 @@ const renderSecondGame = ({goBack, showNextScreen}) => {
   return element;
 };
 
-const renderFifthGame = ({goBack, showNextScreen}) => {
-
-  const template = `<div>
-  ${getHeaderTemplate()}
-  ${gameTwoTemplate(startState.answers, startState.photos[8])}
-  ${getFooterTemplate()}
-  </div>`;
-  const element = render(template);
-
-  const questions1 = element.querySelectorAll(`input[name="question1"]`);
-  const btnBack = element.querySelector(`button.back`);
-
-  btnBack.addEventListener(`click`, () => {
-    goBack();
-  });
-
-  element.addEventListener(`change`, () => {
-    if ((questions1[0].checked) || (questions1[1].checked)) {
-      if (questions1[0].checked) {
-        startState.answers[startState.counter] = `correct`;
-      } else {
-        startState.answers[startState.counter] = `wrong`;
-        if (startState.lives >= 0) {
-          startState.lives--;
-        }
-      }
-
-      startState.counter++;
-
-      showNextScreen();
-    }
-  });
-
-  return element;
-};
-
-const renderEighthGame = ({goBack, showNextScreen}) => {
-
-  const template = `<div>
-  ${getHeaderTemplate()}
-  ${gameTwoTemplate(startState.answers, startState.photos[14])}
-  ${getFooterTemplate()}
-  </div>`;
-  const element = render(template);
-
-  const questions1 = element.querySelectorAll(`input[name="question1"]`);
-  const btnBack = element.querySelector(`button.back`);
-
-  btnBack.addEventListener(`click`, () => {
-    goBack();
-  });
-
-  element.addEventListener(`change`, () => {
-    if ((questions1[0].checked) || (questions1[1].checked)) {
-      if (questions1[0].checked) {
-        startState.answers[startState.counter] = `correct`;
-      } else {
-        startState.answers[startState.counter] = `wrong`;
-        if (startState.lives >= 0) {
-          startState.lives--;
-        }
-      }
-
-      startState.counter++;
-
-      showNextScreen();
-    }
-  });
-
-  return element;
-};
-
-export {renderSecondGame, renderFifthGame, renderEighthGame};
+export {renderSecondGame};

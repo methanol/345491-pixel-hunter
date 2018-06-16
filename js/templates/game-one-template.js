@@ -1,7 +1,7 @@
 import {render} from '.././util.js';
 import getFooterTemplate from './footer-template.js';
 import getHeaderTemplate from './header-template.js';
-import startState from '.././data.js';
+import {startState} from '.././data.js';
 
 const gameOneTemplate = (array, photo1, photo2) => {
   return `<div class="game">
@@ -38,11 +38,11 @@ const gameOneTemplate = (array, photo1, photo2) => {
   </div>`;
 };
 
-const renderFirstGame = ({goBack, showNextScreen}) => {
+const renderFirstGame = ({goBack, showNextScreen, photo1, photo2}) => {
   startState.isGameScreen = true;
   const template = `<div>
   ${getHeaderTemplate()}
-  ${gameOneTemplate(startState.answers, startState.photos[0], startState.photos[1])}
+  ${gameOneTemplate(startState.answers, photo1, photo2)}
   ${getFooterTemplate()}
   </div>`;
   const element = render(template);
@@ -56,7 +56,13 @@ const renderFirstGame = ({goBack, showNextScreen}) => {
 
   element.addEventListener(`change`, () => {
     if (((questions1[0].checked) || (questions1[1].checked)) && ((questions2[0].checked) || (questions2[1].checked))) {
-      if ((questions1[1].checked) && (questions2[1].checked)) {
+      let answerCode = [];
+      answerCode[0] = (questions1[0].checked) ? 1 : 0;
+      answerCode[1] = (questions1[1].checked) ? 1 : 0;
+      answerCode[2] = (questions2[0].checked) ? 1 : 0;
+      answerCode[3] = (questions2[1].checked) ? 1 : 0;
+
+      if (answerCode.join(``) === startState.keyCodes[startState.counter]) {
         startState.answers[startState.counter] = `correct`;
       } else {
         startState.answers[startState.counter] = `wrong`;
@@ -74,112 +80,4 @@ const renderFirstGame = ({goBack, showNextScreen}) => {
   return element;
 };
 
-const renderFourthGame = ({goBack, showNextScreen}) => {
-  startState.isGameScreen = true;
-  const template = `<div>
-  ${getHeaderTemplate()}
-  ${gameOneTemplate(startState.answers, startState.photos[6], startState.photos[7])}
-  ${getFooterTemplate()}
-  </div>`;
-  const element = render(template);
-  const questions2 = element.querySelectorAll(`input[name="question2"]`);
-  const questions1 = element.querySelectorAll(`input[name="question1"]`);
-  const btnBack = element.querySelector(`button.back`);
-
-  btnBack.addEventListener(`click`, () => {
-    goBack();
-  });
-
-  element.addEventListener(`change`, () => {
-    if (((questions1[0].checked) || (questions1[1].checked)) && ((questions2[0].checked) || (questions2[1].checked))) {
-      if ((questions1[1].checked) && (questions2[1].checked)) {
-        startState.answers[startState.counter] = `correct`;
-      } else {
-        startState.answers[startState.counter] = `wrong`;
-        if (startState.lives >= 0) {
-          startState.lives--;
-        }
-      }
-
-      startState.counter++;
-
-      showNextScreen();
-    }
-  });
-
-  return element;
-};
-
-const renderSeventhGame = ({goBack, showNextScreen}) => {
-  startState.isGameScreen = true;
-  const template = `<div>
-  ${getHeaderTemplate()}
-  ${gameOneTemplate(startState.answers, startState.photos[12], startState.photos[13])}
-  ${getFooterTemplate()}
-  </div>`;
-  const element = render(template);
-  const questions2 = element.querySelectorAll(`input[name="question2"]`);
-  const questions1 = element.querySelectorAll(`input[name="question1"]`);
-  const btnBack = element.querySelector(`button.back`);
-
-  btnBack.addEventListener(`click`, () => {
-    goBack();
-  });
-
-  element.addEventListener(`change`, () => {
-    if (((questions1[0].checked) || (questions1[1].checked)) && ((questions2[0].checked) || (questions2[1].checked))) {
-      if ((questions1[1].checked) && (questions2[1].checked)) {
-        startState.answers[startState.counter] = `correct`;
-      } else {
-        startState.answers[startState.counter] = `wrong`;
-        if (startState.lives >= 0) {
-          startState.lives--;
-        }
-      }
-
-      startState.counter++;
-
-      showNextScreen();
-    }
-  });
-
-  return element;
-};
-
-const renderFinalGame = ({goBack, showNextScreen}) => {
-  startState.isGameScreen = true;
-  const template = `<div>
-  ${getHeaderTemplate()}
-  ${gameOneTemplate(startState.answers, startState.photos[18], startState.photos[19])}
-  ${getFooterTemplate()}
-  </div>`;
-  const element = render(template);
-  const questions2 = element.querySelectorAll(`input[name="question2"]`);
-  const questions1 = element.querySelectorAll(`input[name="question1"]`);
-  const btnBack = element.querySelector(`button.back`);
-
-  btnBack.addEventListener(`click`, () => {
-    goBack();
-  });
-
-  element.addEventListener(`change`, () => {
-    if (((questions1[0].checked) || (questions1[1].checked)) && ((questions2[0].checked) || (questions2[1].checked))) {
-      if ((questions1[1].checked) && (questions2[1].checked)) {
-        startState.answers[startState.counter] = `correct`;
-      } else {
-        startState.answers[startState.counter] = `wrong`;
-        if (startState.lives >= 0) {
-          startState.lives--;
-        }
-      }
-
-      startState.counter++;
-
-      showNextScreen();
-    }
-  });
-
-  return element;
-};
-
-export {renderFirstGame, renderFourthGame, renderSeventhGame, renderFinalGame};
+export {renderFirstGame};

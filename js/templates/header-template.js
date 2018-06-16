@@ -1,4 +1,4 @@
-import startState from '.././data.js';
+import {startState} from '.././data.js';
 const MAX_LIVES = 3;
 
 const getHeaderTemplate = () => {

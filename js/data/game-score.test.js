@@ -3,42 +3,48 @@ import getScore from '.././get-score.js';
 
 const GAME1_SCORE = {
   lives: 3,
-  answers: [{success: true, speed: `normal`}, {success: true, speed: `normal`}, {success: true, speed: `normal`}, {success: true, speed: `normal`}, {success: true, speed: `normal`}, {success: true, speed: `normal`}, {success: true, speed: `normal`}, {success: true, speed: `normal`}, {success: true, speed: `normal`}, {success: true, speed: `normal`}]
+  answers: [`correct`, `correct`, `correct`, `correct`, `correct`, `correct`, `correct`, `correct`, `correct`, `correct`]
 };
 
 const GAME2_SCORE = {
   lives: 3,
-  answers: [{success: true, speed: `normal`}, {success: true, speed: `normal`}]
+  answers: [`correct`, `correct`]
 };
 
 const GAME3_SCORE = {
-  lives: 3,
-  answers: [{success: false, speed: `normal`}, {success: false, speed: `normal`}, {success: true, speed: `normal`}, {success: true, speed: `normal`}, {success: true, speed: `normal`}, {success: true, speed: `normal`}, {success: true, speed: `normal`}, {success: true, speed: `normal`}, {success: true, speed: `normal`}, {success: true, speed: `fast`}]
+  lives: 2,
+  answers: [`correct`, `correct`, `correct`, `correct`, `correct`, `correct`, `correct`, `correct`, `correct`, `wrong`]
+};
+
+const GAME4_SCORE = {
+  lives: `fuck`,
+  answers: [`correct`, `correct`, `correct`, `correct`, `correct`, `correct`, `correct`, `correct`, `correct`, `wrong`]
+};
+
+const GAME5_SCORE = {
+  lives: 2,
+  answers: `fuck`
 };
 
 describe(`Score calculation`, () => {
 
   it(`player get normal score 1150`, () => {
-    assert.equal(getScore(GAME1_SCORE.answers, GAME1_SCORE.lives), 1150);
+    assert.equal(getScore(GAME1_SCORE), 1150);
   });
 
   it(`player did not answer 10 answers`, () => {
-    assert.equal(getScore(GAME2_SCORE.answers, GAME2_SCORE.lives), -1);
+    assert.equal(getScore(GAME2_SCORE), -1);
   });
 
   it(`player get score 1000`, () => {
-    assert.equal(getScore(GAME3_SCORE.answers, GAME3_SCORE.lives), 1000);
+    assert.equal(getScore(GAME3_SCORE), 1000);
   });
 
   it(`incorrect number`, () => {
-    assert.throws(() => getScore(GAME1_SCORE.answers, []), /type of lives should be number/);
-  });
-
-  it(`incorrect counts of lives`, () => {
-    assert.equal(getScore(GAME3_SCORE.answers, -3), -1);
+    assert.throws(() => getScore(GAME4_SCORE), /type of lives should be number/);
   });
 
   it(`incorrect array`, () => {
-    assert.throws(() => getScore(4, GAME3_SCORE.lives), /type of answers should be array/);
+    assert.throws(() => getScore(GAME5_SCORE), /type of answers should be array/);
   });
 });

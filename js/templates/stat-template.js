@@ -1,8 +1,8 @@
 import {render} from '.././util.js';
 import getFooterTemplate from './footer-template.js';
 import getHeaderTemplate from './header-template.js';
-import startState from '.././data.js';
-import {getResult} from '.././controller.js';
+import {startState} from '.././data.js';
+import getScore from '.././get-score.js';
 
 const statTemplate = (result) => {
   return `<div class="result">
@@ -41,7 +41,7 @@ const statTemplate = (result) => {
         <td class="result__total">-100</td>
       </tr>
       <tr>
-        <td colspan="5" class="result__total  result__total--final">${getResult(startState.answers)}</td>
+        <td colspan="5" class="result__total  result__total--final">${getScore(startState)}</td>
       </tr>
     </table>
     <table class="result__table">
@@ -77,7 +77,7 @@ const statTemplate = (result) => {
         <td class="result__total">100</td>
       </tr>
       <tr>
-        <td colspan="5" class="result__total  result__total--final">${getResult(startState.answers)}</td>
+        <td colspan="5" class="result__total  result__total--final">${getScore(startState)}</td>
       </tr>
     </table>
   </div>`;

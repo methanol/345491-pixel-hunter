@@ -1,7 +1,7 @@
 import {render} from '.././util.js';
 import getFooterTemplate from './footer-template.js';
 import getHeaderTemplate from './header-template.js';
-import startState from '.././data.js';
+import {startState} from '.././data.js';
 
 const rulesTemplate = () => {
   return `<div class="rules">
@@ -47,6 +47,7 @@ const renderRules = (data) => {
   rulesButton.addEventListener(`click`, () => {
     startState.userName = rulesInput.value;
     startState.lives = 3;
+    startState.counter = 0;
     startState.answers = [`unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`];
     data.showNextScreen();
   });
