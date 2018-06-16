@@ -48,6 +48,7 @@ const renderRules = (data) => {
     startState.userName = rulesInput.value;
     startState.lives = 3;
     startState.counter = 0;
+    startState.photoCounter = 0;
     startState.answers = [`unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`];
     data.showNextScreen();
   });
