@@ -1,7 +1,7 @@
 import {render} from '.././util.js';
 import getFooterTemplate from './footer-template.js';
 import getHeaderTemplate from './header-template.js';
-import {startState} from '.././data.js';
+import {workState} from '.././data.js';
 
 const gameOneTemplate = (array, photo1, photo2) => {
   return `<div class="game">
@@ -39,10 +39,10 @@ const gameOneTemplate = (array, photo1, photo2) => {
 };
 
 const renderFirstGame = ({goBack, showNextScreen, photo1, photo2}) => {
-  startState.isGameScreen = true;
+  workState.isGameScreen = true;
   const template = `<div>
   ${getHeaderTemplate()}
-  ${gameOneTemplate(startState.answers, photo1, photo2)}
+  ${gameOneTemplate(workState.answers, photo1, photo2)}
   ${getFooterTemplate()}
   </div>`;
   const element = render(template);
@@ -56,22 +56,19 @@ const renderFirstGame = ({goBack, showNextScreen, photo1, photo2}) => {
 
   element.addEventListener(`change`, () => {
     if (((questions1[0].checked) || (questions1[1].checked)) && ((questions2[0].checked) || (questions2[1].checked))) {
-      let answerCode = [];
-      answerCode[0] = (questions1[0].checked) ? 1 : 0;
-      answerCode[1] = (questions1[1].checked) ? 1 : 0;
-      answerCode[2] = (questions2[0].checked) ? 1 : 0;
-      answerCode[3] = (questions2[1].checked) ? 1 : 0;
 
-      if (answerCode.join(``) === startState.keyCodes[startState.counter]) {
-        startState.answers[startState.counter] = `correct`;
+      const answerCode = [...questions1, ...questions2].map((it) => it.checked ? 1 : 0).join(``);
+
+      if (answerCode === workState.keyCodes[workState.counter]) {
+        workState.answers[workState.counter] = `correct`;
       } else {
-        startState.answers[startState.counter] = `wrong`;
-        if (startState.lives >= 0) {
-          startState.lives--;
+        workState.answers[workState.counter] = `wrong`;
+        if (workState.lives >= 0) {
+          workState.lives--;
         }
       }
 
-      startState.counter++;
+      workState.counter++;
 
       showNextScreen();
     }

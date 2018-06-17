@@ -1,7 +1,7 @@
 import {render} from '.././util.js';
 import getFooterTemplate from './footer-template.js';
 import getHeaderTemplate from './header-template.js';
-import {startState} from '.././data.js';
+import {workState} from '.././data.js';
 
 const gameThreeTemplate = (array, photo1, photo2, photo3) => {
   return `<div class="game">
@@ -30,7 +30,7 @@ const renderThirdGame = ({goBack, showNextScreen, photo1, photo2, photo3}) => {
 
   const template = `<div>
   ${getHeaderTemplate()}
-  ${gameThreeTemplate(startState.answers, photo1, photo2, photo3)}
+  ${gameThreeTemplate(workState.answers, photo1, photo2, photo3)}
   ${getFooterTemplate()}
   </div>`;
   const element = render(template);
@@ -43,21 +43,19 @@ const renderThirdGame = ({goBack, showNextScreen, photo1, photo2, photo3}) => {
 
   options.forEach((it) => {
     it.addEventListener(`click`, () => {
-      let answerCode = [];
-      answerCode[0] = (options[0] === it) ? 1 : 0;
-      answerCode[1] = (options[1] === it) ? 1 : 0;
-      answerCode[2] = (options[2] === it) ? 1 : 0;
 
-      if (answerCode.join(``) === startState.keyCodes[startState.counter]) {
-        startState.answers[startState.counter] = `correct`;
+      const answerCode = [...options].map((item) => (it === item) ? 1 : 0).join(``);
+
+      if (answerCode === workState.keyCodes[workState.counter]) {
+        workState.answers[workState.counter] = `correct`;
       } else {
-        startState.answers[startState.counter] = `wrong`;
-        if (startState.lives >= 0) {
-          startState.lives--;
+        workState.answers[workState.counter] = `wrong`;
+        if (workState.lives >= 0) {
+          workState.lives--;
         }
       }
 
-      startState.counter++;
+      workState.counter++;
 
       showNextScreen();
     });

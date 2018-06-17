@@ -1,7 +1,7 @@
 import {render} from '.././util.js';
 import getFooterTemplate from './footer-template.js';
 import getHeaderTemplate from './header-template.js';
-import {startState} from '.././data.js';
+import {workState} from '.././data.js';
 
 const rulesTemplate = () => {
   return `<div class="rules">
@@ -23,7 +23,7 @@ const rulesTemplate = () => {
 };
 
 const renderRules = (data) => {
-  startState.isGameScreen = false;
+  workState.isGameScreen = false;
 
   const template = `<div>
   ${getHeaderTemplate()}
@@ -45,11 +45,12 @@ const renderRules = (data) => {
   });
 
   rulesButton.addEventListener(`click`, () => {
-    startState.userName = rulesInput.value;
-    startState.lives = 3;
-    startState.counter = 0;
-    startState.photoCounter = 0;
-    startState.answers = [`unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`];
+    workState.userName = rulesInput.value;
+    workState.lives = 3;
+    workState.counter = 0;
+    workState.photoCounter = 0;
+    workState.conclusion = `Победа!`;
+    workState.answers = [`unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`];
     data.showNextScreen();
   });
 

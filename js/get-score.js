@@ -5,6 +5,7 @@ const NORMAL_MODE = `correct`;
 const SLOW_MODE = `slow`;
 const FAST_MODE = `fast`;
 const WRONG = `wrong`;
+const LIFE_PRICE = 50;
 
 const getScore = (state) => {
   let totalScore = 0;
@@ -45,7 +46,7 @@ const getScore = (state) => {
     }
   }
 
-  totalScore += state.lives * 50;
+  totalScore += state.lives * LIFE_PRICE;
   return totalScore;
 };
 
