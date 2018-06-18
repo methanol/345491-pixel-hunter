@@ -52,7 +52,6 @@ function goNextScreen(screenType) {
           if (workState.lives >= 0) {
             goNextScreen(gameScreens.shift());
           } else {
-            workState.conclusion = `Поражение!`;
             goNextScreen(Screens.STAT);
           }
         },
@@ -69,7 +68,6 @@ function goNextScreen(screenType) {
           if (workState.lives >= 0) {
             goNextScreen(gameScreens.shift());
           } else {
-            workState.conclusion = `Поражение!`;
             goNextScreen(Screens.STAT);
           }
         },
@@ -85,7 +83,6 @@ function goNextScreen(screenType) {
           if (workState.lives >= 0) {
             goNextScreen(gameScreens.shift());
           } else {
-            workState.conclusion = `Поражение!`;
             goNextScreen(Screens.STAT);
           }
         },

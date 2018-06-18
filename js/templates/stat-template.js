@@ -17,7 +17,7 @@ const showScore = (result) => {
 
 const statTemplate = (result) => {
   return `<div class="result">
-    <h1>${result.conclusion}</h1>
+    <h1>${(result.lives >= 0) ? `Победа!` : `Поражение!`}</h1>
     <table class="result__table">
       <tr>
         <td class="result__number">1.</td>
@@ -30,7 +30,7 @@ const statTemplate = (result) => {
         <td class="result__points">×&nbsp;100</td>
         <td class="result__total">${showScore(result)}</td>
       </tr>
-      <tr>
+      ${(result.lives >= 0) ? `<tr>
         <td></td>
         <td class="result__extra">Бонус за скорость:</td>
         <td class="result__extra">0&nbsp;<span class="stats__result stats__result--fast"></span></td>
@@ -50,7 +50,7 @@ const statTemplate = (result) => {
         <td class="result__extra">0&nbsp;<span class="stats__result stats__result--slow"></span></td>
         <td class="result__points">×&nbsp;50</td>
         <td class="result__total">0</td>
-      </tr>
+      </tr>` : ``}
       <tr>
         <td colspan="5" class="result__total  result__total--final">${getScore(workState)}</td>
       </tr>
@@ -104,22 +104,6 @@ const renderStat = ({goBack}) => {
   </div>`;
   const element = render(template);
   const btnBack = element.querySelector(`button.back`);
-  const resultTables = element.querySelectorAll(`.result__table`);
-  const resultTables1Fields = resultTables[0].querySelectorAll(`tr`);
-
-  if (workState.counter < 10) {
-    for (let i = 0; i < resultTables1Fields.length; i++) {
-      if ((i > 0) && (i < 4)) {
-        resultTables1Fields[i].setAttribute(`style`, `display: none`);
-      }
-    }
-  } else {
-    for (let i = 0; i < resultTables1Fields.length; i++) {
-      resultTables1Fields[i].setAttribute(`style`, `display: table-row;
-    vertical-align: inherit;
-    border-color: inherit;`);
-    }
-  }
 
   btnBack.addEventListener(`click`, () => {
     goBack();

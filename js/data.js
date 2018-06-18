@@ -7,8 +7,7 @@ const startState = Object.freeze({
   keyCodes: [`0101`, `10`, `100`, `0101`, `10`, `100`, `0101`, `10`, `100`, `0101`],
   isGameScreen: false,
   counter: 0,
-  photoCounter: 0,
-  conclusion: `Победа!`
+  photoCounter: 0
 });
 
 const workState = Object.assign({}, startState);
