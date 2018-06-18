@@ -5,10 +5,11 @@ import {workState} from '.././data.js';
 import getScore from '.././get-score.js';
 
 const LIFE_PRICE = 50;
+const FAIL = `FAIL`;
 
 const showScore = (result) => {
   if (result.counter < 10) {
-    return 0;
+    return FAIL;
   } else {
     return getScore(result) - (result.lives * LIFE_PRICE);
   }
@@ -103,6 +104,22 @@ const renderStat = ({goBack}) => {
   </div>`;
   const element = render(template);
   const btnBack = element.querySelector(`button.back`);
+  const resultTables = element.querySelectorAll(`.result__table`);
+  const resultTables1Fields = resultTables[0].querySelectorAll(`tr`);
+
+  if (workState.counter < 10) {
+    for (let i = 0; i < resultTables1Fields.length; i++) {
+      if ((i > 0) && (i < 4)) {
+        resultTables1Fields[i].setAttribute(`style`, `display: none`);
+      }
+    }
+  } else {
+    for (let i = 0; i < resultTables1Fields.length; i++) {
+      resultTables1Fields[i].setAttribute(`style`, `display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;`);
+    }
+  }
 
   btnBack.addEventListener(`click`, () => {
     goBack();

@@ -3,7 +3,7 @@ import getFooterTemplate from './footer-template.js';
 import getHeaderTemplate from './header-template.js';
 import {workState} from '.././data.js';
 
-const gameTwoTemplate = (array, photo1) => {
+const gameTwoTemplate = (nouns, photo1) => {
   return `<div class="game">
     <p class="game__task">Угадай, фото или рисунок?</p>
     <form class="game__content  game__content--wide">
@@ -21,7 +21,7 @@ const gameTwoTemplate = (array, photo1) => {
     </form>
     <div class="stats">
       <ul class="stats">
-      ${array.map((it) =>
+      ${nouns.map((it) =>
     `<li class="stats__result stats__result--${it}"></li>`).join(``)}
       </ul>
     </div>

@@ -8,7 +8,7 @@ import renderStat from './templates/stat-template.js';
 import {selectSlide} from './util.js';
 import {workState, photos} from './data.js';
 
-const screens = {
+const Screens = {
   INTRO: `intro`,
   GREETING: `greeting`,
   RULES: `rules`,
@@ -18,78 +18,78 @@ const screens = {
   STAT: `stat`
 };
 
-let gameScreens = [screens.GAME_1, screens.GAME_2, screens.GAME_3, screens.GAME_1, screens.GAME_2, screens.GAME_3, screens.GAME_1, screens.GAME_2, screens.GAME_3, screens.GAME_1, screens.STAT];
+let gameScreens = [Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.STAT];
 
 
 function goNextScreen(screenType) {
   let data = {};
   switch (screenType) {
-    case screens.INTRO:
+    case Screens.INTRO:
       data = {
-        showNextScreen: () => goNextScreen(screens.GREETING)
+        showNextScreen: () => goNextScreen(Screens.GREETING)
       };
       selectSlide(renderIntro(data));
       break;
 
-    case screens.GREETING:
+    case Screens.GREETING:
       data = {
-        showNextScreen: () => goNextScreen(screens.RULES)
+        showNextScreen: () => goNextScreen(Screens.RULES)
       };
       selectSlide(renderGreeting(data));
       break;
 
-    case screens.RULES:
+    case Screens.RULES:
       data = {
         showNextScreen: () => goNextScreen(gameScreens.shift()),
-        goBack: () => goNextScreen(screens.GREETING)
+        goBack: () => goNextScreen(Screens.GREETING)
       };
       selectSlide(renderRules(data));
       break;
 
-    case screens.GAME_1:
+    case Screens.GAME_1:
       data = {
         showNextScreen: () => {
           if (workState.lives >= 0) {
             goNextScreen(gameScreens.shift());
           } else {
             workState.conclusion = `Поражение!`;
-            goNextScreen(screens.STAT);
+            goNextScreen(Screens.STAT);
           }
         },
-        goBack: () => goNextScreen(screens.GREETING),
+        goBack: () => goNextScreen(Screens.GREETING),
         photo1: photos[workState.photoCounter++],
         photo2: photos[workState.photoCounter++]
       };
       selectSlide(renderFirstGame(data));
       break;
 
-    case screens.GAME_2:
+    case Screens.GAME_2:
       data = {
         showNextScreen: () => {
           if (workState.lives >= 0) {
             goNextScreen(gameScreens.shift());
           } else {
             workState.conclusion = `Поражение!`;
-            goNextScreen(screens.STAT);
+            goNextScreen(Screens.STAT);
           }
         },
-        goBack: () => goNextScreen(screens.GREETING),
+        goBack: () => goNextScreen(Screens.GREETING),
         photo1: photos[workState.photoCounter++]
       };
       selectSlide(renderSecondGame(data));
       break;
 
-    case screens.GAME_3:
+    case Screens.GAME_3:
       data = {
         showNextScreen: () => {
           if (workState.lives >= 0) {
             goNextScreen(gameScreens.shift());
           } else {
             workState.conclusion = `Поражение!`;
-            goNextScreen(screens.STAT);
+            goNextScreen(Screens.STAT);
           }
         },
-        goBack: () => goNextScreen(screens.GREETING),
+        goBack: () => goNextScreen(Screens.GREETING),
         photo1: photos[workState.photoCounter++],
         photo2: photos[workState.photoCounter++],
         photo3: photos[workState.photoCounter++]
@@ -99,10 +99,10 @@ function goNextScreen(screenType) {
 
     case `stat`:
       data = {
-        goBack: () => goNextScreen(screens.GREETING)
+        goBack: () => goNextScreen(Screens.GREETING)
       };
       selectSlide(renderStat(data));
-      gameScreens = [screens.GAME_1, screens.GAME_2, screens.GAME_3, screens.GAME_1, screens.GAME_2, screens.GAME_3, screens.GAME_1, screens.GAME_2, screens.GAME_3, screens.GAME_1, screens.STAT];
+      gameScreens = [Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.STAT];
       break;
   }
 }

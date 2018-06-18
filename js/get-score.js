@@ -4,7 +4,7 @@ const FAST_SCORE = 150;
 const NORMAL_MODE = `correct`;
 const SLOW_MODE = `slow`;
 const FAST_MODE = `fast`;
-const WRONG = `wrong`;
+const WRONG_MODE = `wrong`;
 const LIFE_PRICE = 50;
 
 const getScore = (state) => {
@@ -38,7 +38,7 @@ const getScore = (state) => {
       case FAST_MODE:
         totalScore += FAST_SCORE;
         break;
-      case WRONG:
+      case WRONG_MODE:
         totalScore += 0;
         break;
       default:
