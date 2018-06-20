@@ -27,7 +27,7 @@ export default class GamePresenter extends AbstractView {
       case Screens.GAME_1:
         templ = `<div>
         ${new HeaderView().getTemplate()}
-        ${new GameOneView().getTemplate(data)}
+        ${new GameOneView().getTemplate(data.photo1, data.photo2)}
         ${new FooterView().getTemplate()}
         </div>`;
         break;
@@ -35,7 +35,7 @@ export default class GamePresenter extends AbstractView {
       case Screens.GAME_2:
         templ = `<div>
         ${new HeaderView().getTemplate()}
-        ${new GameTwoView().getTemplate(data)}
+        ${new GameTwoView().getTemplate(data.photo1)}
         ${new FooterView().getTemplate()}
         </div>`;
         break;
@@ -43,7 +43,7 @@ export default class GamePresenter extends AbstractView {
       case Screens.GAME_3:
         templ = `<div>
         ${new HeaderView().getTemplate()}
-        ${new GameThreeView().getTemplate(data)}
+        ${new GameThreeView().getTemplate(data.photo1, data.photo2, data.photo3)}
         ${new FooterView().getTemplate()}
         </div>`;
         break;
