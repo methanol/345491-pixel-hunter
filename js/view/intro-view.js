@@ -1,7 +1,7 @@
 import AbstractView from '.././abstract-view.js';
 
 export default class IntroView extends AbstractView {
-  getTemplate() {
+  get template() {
     return `<div id="main" class="central__content">
       <div id="intro" class="intro">
         <h1 class="intro__asterisk">*</h1>

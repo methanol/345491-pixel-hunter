@@ -12,39 +12,38 @@ const Screens = {
   GAME_3: `game-3`
 };
 
-workState.isGameScreen = true;
-
 export default class GamePresenter extends AbstractView {
   constructor(name) {
     super();
     this.gameName = name;
   }
 
-  getTemplate(data) {
+  get template() {
     let templ = ``;
+    workState.isGameScreen = true;
 
     switch (this.gameName) {
       case Screens.GAME_1:
         templ = `<div>
-        ${new HeaderView().getTemplate()}
-        ${new GameOneView().getTemplate(data.photo1, data.photo2)}
-        ${new FooterView().getTemplate()}
+        ${new HeaderView().template}
+        ${new GameOneView().template}
+        ${new FooterView().template}
         </div>`;
         break;
 
       case Screens.GAME_2:
         templ = `<div>
-        ${new HeaderView().getTemplate()}
-        ${new GameTwoView().getTemplate(data.photo1)}
-        ${new FooterView().getTemplate()}
+        ${new HeaderView().template}
+        ${new GameTwoView().template}
+        ${new FooterView().template}
         </div>`;
         break;
 
       case Screens.GAME_3:
         templ = `<div>
-        ${new HeaderView().getTemplate()}
-        ${new GameThreeView().getTemplate(data.photo1, data.photo2, data.photo3)}
-        ${new FooterView().getTemplate()}
+        ${new HeaderView().template}
+        ${new GameThreeView().template}
+        ${new FooterView().template}
         </div>`;
         break;
     }
@@ -73,7 +72,7 @@ export default class GamePresenter extends AbstractView {
             } else {
               workState.answers[workState.counter] = `wrong`;
               if (workState.lives >= 0) {
-                workState.lives--;
+                --workState.lives;
               }
             }
 
@@ -102,7 +101,7 @@ export default class GamePresenter extends AbstractView {
             } else {
               workState.answers[workState.counter] = `wrong`;
               if (workState.lives >= 0) {
-                workState.lives--;
+                --workState.lives;
               }
             }
 
@@ -131,7 +130,7 @@ export default class GamePresenter extends AbstractView {
             } else {
               workState.answers[workState.counter] = `wrong`;
               if (workState.lives >= 0) {
-                workState.lives--;
+                --workState.lives;
               }
             }
 

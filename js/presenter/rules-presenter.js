@@ -7,11 +7,11 @@ import {workState} from '.././data.js';
 workState.isGameScreen = false;
 
 export default class RulesPresenter extends AbstractView {
-  getTemplate() {
+  get template() {
     return `<div>
-    ${new HeaderView().getTemplate()}
-    ${new RulesView().getTemplate()}
-    ${new FooterView().getTemplate()}
+    ${new HeaderView().template}
+    ${new RulesView().template}
+    ${new FooterView().template}
     </div>`;
   }
 
@@ -34,7 +34,6 @@ export default class RulesPresenter extends AbstractView {
       workState.lives = 3;
       workState.counter = 0;
       workState.photoCounter = 0;
-      workState.conclusion = `Победа!`;
       workState.answers = [`unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`];
       data.showNextScreen();
     });

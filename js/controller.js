@@ -1,16 +1,10 @@
-// import renderIntro from './templates/intro-template.js';
-// import renderGreeting from './templates/greeting-template.js';
-// import renderRules from './templates/rules-template.js';
-// import {renderFirstGame} from './templates/game-one-template.js';
-// import {renderSecondGame} from './templates/game-two-template.js';
-// import {renderThirdGame} from './templates/game-three-template.js';
-import renderStat from './templates/stat-template.js';
 import {selectSlide} from './util.js';
-import {workState, photos} from './data.js';
+import {workState} from './data.js';
 import IntroPresenter from './presenter/intro-presenter.js';
 import GreetingPresenter from './presenter/greeting-presenter.js';
 import RulesPresenter from './presenter/rules-presenter.js';
 import GamePresenter from './presenter/game-presenter.js';
+import StatPresenter from './presenter/stat-presenter.js';
 
 const Screens = {
   INTRO: `intro`,
@@ -32,7 +26,6 @@ function goNextScreen(screenType) {
       data = {
         showNextScreen: () => goNextScreen(Screens.GREETING)
       };
-      // selectSlide(renderIntro(data));
       selectSlide(new IntroPresenter().getElement(data));
       break;
 
@@ -40,7 +33,6 @@ function goNextScreen(screenType) {
       data = {
         showNextScreen: () => goNextScreen(Screens.RULES)
       };
-      // selectSlide(renderGreeting(data));
       selectSlide(new GreetingPresenter().getElement(data));
       break;
 
@@ -49,7 +41,6 @@ function goNextScreen(screenType) {
         showNextScreen: () => goNextScreen(gameScreens.shift()),
         goBack: () => goNextScreen(Screens.GREETING)
       };
-      // selectSlide(renderRules(data));
       selectSlide(new RulesPresenter().getElement(data));
       break;
 
@@ -62,11 +53,8 @@ function goNextScreen(screenType) {
             goNextScreen(Screens.STAT);
           }
         },
-        goBack: () => goNextScreen(Screens.GREETING),
-        photo1: photos[workState.photoCounter++],
-        photo2: photos[workState.photoCounter++]
+        goBack: () => goNextScreen(Screens.GREETING)
       };
-      // selectSlide(renderFirstGame(data));
       selectSlide(new GamePresenter(Screens.GAME_1).getElement(data));
       break;
 
@@ -79,10 +67,8 @@ function goNextScreen(screenType) {
             goNextScreen(Screens.STAT);
           }
         },
-        goBack: () => goNextScreen(Screens.GREETING),
-        photo1: photos[workState.photoCounter++]
+        goBack: () => goNextScreen(Screens.GREETING)
       };
-      // selectSlide(renderSecondGame(data));
       selectSlide(new GamePresenter(Screens.GAME_2).getElement(data));
       break;
 
@@ -95,12 +81,8 @@ function goNextScreen(screenType) {
             goNextScreen(Screens.STAT);
           }
         },
-        goBack: () => goNextScreen(Screens.GREETING),
-        photo1: photos[workState.photoCounter++],
-        photo2: photos[workState.photoCounter++],
-        photo3: photos[workState.photoCounter++]
+        goBack: () => goNextScreen(Screens.GREETING)
       };
-      // selectSlide(renderThirdGame(data));
       selectSlide(new GamePresenter(Screens.GAME_3).getElement(data));
       break;
 
@@ -108,7 +90,8 @@ function goNextScreen(screenType) {
       data = {
         goBack: () => goNextScreen(Screens.GREETING)
       };
-      selectSlide(renderStat(data));
+      selectSlide(new StatPresenter().getElement(data));
+
       gameScreens = [Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.STAT];
       break;
   }

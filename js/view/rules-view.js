@@ -1,7 +1,7 @@
 import AbstractView from '.././abstract-view.js';
 
 export default class RulesView extends AbstractView {
-  getTemplate() {
+  get template() {
     return `<div class="rules">
       <h1 class="rules__title">Правила</h1>
       <p class="rules__description">Угадай 10 раз для каждого изображения фото <img

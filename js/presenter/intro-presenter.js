@@ -3,10 +3,10 @@ import IntroView from '.././view/intro-view.js';
 import FooterView from '.././view/footer-view.js';
 
 export default class IntroPresenter extends AbstractView {
-  getTemplate() {
+  get template() {
     return `<div>
-    ${new IntroView().getTemplate()}
-    ${new FooterView().getTemplate()}
+    ${new IntroView().template}
+    ${new FooterView().template}
     </div>`;
   }
 

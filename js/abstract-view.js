@@ -7,7 +7,7 @@ export default class AbstractView {
     }
   }
 
-  getTemplate() {
+  get template() {
     throw new Error(`Template is required`);
   }
 
@@ -21,7 +21,7 @@ export default class AbstractView {
   }
 
   render() {
-    return render(this.getTemplate());
+    return render(this.template);
   }
 
   bind() {

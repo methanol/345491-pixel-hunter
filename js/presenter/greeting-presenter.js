@@ -3,10 +3,10 @@ import GreetingView from '.././view/greeting-view.js';
 import FooterView from '.././view/footer-view.js';
 
 export default class GreetingPresenter extends AbstractView {
-  getTemplate() {
+  get template() {
     return `<div>
-    ${new GreetingView().getTemplate()}
-    ${new FooterView().getTemplate()}
+    ${new GreetingView().template}
+    ${new FooterView().template}
     </div>`;
   }
 

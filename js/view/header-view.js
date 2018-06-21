@@ -4,7 +4,7 @@ import {workState} from '.././data.js';
 const MAX_LIVES = 3;
 
 export default class HeaderView extends AbstractView {
-  getTemplate() {
+  get template() {
     return (!workState.isGameScreen) ? `<header class="header">
     <div class="header__back">
       <button class="back">
