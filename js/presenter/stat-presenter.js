@@ -1,24 +1,16 @@
-import AbstractView from '.././abstract-view.js';
 import StatView from '.././view/stat-view.js';
-import FooterView from '.././view/footer-view.js';
-import HeaderView from '.././view/header-view.js';
-import {workState} from '.././data.js';
 
-export default class StatPresenter extends AbstractView {
-  get template() {
-    workState.isGameScreen = false;
-    return `<div>
-    ${new HeaderView().template}
-    ${new StatView().template}
-    ${new FooterView().template}
-    </div>`;
+export default class StatPresenter {
+  constructor(data) {
+    this.data = data;
+    this.view = new StatView();
   }
 
-  bind(element, data) {
-    const btnBack = element.querySelector(`button.back`);
+  create() {
+    this.view.getBackClick = () => {
+      this.data.goBack();
+    };
 
-    btnBack.addEventListener(`click`, () => {
-      data.goBack();
-    });
+    return this.view.element;
   }
 }

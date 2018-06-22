@@ -1,6 +1,12 @@
 import AbstractView from '.././abstract-view.js';
+import FooterView from './footer-view.js';
 
 export default class GreetingView extends AbstractView {
+  constructor(data) {
+    super();
+    this.data = data;
+  }
+
   get template() {
     return `<div class="greeting central--blur">
       <div class="greeting__logo"><img src="img/logo_big.png" width="201" height="89" alt="Pixel Hunter"></div>
@@ -14,6 +20,15 @@ export default class GreetingView extends AbstractView {
           Помни, главное — смотреть очень внимательно.</p>
       </div>
       <div class="greeting__continue"><span><img src="img/arrow_right.svg" width="64" height="64" alt="Next"></span></div>
-    </div>`;
+    </div>
+    ${new FooterView().template}`;
+  }
+
+  bind() {
+    const greetingContinue = this._element.querySelector(`.greeting__continue`);
+
+    greetingContinue.addEventListener(`click`, () => {
+      this.getClick();
+    });
   }
 }

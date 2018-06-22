@@ -18,22 +18,22 @@ const Screens = {
 
 let gameScreens = [Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.STAT];
 
-
 function goNextScreen(screenType) {
   let data = {};
+
   switch (screenType) {
     case Screens.INTRO:
       data = {
         showNextScreen: () => goNextScreen(Screens.GREETING)
       };
-      selectSlide(new IntroPresenter().getElement(data));
+      selectSlide(new IntroPresenter(data).create());
       break;
 
     case Screens.GREETING:
       data = {
         showNextScreen: () => goNextScreen(Screens.RULES)
       };
-      selectSlide(new GreetingPresenter().getElement(data));
+      selectSlide(new GreetingPresenter(data).create());
       break;
 
     case Screens.RULES:
@@ -41,7 +41,7 @@ function goNextScreen(screenType) {
         showNextScreen: () => goNextScreen(gameScreens.shift()),
         goBack: () => goNextScreen(Screens.GREETING)
       };
-      selectSlide(new RulesPresenter().getElement(data));
+      selectSlide(new RulesPresenter(data).create());
       break;
 
     case Screens.GAME_1:
@@ -55,7 +55,7 @@ function goNextScreen(screenType) {
         },
         goBack: () => goNextScreen(Screens.GREETING)
       };
-      selectSlide(new GamePresenter(Screens.GAME_1).getElement(data));
+      selectSlide(new GamePresenter(data, Screens.GAME_1).create());
       break;
 
     case Screens.GAME_2:
@@ -69,7 +69,7 @@ function goNextScreen(screenType) {
         },
         goBack: () => goNextScreen(Screens.GREETING)
       };
-      selectSlide(new GamePresenter(Screens.GAME_2).getElement(data));
+      selectSlide(new GamePresenter(data, Screens.GAME_2).create());
       break;
 
     case Screens.GAME_3:
@@ -83,14 +83,14 @@ function goNextScreen(screenType) {
         },
         goBack: () => goNextScreen(Screens.GREETING)
       };
-      selectSlide(new GamePresenter(Screens.GAME_3).getElement(data));
+      selectSlide(new GamePresenter(data, Screens.GAME_3).create());
       break;
 
     case `stat`:
       data = {
         goBack: () => goNextScreen(Screens.GREETING)
       };
-      selectSlide(new StatPresenter().getElement(data));
+      selectSlide(new StatPresenter(data).create());
 
       gameScreens = [Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.STAT];
       break;

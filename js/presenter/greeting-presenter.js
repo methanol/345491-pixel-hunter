@@ -1,20 +1,17 @@
-import AbstractView from '.././abstract-view.js';
 import GreetingView from '.././view/greeting-view.js';
-import FooterView from '.././view/footer-view.js';
 
-export default class GreetingPresenter extends AbstractView {
-  get template() {
-    return `<div>
-    ${new GreetingView().template}
-    ${new FooterView().template}
-    </div>`;
+export default class GreetingPresenter {
+  constructor(data) {
+    this.data = data;
+    this.view = new GreetingView(this.data);
   }
 
-  bind(element, data) {
-    const greetingContinue = element.querySelector(`.greeting__continue`);
+  create() {
+    this.view.getClick = () => {
+      this.data.showNextScreen();
+    };
 
-    greetingContinue.addEventListener(`click`, () => {
-      data.showNextScreen();
-    });
+    return this.view.element;
   }
+
 }

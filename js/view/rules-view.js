@@ -1,8 +1,11 @@
 import AbstractView from '.././abstract-view.js';
+import FooterView from '.././view/footer-view.js';
+import HeaderView from '.././view/header-view.js';
 
 export default class RulesView extends AbstractView {
   get template() {
-    return `<div class="rules">
+    return `${new HeaderView().template}
+    <div class="rules">
       <h1 class="rules__title">Правила</h1>
       <p class="rules__description">Угадай 10 раз для каждого изображения фото <img
         src="img/photo_icon.png" width="16" height="16"> или рисунок <img
@@ -17,6 +20,26 @@ export default class RulesView extends AbstractView {
         <input class="rules__input" type="text" placeholder="Ваше Имя">
         <button class="rules__button  continue" type="submit" disabled>Go!</button>
       </form>
-    </div>`;
+    </div>
+    ${new FooterView().template}`;
+  }
+
+  bind() {
+    const rulesInput = this._element.querySelector(`.rules__input`);
+    const rulesButton = this._element.querySelector(`.rules__button`);
+    const btnBack = this._element.querySelector(`button.back`);
+
+    btnBack.addEventListener(`click`, () => {
+      this.getBackClick();
+    });
+
+    rulesInput.addEventListener(`input`, () => {
+      rulesButton.disabled = (rulesInput.value === ``) ? true : false;
+    });
+
+    rulesButton.addEventListener(`click`, (evt) => {
+      evt.preventDefault();
+      this.getClick();
+    });
   }
 }

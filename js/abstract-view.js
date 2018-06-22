@@ -11,12 +11,12 @@ export default class AbstractView {
     throw new Error(`Template is required`);
   }
 
-  getElement(data) {
+  get element() {
     if (this._element) {
       return this._element;
     }
     this._element = this.render();
-    this.bind(this._element, data);
+    this.bind(this._element);
     return this._element;
   }
 
@@ -25,6 +25,11 @@ export default class AbstractView {
   }
 
   bind() {
+  }
 
+  getClick() {
+  }
+
+  getBackClick() {
   }
 }
