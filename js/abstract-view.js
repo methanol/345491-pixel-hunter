@@ -26,10 +26,4 @@ export default class AbstractView {
 
   bind() {
   }
-
-  getClick() {
-  }
-
-  getBackClick() {
-  }
 }

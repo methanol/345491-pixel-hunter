@@ -128,11 +128,6 @@ export default class GameOneView extends AbstractView {
 
     switch (this.gameName) {
       case Screens.GAME_1:
-        this._element.addEventListener(`change`, () => {
-          this.getClick();
-        });
-        break;
-
       case Screens.GAME_2:
         this._element.addEventListener(`change`, () => {
           this.getClick();

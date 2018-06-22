@@ -1,19 +1,26 @@
 import GameOneView from '.././view/game-one-view.js';
-// import GameTwoView from '.././view/game-two-view.js';
-// import GameThreeView from '.././view/game-three-view.js';
 import {workState} from '.././data.js';
-
-const Screens = {
-  GAME_1: `game-1`,
-  GAME_2: `game-2`,
-  GAME_3: `game-3`
-};
+import {Screens} from '.././permanent.js';
+import {Velocities} from '.././permanent.js';
 
 export default class GamePresenter {
   constructor(data, name) {
     this.data = data;
     this.view = new GameOneView(name);
     this.gameName = name;
+  }
+
+  checkAnswer(answerCode) {
+    if (answerCode === workState.keyCodes[workState.counter]) {
+      workState.answers[workState.counter] = Velocities.NORMAL_MODE;
+    } else {
+      workState.answers[workState.counter] = Velocities.WRONG_MODE;
+      if (workState.lives >= 0) {
+        --workState.lives;
+      }
+    }
+
+    workState.counter++;
   }
 
   create() {
@@ -29,18 +36,7 @@ export default class GamePresenter {
 
           if (((questions1[0].checked) || (questions1[1].checked)) && ((questions2[0].checked) || (questions2[1].checked))) {
 
-            const answerCode = [...questions1, ...questions2].map((it) => it.checked ? 1 : 0).join(``);
-
-            if (answerCode === workState.keyCodes[workState.counter]) {
-              workState.answers[workState.counter] = `correct`;
-            } else {
-              workState.answers[workState.counter] = `wrong`;
-              if (workState.lives >= 0) {
-                --workState.lives;
-              }
-            }
-
-            workState.counter++;
+            this.checkAnswer([...questions1, ...questions2].map((it) => it.checked ? 1 : 0).join(``));
 
             this.data.showNextScreen();
           }
@@ -53,18 +49,7 @@ export default class GamePresenter {
 
           if ((questions1[0].checked) || (questions1[1].checked)) {
 
-            const answerCode = [...questions1].map((it) => it.checked ? 1 : 0).join(``);
-
-            if (answerCode === workState.keyCodes[workState.counter]) {
-              workState.answers[workState.counter] = `correct`;
-            } else {
-              workState.answers[workState.counter] = `wrong`;
-              if (workState.lives >= 0) {
-                --workState.lives;
-              }
-            }
-
-            workState.counter++;
+            this.checkAnswer([...questions1].map((it) => it.checked ? 1 : 0).join(``));
 
             this.data.showNextScreen();
           }
@@ -78,29 +63,15 @@ export default class GamePresenter {
           options.forEach((it) => {
             it.addEventListener(`click`, () => {
 
-              const answerCode = [...options].map((item) => (it === item) ? 1 : 0).join(``);
-
-              if (answerCode === workState.keyCodes[workState.counter]) {
-                workState.answers[workState.counter] = `correct`;
-              } else {
-                workState.answers[workState.counter] = `wrong`;
-                if (workState.lives >= 0) {
-                  --workState.lives;
-                }
-              }
-
-              workState.counter++;
+              this.checkAnswer([...options].map((item) => (it === item) ? 1 : 0).join(``));
 
               this.data.showNextScreen();
             });
           });
         };
         break;
-
-
     }
 
     return this.view.element;
-
   }
 }

@@ -5,16 +5,7 @@ import GreetingPresenter from './presenter/greeting-presenter.js';
 import RulesPresenter from './presenter/rules-presenter.js';
 import GamePresenter from './presenter/game-presenter.js';
 import StatPresenter from './presenter/stat-presenter.js';
-
-const Screens = {
-  INTRO: `intro`,
-  GREETING: `greeting`,
-  RULES: `rules`,
-  GAME_1: `game-1`,
-  GAME_2: `game-2`,
-  GAME_3: `game-3`,
-  STAT: `stat`
-};
+import {Screens} from './permanent.js';
 
 let gameScreens = [Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.STAT];
 
