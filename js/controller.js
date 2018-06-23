@@ -1,41 +1,30 @@
-import renderIntro from './templates/intro-template.js';
-import renderGreeting from './templates/greeting-template.js';
-import renderRules from './templates/rules-template.js';
-import {renderFirstGame} from './templates/game-one-template.js';
-import {renderSecondGame} from './templates/game-two-template.js';
-import {renderThirdGame} from './templates/game-three-template.js';
-import renderStat from './templates/stat-template.js';
 import {selectSlide} from './util.js';
-import {workState, photos} from './data.js';
-
-const Screens = {
-  INTRO: `intro`,
-  GREETING: `greeting`,
-  RULES: `rules`,
-  GAME_1: `game-1`,
-  GAME_2: `game-2`,
-  GAME_3: `game-3`,
-  STAT: `stat`
-};
+import {workState} from './data.js';
+import IntroPresenter from './presenter/intro-presenter.js';
+import GreetingPresenter from './presenter/greeting-presenter.js';
+import RulesPresenter from './presenter/rules-presenter.js';
+import GamePresenter from './presenter/game-presenter.js';
+import StatPresenter from './presenter/stat-presenter.js';
+import {Screens} from './permanent.js';
 
 let gameScreens = [Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.STAT];
 
-
 function goNextScreen(screenType) {
   let data = {};
+
   switch (screenType) {
     case Screens.INTRO:
       data = {
         showNextScreen: () => goNextScreen(Screens.GREETING)
       };
-      selectSlide(renderIntro(data));
+      selectSlide(new IntroPresenter(data).create());
       break;
 
     case Screens.GREETING:
       data = {
         showNextScreen: () => goNextScreen(Screens.RULES)
       };
-      selectSlide(renderGreeting(data));
+      selectSlide(new GreetingPresenter(data).create());
       break;
 
     case Screens.RULES:
@@ -43,7 +32,7 @@ function goNextScreen(screenType) {
         showNextScreen: () => goNextScreen(gameScreens.shift()),
         goBack: () => goNextScreen(Screens.GREETING)
       };
-      selectSlide(renderRules(data));
+      selectSlide(new RulesPresenter(data).create());
       break;
 
     case Screens.GAME_1:
@@ -55,11 +44,9 @@ function goNextScreen(screenType) {
             goNextScreen(Screens.STAT);
           }
         },
-        goBack: () => goNextScreen(Screens.GREETING),
-        photo1: photos[workState.photoCounter++],
-        photo2: photos[workState.photoCounter++]
+        goBack: () => goNextScreen(Screens.GREETING)
       };
-      selectSlide(renderFirstGame(data));
+      selectSlide(new GamePresenter(data, Screens.GAME_1).create());
       break;
 
     case Screens.GAME_2:
@@ -71,10 +58,9 @@ function goNextScreen(screenType) {
             goNextScreen(Screens.STAT);
           }
         },
-        goBack: () => goNextScreen(Screens.GREETING),
-        photo1: photos[workState.photoCounter++]
+        goBack: () => goNextScreen(Screens.GREETING)
       };
-      selectSlide(renderSecondGame(data));
+      selectSlide(new GamePresenter(data, Screens.GAME_2).create());
       break;
 
     case Screens.GAME_3:
@@ -86,19 +72,17 @@ function goNextScreen(screenType) {
             goNextScreen(Screens.STAT);
           }
         },
-        goBack: () => goNextScreen(Screens.GREETING),
-        photo1: photos[workState.photoCounter++],
-        photo2: photos[workState.photoCounter++],
-        photo3: photos[workState.photoCounter++]
+        goBack: () => goNextScreen(Screens.GREETING)
       };
-      selectSlide(renderThirdGame(data));
+      selectSlide(new GamePresenter(data, Screens.GAME_3).create());
       break;
 
     case `stat`:
       data = {
         goBack: () => goNextScreen(Screens.GREETING)
       };
-      selectSlide(renderStat(data));
+      selectSlide(new StatPresenter(data).create());
+
       gameScreens = [Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.STAT];
       break;
   }

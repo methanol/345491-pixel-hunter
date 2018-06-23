@@ -1,10 +1,8 @@
+import {Velocities} from './permanent.js';
+
 const NORMAL_SCORE = 100;
 const SLOW_SCORE = 50;
 const FAST_SCORE = 150;
-const NORMAL_MODE = `correct`;
-const SLOW_MODE = `slow`;
-const FAST_MODE = `fast`;
-const WRONG_MODE = `wrong`;
 const LIFE_PRICE = 50;
 
 const getScore = (state) => {
@@ -29,16 +27,16 @@ const getScore = (state) => {
 
   for (let i = 0; i < state.answers.length; i++) {
     switch (state.answers[i]) {
-      case NORMAL_MODE:
+      case Velocities.NORMAL_MODE:
         totalScore += NORMAL_SCORE;
         break;
-      case SLOW_MODE:
+      case Velocities.SLOW_MODE:
         totalScore += SLOW_SCORE;
         break;
-      case FAST_MODE:
+      case Velocities.FAST_MODE:
         totalScore += FAST_SCORE;
         break;
-      case WRONG_MODE:
+      case Velocities.WRONG_MODE:
         totalScore += 0;
         break;
       default:
