@@ -1,5 +1,5 @@
 import {selectSlide} from './util.js';
-import {workState} from './data.js';
+import {gamer1} from './data.js';
 import IntroPresenter from './presenter/intro-presenter.js';
 import GreetingPresenter from './presenter/greeting-presenter.js';
 import RulesPresenter from './presenter/rules-presenter.js';
@@ -9,83 +9,90 @@ import {Screens} from './permanent.js';
 
 let gameScreens = [Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.STAT];
 
-function goNextScreen(screenType) {
-  let data = {};
+export default class ScreenRouter {
+  constructor(screenType) {
+    this.screenType = screenType;
+    this.data = {};
+  }
 
-  switch (screenType) {
-    case Screens.INTRO:
-      data = {
-        showNextScreen: () => goNextScreen(Screens.GREETING)
-      };
-      selectSlide(new IntroPresenter(data).create());
-      break;
+  switchScreen() {
+    switch (this.screenType) {
+      case Screens.INTRO:
+        this.data = {
+          showNextScreen: () => new ScreenRouter(Screens.GREETING).switchScreen()
+        };
+        selectSlide(new IntroPresenter(this.data).create());
+        break;
 
-    case Screens.GREETING:
-      data = {
-        showNextScreen: () => goNextScreen(Screens.RULES)
-      };
-      selectSlide(new GreetingPresenter(data).create());
-      break;
+      case Screens.GREETING:
+        this.data = {
+          showNextScreen: () => new ScreenRouter(Screens.RULES).switchScreen()
+        };
+        selectSlide(new GreetingPresenter(this.data).create());
+        break;
 
-    case Screens.RULES:
-      data = {
-        showNextScreen: () => goNextScreen(gameScreens.shift()),
-        goBack: () => goNextScreen(Screens.GREETING)
-      };
-      selectSlide(new RulesPresenter(data).create());
-      break;
+      case Screens.RULES:
+        this.data = {
+          showNextScreen: () => new ScreenRouter(gameScreens.shift()).switchScreen(),
+          goBack: () => new ScreenRouter(Screens.GREETING).switchScreen()
+        };
+        selectSlide(new RulesPresenter(this.data).create());
+        break;
 
-    case Screens.GAME_1:
-      data = {
-        showNextScreen: () => {
-          if (workState.lives >= 0) {
-            goNextScreen(gameScreens.shift());
-          } else {
-            goNextScreen(Screens.STAT);
-          }
-        },
-        goBack: () => goNextScreen(Screens.GREETING)
-      };
-      selectSlide(new GamePresenter(data, Screens.GAME_1).create());
-      break;
+      case Screens.GAME_1:
+        this.data = {
+          showNextScreen: () => {
+            if (gamer1._lives >= 0) {
+              new ScreenRouter(gameScreens.shift()).switchScreen();
+            } else {
+              new ScreenRouter(Screens.STAT).switchScreen();
+            }
+          },
+          goBack: () => new ScreenRouter(Screens.GREETING).switchScreen()
+        };
+        selectSlide(new GamePresenter(this.data, Screens.GAME_1).create());
+        break;
 
-    case Screens.GAME_2:
-      data = {
-        showNextScreen: () => {
-          if (workState.lives >= 0) {
-            goNextScreen(gameScreens.shift());
-          } else {
-            goNextScreen(Screens.STAT);
-          }
-        },
-        goBack: () => goNextScreen(Screens.GREETING)
-      };
-      selectSlide(new GamePresenter(data, Screens.GAME_2).create());
-      break;
+      case Screens.GAME_2:
+        this.data = {
+          showNextScreen: () => {
+            if (gamer1._lives >= 0) {
+              new ScreenRouter(gameScreens.shift()).switchScreen();
+            } else {
+              new ScreenRouter(Screens.STAT).switchScreen();
+            }
+          },
+          goBack: () => new ScreenRouter(Screens.GREETING).switchScreen()
+        };
+        selectSlide(new GamePresenter(this.data, Screens.GAME_2).create());
+        break;
 
-    case Screens.GAME_3:
-      data = {
-        showNextScreen: () => {
-          if (workState.lives >= 0) {
-            goNextScreen(gameScreens.shift());
-          } else {
-            goNextScreen(Screens.STAT);
-          }
-        },
-        goBack: () => goNextScreen(Screens.GREETING)
-      };
-      selectSlide(new GamePresenter(data, Screens.GAME_3).create());
-      break;
+      case Screens.GAME_3:
+        this.data = {
+          showNextScreen: () => {
+            if (gamer1._lives >= 0) {
+              new ScreenRouter(gameScreens.shift()).switchScreen();
+            } else {
+              new ScreenRouter(Screens.STAT).switchScreen();
+            }
+          },
+          goBack: () => new ScreenRouter(Screens.GREETING).switchScreen()
+        };
+        selectSlide(new GamePresenter(this.data, Screens.GAME_3).create());
+        break;
 
-    case `stat`:
-      data = {
-        goBack: () => goNextScreen(Screens.GREETING)
-      };
-      selectSlide(new StatPresenter(data).create());
+      case Screens.STAT:
+        this.data = {
+          goBack: () => new ScreenRouter(Screens.GREETING).switchScreen()
+        };
+        selectSlide(new StatPresenter(this.data).create());
 
-      gameScreens = [Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.STAT];
-      break;
+        gameScreens = [Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.STAT];
+        break;
+    }
+  }
+
+  showIntro() {
+    this.switchScreen(Screens.INTRO);
   }
 }
-
-export {goNextScreen as default};

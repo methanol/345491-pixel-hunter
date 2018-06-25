@@ -7,26 +7,26 @@ const LIFE_PRICE = 50;
 
 const getScore = (state) => {
   let totalScore = 0;
-  let totalLIves = state.lives;
+  let totalLIves = state._lives;
 
   if (totalLIves < 0) {
     return -1;
   }
 
-  if (typeof (state.lives) !== `number`) {
+  if (typeof (state._lives) !== `number`) {
     throw new Error(`type of lives should be number`);
   }
 
-  if (!Array.isArray(state.answers)) {
+  if (!Array.isArray(state._answers)) {
     throw new Error(`type of answers should be array`);
   }
 
-  if (state.answers.length < 10) {
+  if (state._answers.length < 10) {
     return -1;
   }
 
-  for (let i = 0; i < state.answers.length; i++) {
-    switch (state.answers[i]) {
+  for (let i = 0; i < state._answers.length; i++) {
+    switch (state._answers[i]) {
       case Velocities.NORMAL_MODE:
         totalScore += NORMAL_SCORE;
         break;
@@ -44,7 +44,7 @@ const getScore = (state) => {
     }
   }
 
-  totalScore += state.lives * LIFE_PRICE;
+  totalScore += state._lives * LIFE_PRICE;
   return totalScore;
 };
 

@@ -4,6 +4,7 @@ import HeaderView from '.././view/header-view.js';
 
 export default class RulesView extends AbstractView {
   get template() {
+
     return `${new HeaderView().template}
     <div class="rules">
       <h1 class="rules__title">Правила</h1>

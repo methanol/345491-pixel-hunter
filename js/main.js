@@ -1,3 +1,4 @@
-import goNextScreen from './controller.js';
+import ScreenRouter from './controller.js';
+import {Screens} from './permanent.js';
 
-goNextScreen(`intro`);
+new ScreenRouter(Screens.INTRO).showIntro();

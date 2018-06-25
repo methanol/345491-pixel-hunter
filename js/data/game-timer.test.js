@@ -7,16 +7,16 @@ describe(`timer counting`, () => {
     const timer3 = new CreateTimer(7);
     timer3.tick();
     timer3.tick();
-    assert.equal(timer3.showTime(), 5);
+    assert.equal(timer3.time, 5);
     timer3.tick();
     timer3.tick();
     timer3.tick();
-    assert.equal(timer3.showTime(), 2);
+    assert.equal(timer3.time, 2);
     timer3.tick();
     timer3.tick();
-    assert.equal(timer3.showTime(), 0);
+    assert.equal(timer3.time, 0);
     timer3.tick();
-    assert.equal(timer3.showTime(), 0);
+    assert.equal(timer3.time, 0);
   });
 
   it(`incorrect number`, () => {
