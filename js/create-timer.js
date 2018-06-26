@@ -15,7 +15,10 @@ export default class CreateTimer {
     if (this.currentTime > 0) {
       this.currentTime -= 1;
       this.updateTimer(this.time);
-    }
+    } /* else {
+      this.stopTimer();
+      new ScreenRouter(gameScreens.shift()).switchScreen();
+    }*/
   }
 
   get time() {

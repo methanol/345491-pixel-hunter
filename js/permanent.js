@@ -12,7 +12,8 @@ const Velocities = {
   NORMAL_MODE: `correct`,
   SLOW_MODE: `slow`,
   FAST_MODE: `fast`,
-  WRONG_MODE: `wrong`
+  WRONG_MODE: `wrong`,
+  UNKNOWN_MODE: `unknown`
 };
 
 const Times = {

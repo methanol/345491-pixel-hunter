@@ -1,5 +1,5 @@
 import GameOneView from '.././view/game-one-view.js';
-import {model1} from '.././data.js';
+import {model} from '.././data.js';
 import {Screens} from '.././permanent.js';
 import {Velocities, Times} from '.././permanent.js';
 import CreateTimer from '.././create-timer.js';
@@ -13,26 +13,29 @@ export default class GamePresenter {
   }
 
   checkAnswer(answerCode, stopValue) {
-    const {answers, counter, keyCodes} = model1;
+    const {answers, counter, keyCodes} = model;
 
     if (answerCode === keyCodes[counter]) {
       if (stopValue > Times.FAST_TIME) {
         answers[counter] = Velocities.FAST_MODE;
-      } else if (stopValue < Times.SLOW_TIME) {
+      } else if ((stopValue < Times.SLOW_TIME) && (stopValue > 0)) {
         answers[counter] = Velocities.SLOW_MODE;
       } else if ((stopValue >= Times.SLOW_TIME) && (stopValue <= Times.FAST_TIME)) {
         answers[counter] = Velocities.NORMAL_MODE;
       } else {
         answers[counter] = Velocities.WRONG_MODE;
+        if (model.lives >= 0) {
+          --model.lives;
+        }
       }
     } else {
       answers[counter] = Velocities.WRONG_MODE;
-      if (model1.lives >= 0) {
-        --model1.lives;
+      if (model.lives >= 0) {
+        --model.lives;
       }
     }
 
-    model1.counter++;
+    model.counter++;
   }
 
 

@@ -1,5 +1,5 @@
 import RulesView from '.././view/rules-view.js';
-import {model1} from '.././data.js';
+import {model} from '.././data.js';
 
 export default class RulesPresenter {
   constructor(data) {
@@ -10,9 +10,9 @@ export default class RulesPresenter {
   create() {
     this.view.getClick = () => {
       const rulesInput = this.view._element.querySelector(`.rules__input`);
-      model1._userName = rulesInput.value;
+      model.userName = rulesInput.value;
 
-      model1.resetState();
+      model.resetState();
 
       this.data.showNextScreen();
     };

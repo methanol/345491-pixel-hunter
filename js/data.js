@@ -18,17 +18,36 @@ class GameModel {
   }
 
   resetState() {
-    this._lives = 3;
-    this._counter = 0;
-    this._photoCounter = 0;
-    this._isGameScreen = false;
-    this._answers = [`unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`];
+    if (this.answers.filter((it) => it === `unknown`).length < 10) {
+      statistics.unshift(new GameStatistic(model.answers, model.userName, model.lives, model.counter));
+    }
+    this.lives = 3;
+    this.counter = 0;
+    this.photoCounter = 0;
+    this.isGameScreen = false;
+    this.answers = [`unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`];
   }
 }
 
-const model1 = new GameModel();
+const model = new GameModel();
+
+const statistics = [];
+const NO_LIVES = -1;
+const NO_COUNTER = 5;
+
+class GameStatistic {
+  constructor(answers, userName = ``, lives = NO_LIVES, counter = NO_COUNTER) {
+    this.answers = answers;
+    this.userName = userName;
+    this.lives = lives;
+    this.counter = counter;
+  }
+}
+
+statistics.unshift(new GameStatistic(model.answers));
+statistics.unshift(new GameStatistic(model.answers));
 
 
 const PHOTOS = [`https://k42.kn3.net/CF42609C8.jpg`, `https://k42.kn3.net/D2F0370D6.jpg`, `http://i.imgur.com/1KegWPz.jpg`, `https://k32.kn3.net/5C7060EC5.jpg`, `https://i.imgur.com/DiHM5Zb.jpg`, `http://i.imgur.com/DKR1HtB.jpg`, `https://k42.kn3.net/CF42609C8.jpg`, `https://k42.kn3.net/D2F0370D6.jpg`, `http://i.imgur.com/1KegWPz.jpg`, `https://k32.kn3.net/5C7060EC5.jpg`, `https://i.imgur.com/DiHM5Zb.jpg`, `http://i.imgur.com/DKR1HtB.jpg`, `https://k42.kn3.net/CF42609C8.jpg`, `https://k42.kn3.net/D2F0370D6.jpg`, `http://i.imgur.com/1KegWPz.jpg`, `https://k32.kn3.net/5C7060EC5.jpg`, `https://i.imgur.com/DiHM5Zb.jpg`, `http://i.imgur.com/DKR1HtB.jpg`, `https://k42.kn3.net/CF42609C8.jpg`, `https://k42.kn3.net/D2F0370D6.jpg`];
 
-export {PHOTOS, model1};
+export {PHOTOS, model, statistics};
