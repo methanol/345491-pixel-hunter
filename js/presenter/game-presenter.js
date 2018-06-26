@@ -12,29 +12,8 @@ export default class GamePresenter {
     this.timing = new CreateTimer(Times.START_TIME, (time) => this.view.updateTimer(time));
   }
 
-  /* checkAnswer(answerCode, stopValue) {
-    if (answerCode === model1.keyCodes[model1.counter]) {
-      if (stopValue > Times.FAST_TIME) {
-        model1.answers[model1.counter] = Velocities.FAST_MODE;
-      } else if (stopValue < Times.SLOW_TIME) {
-        model1.answers[model1.counter] = Velocities.SLOW_MODE;
-      } else if ((stopValue >= Times.SLOW_TIME) && (stopValue <= Times.FAST_TIME)) {
-        model1.answers[model1.counter] = Velocities.NORMAL_MODE;
-      } else {
-        model1.answers[model1.counter] = Velocities.WRONG_MODE;
-      }
-    } else {
-      model1.answers[model1.counter] = Velocities.WRONG_MODE;
-      if (model1.lives >= 0) {
-        --model1.lives;
-      }
-    }
-
-    model1.counter++;
-  }*/
-
   checkAnswer(answerCode, stopValue) {
-    const {answers, counter, keyCodes, lives} = model1;
+    const {answers, counter, keyCodes} = model1;
 
     if (answerCode === keyCodes[counter]) {
       if (stopValue > Times.FAST_TIME) {
