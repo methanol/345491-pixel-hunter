@@ -1,5 +1,5 @@
 import {selectSlide} from './util.js';
-import {gamer1} from './data.js';
+import {model1} from './data.js';
 import IntroPresenter from './presenter/intro-presenter.js';
 import GreetingPresenter from './presenter/greeting-presenter.js';
 import RulesPresenter from './presenter/rules-presenter.js';
@@ -42,7 +42,7 @@ export default class ScreenRouter {
       case Screens.GAME_1:
         this.data = {
           showNextScreen: () => {
-            if (gamer1._lives >= 0) {
+            if (model1.lives >= 0) {
               new ScreenRouter(gameScreens.shift()).switchScreen();
             } else {
               new ScreenRouter(Screens.STAT).switchScreen();
@@ -56,7 +56,7 @@ export default class ScreenRouter {
       case Screens.GAME_2:
         this.data = {
           showNextScreen: () => {
-            if (gamer1._lives >= 0) {
+            if (model1.lives >= 0) {
               new ScreenRouter(gameScreens.shift()).switchScreen();
             } else {
               new ScreenRouter(Screens.STAT).switchScreen();
@@ -70,7 +70,7 @@ export default class ScreenRouter {
       case Screens.GAME_3:
         this.data = {
           showNextScreen: () => {
-            if (gamer1._lives >= 0) {
+            if (model1.lives >= 0) {
               new ScreenRouter(gameScreens.shift()).switchScreen();
             } else {
               new ScreenRouter(Screens.STAT).switchScreen();

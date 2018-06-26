@@ -2,28 +2,28 @@ import {assert} from 'chai';
 import getScore from '.././get-score.js';
 
 const GAME1_SCORE = {
-  _lives: 3,
-  _answers: [`correct`, `correct`, `correct`, `correct`, `correct`, `correct`, `correct`, `correct`, `correct`, `correct`]
+  lives: 3,
+  answers: [`correct`, `correct`, `correct`, `correct`, `correct`, `correct`, `correct`, `correct`, `correct`, `correct`]
 };
 
 const GAME2_SCORE = {
-  _lives: 3,
-  _answers: [`correct`, `correct`]
+  lives: 3,
+  answers: [`correct`, `correct`]
 };
 
 const GAME3_SCORE = {
-  _lives: 2,
-  _answers: [`correct`, `correct`, `correct`, `correct`, `correct`, `correct`, `correct`, `correct`, `correct`, `wrong`]
+  lives: 2,
+  answers: [`correct`, `correct`, `correct`, `correct`, `correct`, `correct`, `correct`, `correct`, `correct`, `wrong`]
 };
 
 const GAME4_SCORE = {
-  _lives: `fuck`,
-  _answers: [`correct`, `correct`, `correct`, `correct`, `correct`, `correct`, `correct`, `correct`, `correct`, `wrong`]
+  lives: `fuck`,
+  answers: [`correct`, `correct`, `correct`, `correct`, `correct`, `correct`, `correct`, `correct`, `correct`, `wrong`]
 };
 
 const GAME5_SCORE = {
-  _lives: 2,
-  _answers: `fuck`
+  lives: 2,
+  answers: `fuck`
 };
 
 describe(`Score calculation`, () => {

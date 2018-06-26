@@ -1,54 +1,61 @@
 import GameOneView from '.././view/game-one-view.js';
-import {gamer1} from '.././data.js';
+import {model1} from '.././data.js';
 import {Screens} from '.././permanent.js';
-import {Velocities} from '.././permanent.js';
+import {Velocities, Times} from '.././permanent.js';
 import CreateTimer from '.././create-timer.js';
-
-const START_TIME = 30;
-const FAST_TIME = 20;
-const SLOW_TIME = 10;
 
 export default class GamePresenter {
   constructor(data, name) {
     this.data = data;
     this.view = new GameOneView(name);
     this.gameName = name;
-    this.timing = new CreateTimer(START_TIME);
+    this.timing = new CreateTimer(Times.START_TIME, (time) => this.view.updateTimer(time));
   }
 
-  /* checkAnswer(answerCode) {
-    if (answerCode === workState.keyCodes[workState.counter]) {
-      workState.answers[workState.counter] = Velocities.NORMAL_MODE;
+  /* checkAnswer(answerCode, stopValue) {
+    if (answerCode === model1.keyCodes[model1.counter]) {
+      if (stopValue > Times.FAST_TIME) {
+        model1.answers[model1.counter] = Velocities.FAST_MODE;
+      } else if (stopValue < Times.SLOW_TIME) {
+        model1.answers[model1.counter] = Velocities.SLOW_MODE;
+      } else if ((stopValue >= Times.SLOW_TIME) && (stopValue <= Times.FAST_TIME)) {
+        model1.answers[model1.counter] = Velocities.NORMAL_MODE;
+      } else {
+        model1.answers[model1.counter] = Velocities.WRONG_MODE;
+      }
     } else {
-      workState.answers[workState.counter] = Velocities.WRONG_MODE;
-      if (workState.lives >= 0) {
-        --workState.lives;
+      model1.answers[model1.counter] = Velocities.WRONG_MODE;
+      if (model1.lives >= 0) {
+        --model1.lives;
       }
     }
 
-    workState.counter++;
+    model1.counter++;
   }*/
 
   checkAnswer(answerCode, stopValue) {
-    if (answerCode === gamer1._keyCodes[gamer1._counter]) {
-      if (stopValue > FAST_TIME) {
-        gamer1._answers[gamer1._counter] = Velocities.FAST_MODE;
-      } else if (stopValue < SLOW_TIME) {
-        gamer1._answers[gamer1._counter] = Velocities.SLOW_MODE;
-      } else if ((stopValue >= SLOW_TIME) && (stopValue <= FAST_TIME)) {
-        gamer1._answers[gamer1._counter] = Velocities.NORMAL_MODE;
+    const {answers, counter, keyCodes, lives} = model1;
+
+    if (answerCode === keyCodes[counter]) {
+      if (stopValue > Times.FAST_TIME) {
+        answers[counter] = Velocities.FAST_MODE;
+      } else if (stopValue < Times.SLOW_TIME) {
+        answers[counter] = Velocities.SLOW_MODE;
+      } else if ((stopValue >= Times.SLOW_TIME) && (stopValue <= Times.FAST_TIME)) {
+        answers[counter] = Velocities.NORMAL_MODE;
       } else {
-        gamer1._answers[gamer1._counter] = Velocities.WRONG_MODE;
+        answers[counter] = Velocities.WRONG_MODE;
       }
     } else {
-      gamer1._answers[gamer1._counter] = Velocities.WRONG_MODE;
-      if (gamer1._lives >= 0) {
-        --gamer1._lives;
+      answers[counter] = Velocities.WRONG_MODE;
+      if (model1.lives >= 0) {
+        --model1.lives;
       }
     }
 
-    gamer1._counter++;
+    model1.counter++;
   }
+
 
   create() {
     this.view.getBackClick = () => {

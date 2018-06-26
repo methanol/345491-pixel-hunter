@@ -1,14 +1,10 @@
 const ONE_SECOND = 1000;
 
-function updateTimer(time) {
-  let timeBox = document.querySelector(`.game__timer`);
-  timeBox.textContent = time;
-}
-
 export default class CreateTimer {
-  constructor(time) {
+  constructor(time, updateTimer = () => 1) {
     this.currentTime = time;
     this.timer = {};
+    this.updateTimer = updateTimer;
 
     if (typeof (this.currentTime) !== `number`) {
       throw new Error(`type of time should be number`);
@@ -18,7 +14,7 @@ export default class CreateTimer {
   tick() {
     if (this.currentTime > 0) {
       this.currentTime -= 1;
-      updateTimer(this.time);
+      this.updateTimer(this.time);
     }
   }
 

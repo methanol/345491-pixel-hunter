@@ -1,7 +1,7 @@
-import AbstractView from '.././abstract-view.js';
+import InitialGameView from '.././initial-game-view.js';
 import FooterView from './footer-view.js';
 
-export default class IntroView extends AbstractView {
+export default class IntroView extends InitialGameView {
   constructor(data) {
     super();
     this.data = data;

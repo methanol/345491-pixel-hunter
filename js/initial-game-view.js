@@ -1,9 +1,9 @@
 import {render} from './util.js';
 
-export default class AbstractView {
+export default class InitialGameView {
   constructor() {
-    if (new.target === AbstractView) {
-      throw new Error(`Can't instantiate AbstractView, only concrete one`);
+    if (new.target === InitialGameView) {
+      throw new Error(`Can't instantiate InitialGameView, only concrete one`);
     }
   }
 

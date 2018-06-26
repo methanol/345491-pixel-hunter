@@ -1,7 +1,7 @@
-import AbstractView from '.././abstract-view.js';
+import InitialGameView from '.././initial-game-view.js';
 import FooterView from '.././view/footer-view.js';
 import HeaderView from '.././view/header-view.js';
-import {photos, gamer1} from '.././data.js';
+import {PHOTOS, model1} from '.././data.js';
 
 const Screens = {
   GAME_1: `game-1`,
@@ -9,7 +9,7 @@ const Screens = {
   GAME_3: `game-3`
 };
 
-export default class GameOneView extends AbstractView {
+export default class GameOneView extends InitialGameView {
   constructor(name) {
     super();
     this.gameName = name;
@@ -17,7 +17,7 @@ export default class GameOneView extends AbstractView {
 
   get template() {
     let templ = ``;
-    gamer1.switchHeaderBig();
+    model1.switchHeaderBig();
 
     switch (this.gameName) {
       case Screens.GAME_1:
@@ -27,7 +27,7 @@ export default class GameOneView extends AbstractView {
           <p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>
           <form class="game__content">
             <div class="game__option">
-              <img src=${photos[gamer1._photoCounter++]} alt="Option 1" width="468" height="458">
+              <img src=${PHOTOS[model1.photoCounter++]} alt="Option 1" width="468" height="458">
               <label class="game__answer game__answer--photo">
                 <input name="question1" type="radio" value="photo">
                 <span>Фото</span>
@@ -38,7 +38,7 @@ export default class GameOneView extends AbstractView {
               </label>
             </div>
             <div class="game__option">
-              <img src=${photos[gamer1._photoCounter++]} alt="Option 2" width="468" height="458">
+              <img src=${PHOTOS[model1.photoCounter++]} alt="Option 2" width="468" height="458">
               <label class="game__answer  game__answer--photo">
                 <input name="question2" type="radio" value="photo">
                 <span>Фото</span>
@@ -51,7 +51,7 @@ export default class GameOneView extends AbstractView {
           </form>
           <div class="stats">
             <ul class="stats">
-            ${gamer1._answers.map((it) => `<li class="stats__result stats__result--${it}"></li>`).join(``)}
+            ${model1.answers.map((it) => `<li class="stats__result stats__result--${it}"></li>`).join(``)}
             </ul>
           </div>
         </div>
@@ -66,7 +66,7 @@ export default class GameOneView extends AbstractView {
           <p class="game__task">Угадай, фото или рисунок?</p>
           <form class="game__content  game__content--wide">
             <div class="game__option">
-              <img src=${photos[gamer1._photoCounter++]} alt="Option 1" width="705" height="455">
+              <img src=${PHOTOS[model1.photoCounter++]} alt="Option 1" width="705" height="455">
               <label class="game__answer  game__answer--photo">
                 <input name="question1" type="radio" value="photo">
                 <span>Фото</span>
@@ -79,7 +79,7 @@ export default class GameOneView extends AbstractView {
           </form>
           <div class="stats">
             <ul class="stats">
-            ${gamer1._answers.map((it) =>
+            ${model1.answers.map((it) =>
     `<li class="stats__result stats__result--${it}"></li>`).join(``)}
             </ul>
           </div>
@@ -95,18 +95,18 @@ export default class GameOneView extends AbstractView {
           <p class="game__task">Найдите рисунок среди изображений</p>
           <form class="game__content  game__content--triple">
             <div class="game__option">
-              <img src=${photos[gamer1._photoCounter++]} alt="Option 1" width="304" height="455">
+              <img src=${PHOTOS[model1.photoCounter++]} alt="Option 1" width="304" height="455">
             </div>
             <div class="game__option  game__option--selected">
-              <img src=${photos[gamer1._photoCounter++]} alt="Option 1" width="304" height="455">
+              <img src=${PHOTOS[model1.photoCounter++]} alt="Option 1" width="304" height="455">
             </div>
             <div class="game__option">
-              <img src=${photos[gamer1._photoCounter++]} alt="Option 1" width="304" height="455">
+              <img src=${PHOTOS[model1.photoCounter++]} alt="Option 1" width="304" height="455">
             </div>
           </form>
           <div class="stats">
           <ul class="stats">
-          ${gamer1._answers.map((it) =>
+          ${model1.answers.map((it) =>
     `<li class="stats__result stats__result--${it}"></li>`).join(``)}
           </ul>
           </div>
@@ -138,6 +138,11 @@ export default class GameOneView extends AbstractView {
         this.getClick();
         break;
     }
+  }
+
+  updateTimer(time) {
+    const timeBox = this.element.querySelector(`.game__timer`);
+    timeBox.textContent = time;
   }
 
 }

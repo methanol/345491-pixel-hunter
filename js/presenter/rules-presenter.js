@@ -1,5 +1,5 @@
 import RulesView from '.././view/rules-view.js';
-import {workState, gamer1} from '.././data.js';
+import {model1} from '.././data.js';
 
 export default class RulesPresenter {
   constructor(data) {
@@ -10,9 +10,9 @@ export default class RulesPresenter {
   create() {
     this.view.getClick = () => {
       const rulesInput = this.view._element.querySelector(`.rules__input`);
-      workState.userName = rulesInput.value;
+      model1._userName = rulesInput.value;
 
-      gamer1.resetState();
+      model1.resetState();
 
       this.data.showNextScreen();
     };
