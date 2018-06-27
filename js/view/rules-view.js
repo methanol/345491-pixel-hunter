@@ -1,9 +1,10 @@
-import AbstractView from '.././abstract-view.js';
+import InitialGameView from '.././initial-game-view.js';
 import FooterView from '.././view/footer-view.js';
 import HeaderView from '.././view/header-view.js';
 
-export default class RulesView extends AbstractView {
+export default class RulesView extends InitialGameView {
   get template() {
+
     return `${new HeaderView().template}
     <div class="rules">
       <h1 class="rules__title">Правила</h1>

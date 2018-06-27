@@ -1,7 +1,5 @@
 import RulesView from '.././view/rules-view.js';
-import {workState} from '.././data.js';
-
-workState.isGameScreen = false;
+import {model} from '.././data.js';
 
 export default class RulesPresenter {
   constructor(data) {
@@ -12,12 +10,10 @@ export default class RulesPresenter {
   create() {
     this.view.getClick = () => {
       const rulesInput = this.view._element.querySelector(`.rules__input`);
+      model.userName = rulesInput.value;
 
-      workState.userName = rulesInput.value;
-      workState.lives = 3;
-      workState.counter = 0;
-      workState.photoCounter = 0;
-      workState.answers = [`unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`];
+      model.resetState();
+
       this.data.showNextScreen();
     };
 

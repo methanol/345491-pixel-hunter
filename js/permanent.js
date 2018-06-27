@@ -12,7 +12,14 @@ const Velocities = {
   NORMAL_MODE: `correct`,
   SLOW_MODE: `slow`,
   FAST_MODE: `fast`,
-  WRONG_MODE: `wrong`
+  WRONG_MODE: `wrong`,
+  UNKNOWN_MODE: `unknown`
 };
 
-export {Screens, Velocities};
+const Times = {
+  START_TIME: 30,
+  FAST_TIME: 20,
+  SLOW_TIME: 10
+};
+
+export {Screens, Velocities, Times};

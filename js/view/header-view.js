@@ -1,11 +1,12 @@
-import AbstractView from '.././abstract-view.js';
-import {workState} from '.././data.js';
+import InitialGameView from '.././initial-game-view.js';
+import {model} from '.././data.js';
+import {Times} from '.././permanent.js';
 
 const MAX_LIVES = 3;
 
-export default class HeaderView extends AbstractView {
+export default class HeaderView extends InitialGameView {
   get template() {
-    return (!workState.isGameScreen) ? `<header class="header">
+    return (!model.isGameScreen) ? `<header class="header">
     <div class="header__back">
       <button class="back">
         <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
@@ -19,10 +20,10 @@ export default class HeaderView extends AbstractView {
       <img src="img/logo_small.svg" width="101" height="44">
     </button>
   </div>
-  <h1 class="game__timer">${workState.time}</h1>
+  <h1 class="game__timer">${Times.START_TIME}</h1>
   <div class="game__lives">
-    ${new Array(MAX_LIVES - workState.lives).fill(`<img src="img/heart__empty.svg" class="game__heart" alt="Life" width="32" height="32">`).join(``)}
-    ${new Array(workState.lives).fill(`<img src="img/heart__full.svg" class="game__heart" alt="Life" width="32" height="32">`).join(``)}
+    ${new Array(MAX_LIVES - model.lives).fill(`<img src="img/heart__empty.svg" class="game__heart" alt="Life" width="32" height="32">`).join(``)}
+    ${new Array(model.lives).fill(`<img src="img/heart__full.svg" class="game__heart" alt="Life" width="32" height="32">`).join(``)}
   </div>
   </header>`;
   }

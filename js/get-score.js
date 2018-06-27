@@ -39,6 +39,9 @@ const getScore = (state) => {
       case Velocities.WRONG_MODE:
         totalScore += 0;
         break;
+      case Velocities.UNKNOWN_MODE:
+        totalScore += 0;
+        break;
       default:
         throw new Error(`type of speed is not correct`);
     }

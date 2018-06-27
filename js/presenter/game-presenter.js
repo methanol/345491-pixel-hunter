@@ -1,32 +1,50 @@
-import GameOneView from '.././view/game-one-view.js';
-import {workState} from '.././data.js';
+import GameOneView from '.././view/game-view.js';
+import {model} from '.././data.js';
 import {Screens} from '.././permanent.js';
-import {Velocities} from '.././permanent.js';
+import {Velocities, Times} from '.././permanent.js';
+import Timer from '.././create-timer.js';
 
 export default class GamePresenter {
   constructor(data, name) {
     this.data = data;
     this.view = new GameOneView(name);
     this.gameName = name;
+    this.timing = new Timer(Times.START_TIME, (time) => this.view.updateTimer(time), () => this.goNext());
   }
 
-  checkAnswer(answerCode) {
-    if (answerCode === workState.keyCodes[workState.counter]) {
-      workState.answers[workState.counter] = Velocities.NORMAL_MODE;
+  checkAnswer(answerCode, stopValue) {
+    const {answers, counter, keyCodes} = model;
+
+    if (answerCode === keyCodes[counter]) {
+      if (stopValue > Times.FAST_TIME) {
+        answers[counter] = Velocities.FAST_MODE;
+        model.fastCounter++;
+      } else if ((stopValue < Times.SLOW_TIME) && (stopValue > 0)) {
+        answers[counter] = Velocities.SLOW_MODE;
+        model.slowCounter++;
+      } else if ((stopValue >= Times.SLOW_TIME) && (stopValue <= Times.FAST_TIME)) {
+        answers[counter] = Velocities.NORMAL_MODE;
+      }
     } else {
-      workState.answers[workState.counter] = Velocities.WRONG_MODE;
-      if (workState.lives >= 0) {
-        --workState.lives;
+      answers[counter] = Velocities.WRONG_MODE;
+      if (model.lives >= 0) {
+        --model.lives;
       }
     }
 
-    workState.counter++;
+    model.counter++;
   }
+
 
   create() {
     this.view.getBackClick = () => {
       this.data.goBack();
     };
+
+    const timeBox = this.view.element.querySelector(`.game__timer`);
+    timeBox.classList.remove(`game__timer--blink`);
+
+    this.timing.startTimer();
 
     switch (this.gameName) {
       case Screens.GAME_1:
@@ -36,7 +54,10 @@ export default class GamePresenter {
 
           if (((questions1[0].checked) || (questions1[1].checked)) && ((questions2[0].checked) || (questions2[1].checked))) {
 
-            this.checkAnswer([...questions1, ...questions2].map((it) => it.checked ? 1 : 0).join(``));
+            let stopValue = this.timing.time;
+            this.timing.stopTimer();
+
+            this.checkAnswer([...questions1, ...questions2].map((it) => it.checked ? 1 : 0).join(``), stopValue);
 
             this.data.showNextScreen();
           }
@@ -49,7 +70,10 @@ export default class GamePresenter {
 
           if ((questions1[0].checked) || (questions1[1].checked)) {
 
-            this.checkAnswer([...questions1].map((it) => it.checked ? 1 : 0).join(``));
+            let stopValue = this.timing.time;
+            this.timing.stopTimer();
+
+            this.checkAnswer([...questions1].map((it) => it.checked ? 1 : 0).join(``), stopValue);
 
             this.data.showNextScreen();
           }
@@ -63,7 +87,10 @@ export default class GamePresenter {
           options.forEach((it) => {
             it.addEventListener(`click`, () => {
 
-              this.checkAnswer([...options].map((item) => (it === item) ? 1 : 0).join(``));
+              let stopValue = this.timing.time;
+              this.timing.stopTimer();
+
+              this.checkAnswer([...options].map((item) => (it === item) ? 1 : 0).join(``), stopValue);
 
               this.data.showNextScreen();
             });
@@ -73,5 +100,16 @@ export default class GamePresenter {
     }
 
     return this.view.element;
+  }
+
+  goNext() {
+    model.answers[model.counter] = Velocities.WRONG_MODE;
+    model.counter++;
+
+    if (model.lives >= 0) {
+      --model.lives;
+    }
+    this.timing.stopTimer();
+    this.data.showNextScreen();
   }
 }

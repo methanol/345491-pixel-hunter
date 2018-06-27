@@ -1,6 +1,6 @@
-import AbstractView from '.././abstract-view.js';
+import InitialGameView from '.././initial-game-view.js';
 
-export default class FooterView extends AbstractView {
+export default class FooterView extends InitialGameView {
   get template() {
     return `<footer class="footer">
     <a href="https://htmlacademy.ru" class="social-link social-link--academy">HTML Academy</a>
