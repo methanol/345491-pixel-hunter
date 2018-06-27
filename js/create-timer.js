@@ -1,10 +1,13 @@
 const ONE_SECOND = 1000;
+const START_TIME = 30;
 
-export default class CreateTimer {
-  constructor(time, updateTimer = () => 1) {
+
+export default class Timer {
+  constructor(time, updateTimer = () => 1, goNext = () => 1) {
     this.currentTime = time;
     this.timer = {};
     this.updateTimer = updateTimer;
+    this.goNext = goNext;
 
     if (typeof (this.currentTime) !== `number`) {
       throw new Error(`type of time should be number`);
@@ -15,10 +18,10 @@ export default class CreateTimer {
     if (this.currentTime > 0) {
       this.currentTime -= 1;
       this.updateTimer(this.time);
-    } /* else {
-      this.stopTimer();
-      new ScreenRouter(gameScreens.shift()).switchScreen();
-    }*/
+    } else {
+      this.goNext();
+      this.currentTime = START_TIME;
+    }
   }
 
   get time() {

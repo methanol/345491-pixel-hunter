@@ -29,9 +29,9 @@ export default class StatView extends InitialGameView {
         ${(model.lives >= 0) ? `<tr>
           <td></td>
           <td class="result__extra">Бонус за скорость:</td>
-          <td class="result__extra">${model.answers.filter((it) => it === Velocities.FAST_MODE).length}&nbsp;<span class="stats__result stats__result--fast"></span></td>
+          <td class="result__extra">${model.fastCounter}&nbsp;<span class="stats__result stats__result--fast"></span></td>
           <td class="result__points">×&nbsp;50</td>
-          <td class="result__total">${model.answers.filter((it) => it === Velocities.FAST_MODE).length * 50}</td>
+          <td class="result__total">${model.fastCounter * 50}</td>
         </tr>
         <tr>
           <td></td>
@@ -43,9 +43,9 @@ export default class StatView extends InitialGameView {
         <tr>
           <td></td>
           <td class="result__extra">Штраф за медлительность:</td>
-          <td class="result__extra">${model.answers.filter((it) => it === Velocities.SLOW_MODE).length}&nbsp;<span class="stats__result stats__result--slow"></span></td>
+          <td class="result__extra">${model.slowCounter}&nbsp;<span class="stats__result stats__result--slow"></span></td>
           <td class="result__points">×&nbsp;50</td>
-          <td class="result__total">${model.answers.filter((it) => it === Velocities.SLOW_MODE).length * (-50)}</td>
+          <td class="result__total">${model.slowCounter * (-50)}</td>
         </tr>` : ``}
         <tr>
           <td colspan="5" class="result__total  result__total--final">${getScore(model)}</td>
@@ -66,9 +66,9 @@ export default class StatView extends InitialGameView {
         ${(statistics[0].lives >= 0) ? `<tr>
           <td></td>
           <td class="result__extra">Бонус за скорость:</td>
-          <td class="result__extra">${statistics[0].answers.filter((it) => it === Velocities.FAST_MODE).length}&nbsp;<span class="stats__result stats__result--fast"></span></td>
+          <td class="result__extra">${statistics[0].fastCounter}&nbsp;<span class="stats__result stats__result--fast"></span></td>
           <td class="result__points">×&nbsp;50</td>
-          <td class="result__total">${statistics[0].answers.filter((it) => it === Velocities.FAST_MODE).length * 50}</td>
+          <td class="result__total">${statistics[0].fastCounter * 50}</td>
         </tr>
         <tr>
           <td></td>
@@ -80,9 +80,9 @@ export default class StatView extends InitialGameView {
         <tr>
           <td></td>
           <td class="result__extra">Штраф за медлительность:</td>
-          <td class="result__extra">${statistics[0].answers.filter((it) => it === Velocities.SLOW_MODE).length}&nbsp;<span class="stats__result stats__result--slow"></span></td>
+          <td class="result__extra">${statistics[0].slowCounter}&nbsp;<span class="stats__result stats__result--slow"></span></td>
           <td class="result__points">×&nbsp;50</td>
-          <td class="result__total">${statistics[0].answers.filter((it) => it === Velocities.SLOW_MODE).length * (-50)}</td>
+          <td class="result__total">${statistics[0].slowCounter * (-50)}</td>
         </tr>` : ``}
         <tr>
           <td colspan="5" class="result__total  result__total--final">${getScore(statistics[0])}</td>
@@ -103,9 +103,9 @@ export default class StatView extends InitialGameView {
         ${(statistics[1].lives >= 0) ? `<tr>
           <td></td>
           <td class="result__extra">Бонус за скорость:</td>
-          <td class="result__extra">${statistics[1].answers.filter((it) => it === Velocities.FAST_MODE).length}&nbsp;<span class="stats__result stats__result--fast"></span></td>
+          <td class="result__extra">${statistics[1].fastCounter}&nbsp;<span class="stats__result stats__result--fast"></span></td>
           <td class="result__points">×&nbsp;50</td>
-          <td class="result__total">${statistics[1].answers.filter((it) => it === Velocities.FAST_MODE).length * 50}</td>
+          <td class="result__total">${statistics[1].fastCounter * 50}</td>
         </tr>
         <tr>
           <td></td>
@@ -117,9 +117,9 @@ export default class StatView extends InitialGameView {
         <tr>
           <td></td>
           <td class="result__extra">Штраф за медлительность:</td>
-          <td class="result__extra">${statistics[1].answers.filter((it) => it === Velocities.SLOW_MODE).length}&nbsp;<span class="stats__result stats__result--slow"></span></td>
+          <td class="result__extra">${statistics[1].slowCounter}&nbsp;<span class="stats__result stats__result--slow"></span></td>
           <td class="result__points">×&nbsp;50</td>
-          <td class="result__total">${statistics[1].answers.filter((it) => it === Velocities.SLOW_MODE).length * (-50)}</td>
+          <td class="result__total">${statistics[1].slowCounter * (-50)}</td>
         </tr>` : ``}
         <tr>
           <td colspan="5" class="result__total  result__total--final">${getScore(statistics[1])}</td>

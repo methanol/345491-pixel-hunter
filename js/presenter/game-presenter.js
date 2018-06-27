@@ -2,14 +2,14 @@ import GameOneView from '.././view/game-one-view.js';
 import {model} from '.././data.js';
 import {Screens} from '.././permanent.js';
 import {Velocities, Times} from '.././permanent.js';
-import CreateTimer from '.././create-timer.js';
+import Timer from '.././create-timer.js';
 
 export default class GamePresenter {
   constructor(data, name) {
     this.data = data;
     this.view = new GameOneView(name);
     this.gameName = name;
-    this.timing = new CreateTimer(Times.START_TIME, (time) => this.view.updateTimer(time));
+    this.timing = new Timer(Times.START_TIME, (time) => this.view.updateTimer(time), () => this.goNext());
   }
 
   checkAnswer(answerCode, stopValue) {
@@ -18,15 +18,12 @@ export default class GamePresenter {
     if (answerCode === keyCodes[counter]) {
       if (stopValue > Times.FAST_TIME) {
         answers[counter] = Velocities.FAST_MODE;
+        model.fastCounter++;
       } else if ((stopValue < Times.SLOW_TIME) && (stopValue > 0)) {
         answers[counter] = Velocities.SLOW_MODE;
+        model.slowCounter++;
       } else if ((stopValue >= Times.SLOW_TIME) && (stopValue <= Times.FAST_TIME)) {
         answers[counter] = Velocities.NORMAL_MODE;
-      } else {
-        answers[counter] = Velocities.WRONG_MODE;
-        if (model.lives >= 0) {
-          --model.lives;
-        }
       }
     } else {
       answers[counter] = Velocities.WRONG_MODE;
@@ -100,5 +97,16 @@ export default class GamePresenter {
     }
 
     return this.view.element;
+  }
+
+  goNext() {
+    model.answers[model.counter] = Velocities.WRONG_MODE;
+    model.counter++;
+
+    if (model.lives >= 0) {
+      --model.lives;
+    }
+    this.timing.stopTimer();
+    this.data.showNextScreen();
   }
 }

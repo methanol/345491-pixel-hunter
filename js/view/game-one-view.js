@@ -143,6 +143,11 @@ export default class GameOneView extends InitialGameView {
   updateTimer(time) {
     const timeBox = this.element.querySelector(`.game__timer`);
     timeBox.textContent = time;
+    if ((time < 6) && (time > 0)) {
+      timeBox.classList.add(`game__timer--blink`);
+    } else {
+      timeBox.classList.remove(`game__timer--blink`);
+    }
   }
 
 }
