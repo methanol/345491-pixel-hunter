@@ -41,6 +41,9 @@ export default class GamePresenter {
       this.data.goBack();
     };
 
+    const timeBox = this.view.element.querySelector(`.game__timer`);
+    timeBox.classList.remove(`game__timer--blink`);
+
     this.timing.startTimer();
 
     switch (this.gameName) {
