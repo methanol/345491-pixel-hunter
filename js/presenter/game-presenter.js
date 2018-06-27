@@ -1,4 +1,4 @@
-import GameOneView from '.././view/game-one-view.js';
+import GameOneView from '.././view/game-view.js';
 import {model} from '.././data.js';
 import {Screens} from '.././permanent.js';
 import {Velocities, Times} from '.././permanent.js';
