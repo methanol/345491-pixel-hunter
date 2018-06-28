@@ -5,10 +5,9 @@ import {Velocities, Times} from '.././permanent.js';
 import Timer from '.././create-timer.js';
 
 export default class GamePresenter {
-  constructor(data, name) {
+  constructor(data) {
     this.data = data;
-    this.view = new GameOneView(name);
-    this.gameName = name;
+    this.view = new GameOneView(this.data.type);
     this.timing = new Timer(Times.START_TIME, (time) => this.view.updateTimer(time), () => this.goNext());
   }
 
@@ -46,7 +45,7 @@ export default class GamePresenter {
 
     this.timing.startTimer();
 
-    switch (this.gameName) {
+    switch (this.data.type) {
       case Screens.GAME_1:
         this.view.getClick = () => {
           const questions2 = this.view._element.querySelectorAll(`input[name="question2"]`);
@@ -56,6 +55,11 @@ export default class GamePresenter {
 
             let stopValue = this.timing.time;
             this.timing.stopTimer();
+
+            let code1 = (this.data.answers[0].type === `painting`) ? `01` : `10`;
+            let code2 = (this.data.answers[1].type === `painting`) ? `01` : `10`;
+
+            model.keyCodes[model.counter] = [code1, code2].join('');
 
             this.checkAnswer([...questions1, ...questions2].map((it) => it.checked ? 1 : 0).join(``), stopValue);
 
@@ -73,6 +77,10 @@ export default class GamePresenter {
             let stopValue = this.timing.time;
             this.timing.stopTimer();
 
+            let code1 = (this.data.answers[0].type === `painting`) ? `01` : `10`;
+
+            model.keyCodes[model.counter] = code1;
+
             this.checkAnswer([...questions1].map((it) => it.checked ? 1 : 0).join(``), stopValue);
 
             this.data.showNextScreen();
@@ -89,6 +97,12 @@ export default class GamePresenter {
 
               let stopValue = this.timing.time;
               this.timing.stopTimer();
+
+              let code1 = (this.data.answers[0].type === `painting`) ? `1` : `0`;
+              let code2 = (this.data.answers[1].type === `painting`) ? `1` : `0`;
+              let code3 = (this.data.answers[2].type === `painting`) ? `1` : `0`;
+
+              model.keyCodes[model.counter] = [code1, code2, code3].join('');
 
               this.checkAnswer([...options].map((item) => (it === item) ? 1 : 0).join(``), stopValue);
 

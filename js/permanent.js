@@ -2,9 +2,9 @@ const Screens = {
   INTRO: `intro`,
   GREETING: `greeting`,
   RULES: `rules`,
-  GAME_1: `game-1`,
-  GAME_2: `game-2`,
-  GAME_3: `game-3`,
+  GAME_1: `two-of-two`,
+  GAME_2: `tinder-like`,
+  GAME_3: `one-of-three`,
   STAT: `stat`
 };
 

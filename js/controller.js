@@ -48,7 +48,26 @@ export default class ScreenRouter {
               new ScreenRouter(Screens.STAT).switchScreen();
             }
           },
-          goBack: () => new ScreenRouter(Screens.GREETING).switchScreen()
+          goBack: () => new ScreenRouter(Screens.GREETING).switchScreen(),
+          type: `two-of-two`,
+          answers: [
+            {
+              image: {
+              url: `http://placehold.it/468x458`,
+              width: 468,
+              height: 458
+              },
+              type: `painting`
+            },
+            {
+              image: {
+              url: `http://placehold.it/468x458`,
+              width: 468,
+              height: 458
+              },
+              type: `painting`
+            }
+          ]
         };
         selectSlide(new GamePresenter(this.data, Screens.GAME_1).create());
         break;
@@ -62,7 +81,18 @@ export default class ScreenRouter {
               new ScreenRouter(Screens.STAT).switchScreen();
             }
           },
-          goBack: () => new ScreenRouter(Screens.GREETING).switchScreen()
+          goBack: () => new ScreenRouter(Screens.GREETING).switchScreen(),
+          type: `tinder-like`,
+          answers: [
+            {
+              image: {
+              url: `http://placehold.it/468x458`,
+              width: 705,
+              height: 455
+              },
+              type: `photo`
+            }
+          ]
         };
         selectSlide(new GamePresenter(this.data, Screens.GAME_2).create());
         break;
@@ -76,7 +106,34 @@ export default class ScreenRouter {
               new ScreenRouter(Screens.STAT).switchScreen();
             }
           },
-          goBack: () => new ScreenRouter(Screens.GREETING).switchScreen()
+          goBack: () => new ScreenRouter(Screens.GREETING).switchScreen(),
+          type: `one-of-three`,
+          answers: [
+            {
+              image: {
+              url: `http://placehold.it/468x458`,
+              width: 304,
+              height: 455
+              },
+              type: `painting`
+            },
+            {
+              image: {
+              url: `http://placehold.it/468x458`,
+              width: 304,
+              height: 455
+              },
+              type: `photo`
+            },
+            {
+              image: {
+              url: `http://placehold.it/468x458`,
+              width: 304,
+              height: 455
+              },
+              type: `photo`
+            }
+          ]
         };
         selectSlide(new GamePresenter(this.data, Screens.GAME_3).create());
         break;

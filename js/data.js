@@ -9,6 +9,7 @@ class GameModel {
     this.fastCounter = 0;
     this.slowCounter = 0;
     this.photoCounter = 0;
+    this.questions = [`Угадайте для каждого изображения фото или рисунок?`, `Угадай, фото или рисунок?`, `Найдите рисунок среди изображений`];
   }
 
   switchHeaderBig() {
