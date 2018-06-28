@@ -3,7 +3,7 @@ class GameModel {
     this.lives = 3;
     this.userName = ``;
     this.answers = [`unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`];
-    this.keyCodes = [`0101`, `10`, `100`, `0101`, `10`, `100`, `0101`, `10`, `100`, `0101`];
+    this.keyCodes = [];
     this.isGameScreen = false;
     this.counter = 0;
     this.fastCounter = 0;
