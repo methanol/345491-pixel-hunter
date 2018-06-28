@@ -53,17 +53,17 @@ export default class ScreenRouter {
           answers: [
             {
               image: {
-              url: `http://placehold.it/468x458`,
-              width: 468,
-              height: 458
+                url: `http://placehold.it/468x458`,
+                width: 468,
+                height: 458
               },
               type: `painting`
             },
             {
               image: {
-              url: `http://placehold.it/468x458`,
-              width: 468,
-              height: 458
+                url: `http://placehold.it/468x458`,
+                width: 468,
+                height: 458
               },
               type: `painting`
             }
@@ -86,9 +86,9 @@ export default class ScreenRouter {
           answers: [
             {
               image: {
-              url: `http://placehold.it/468x458`,
-              width: 705,
-              height: 455
+                url: `http://placehold.it/468x458`,
+                width: 705,
+                height: 455
               },
               type: `photo`
             }
@@ -111,25 +111,25 @@ export default class ScreenRouter {
           answers: [
             {
               image: {
-              url: `http://placehold.it/468x458`,
-              width: 304,
-              height: 455
+                url: `http://placehold.it/468x458`,
+                width: 304,
+                height: 455
               },
               type: `painting`
             },
             {
               image: {
-              url: `http://placehold.it/468x458`,
-              width: 304,
-              height: 455
+                url: `http://placehold.it/468x458`,
+                width: 304,
+                height: 455
               },
               type: `photo`
             },
             {
               image: {
-              url: `http://placehold.it/468x458`,
-              width: 304,
-              height: 455
+                url: `http://placehold.it/468x458`,
+                width: 304,
+                height: 455
               },
               type: `photo`
             }

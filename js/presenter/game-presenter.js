@@ -59,7 +59,7 @@ export default class GamePresenter {
             let code1 = (this.data.answers[0].type === `painting`) ? `01` : `10`;
             let code2 = (this.data.answers[1].type === `painting`) ? `01` : `10`;
 
-            model.keyCodes[model.counter] = [code1, code2].join('');
+            model.keyCodes[model.counter] = [code1, code2].join(``);
 
             this.checkAnswer([...questions1, ...questions2].map((it) => it.checked ? 1 : 0).join(``), stopValue);
 
@@ -102,7 +102,7 @@ export default class GamePresenter {
               let code2 = (this.data.answers[1].type === `painting`) ? `1` : `0`;
               let code3 = (this.data.answers[2].type === `painting`) ? `1` : `0`;
 
-              model.keyCodes[model.counter] = [code1, code2, code3].join('');
+              model.keyCodes[model.counter] = [code1, code2, code3].join(``);
 
               this.checkAnswer([...options].map((item) => (it === item) ? 1 : 0).join(``), stopValue);
 
