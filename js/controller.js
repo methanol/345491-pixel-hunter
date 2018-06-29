@@ -6,8 +6,20 @@ import RulesPresenter from './presenter/rules-presenter.js';
 import GamePresenter from './presenter/game-presenter.js';
 import StatPresenter from './presenter/stat-presenter.js';
 import {Screens} from './permanent.js';
+import SplashScreen from './splash-screen.js';
+import ErrorScreen from './error-screen.js';
 
-let gameScreens = [Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.STAT];
+/* let gameScreens = [Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.STAT];*/
+
+let gameData = [];
+
+const checkStatus = (response) => {
+  if (response.status >= 200 && response.status < 300) {
+    return response;
+  } else {
+    throw new Error(`${response.status}: ${response.statusText}`);
+  }
+};
 
 export default class ScreenRouter {
   constructor(screenType) {
@@ -17,6 +29,23 @@ export default class ScreenRouter {
 
   switchScreen() {
     switch (this.screenType) {
+      case Screens.LOAD:
+
+        const splash = new SplashScreen();
+
+        selectSlide(splash.element);
+        splash.start();
+        window.fetch(`https://es.dump.academy/pixel-hunter/questions`).
+          then(checkStatus).
+          then((response) => response.json()).
+          then((data) => {
+            gameData = data;
+          }).
+          then(() => new ScreenRouter(Screens.INTRO).showIntro()).
+          catch(ScreenRouter.showError).
+          then(() => splash.stop());
+        break;
+
       case Screens.INTRO:
         this.data = {
           showNextScreen: () => new ScreenRouter(Screens.GREETING).switchScreen()
@@ -33,41 +62,25 @@ export default class ScreenRouter {
 
       case Screens.RULES:
         this.data = {
-          showNextScreen: () => new ScreenRouter(gameScreens.shift()).switchScreen(),
+          showNextScreen: () => new ScreenRouter(gameData[0].type).switchScreen(),
           goBack: () => new ScreenRouter(Screens.GREETING).switchScreen()
         };
+        // console.log(gameData);
+        // console.log(typeof (gameData[0].type));
+        // console.log(gameData[0].type);
         selectSlide(new RulesPresenter(this.data).create());
         break;
 
       case Screens.GAME_1:
         this.data = {
           showNextScreen: () => {
-            if (model.lives >= 0) {
-              new ScreenRouter(gameScreens.shift()).switchScreen();
+            if ((model.lives >= 0) && (model.counter < 10)) {
+              new ScreenRouter(gameData[model.counter].type).switchScreen();
             } else {
               new ScreenRouter(Screens.STAT).switchScreen();
             }
           },
-          goBack: () => new ScreenRouter(Screens.GREETING).switchScreen(),
-          type: `two-of-two`,
-          answers: [
-            {
-              image: {
-                url: `http://placehold.it/468x458`,
-                width: 468,
-                height: 458
-              },
-              type: `painting`
-            },
-            {
-              image: {
-                url: `http://placehold.it/468x458`,
-                width: 468,
-                height: 458
-              },
-              type: `painting`
-            }
-          ]
+          goBack: () => new ScreenRouter(Screens.GREETING).switchScreen()
         };
         selectSlide(new GamePresenter(this.data, Screens.GAME_1).create());
         break;
@@ -75,24 +88,13 @@ export default class ScreenRouter {
       case Screens.GAME_2:
         this.data = {
           showNextScreen: () => {
-            if (model.lives >= 0) {
-              new ScreenRouter(gameScreens.shift()).switchScreen();
+            if ((model.lives >= 0) && (model.counter < 10)) {
+              new ScreenRouter(gameData[model.counter].type).switchScreen();
             } else {
               new ScreenRouter(Screens.STAT).switchScreen();
             }
           },
-          goBack: () => new ScreenRouter(Screens.GREETING).switchScreen(),
-          type: `tinder-like`,
-          answers: [
-            {
-              image: {
-                url: `http://placehold.it/468x458`,
-                width: 705,
-                height: 455
-              },
-              type: `photo`
-            }
-          ]
+          goBack: () => new ScreenRouter(Screens.GREETING).switchScreen()
         };
         selectSlide(new GamePresenter(this.data, Screens.GAME_2).create());
         break;
@@ -100,40 +102,13 @@ export default class ScreenRouter {
       case Screens.GAME_3:
         this.data = {
           showNextScreen: () => {
-            if (model.lives >= 0) {
-              new ScreenRouter(gameScreens.shift()).switchScreen();
+            if ((model.lives >= 0) && (model.counter < 10)) {
+              new ScreenRouter(gameData[model.counter].type).switchScreen();
             } else {
               new ScreenRouter(Screens.STAT).switchScreen();
             }
           },
-          goBack: () => new ScreenRouter(Screens.GREETING).switchScreen(),
-          type: `one-of-three`,
-          answers: [
-            {
-              image: {
-                url: `http://placehold.it/468x458`,
-                width: 304,
-                height: 455
-              },
-              type: `painting`
-            },
-            {
-              image: {
-                url: `http://placehold.it/468x458`,
-                width: 304,
-                height: 455
-              },
-              type: `photo`
-            },
-            {
-              image: {
-                url: `http://placehold.it/468x458`,
-                width: 304,
-                height: 455
-              },
-              type: `photo`
-            }
-          ]
+          goBack: () => new ScreenRouter(Screens.GREETING).switchScreen()
         };
         selectSlide(new GamePresenter(this.data, Screens.GAME_3).create());
         break;
@@ -144,14 +119,23 @@ export default class ScreenRouter {
         };
         selectSlide(new StatPresenter(this.data).create());
 
-        gameScreens = [Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.STAT];
-        break;
+        /* gameScreens = [Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.STAT];
+        break;*/
     }
   }
 
   showIntro() {
     this.switchScreen(Screens.INTRO);
   }
+
+  showLoad() {
+    this.switchScreen(Screens.LOAD);
+  }
+
+  static showError(error) {
+    const errorScreen = new ErrorScreen(error);
+    selectSlide(errorScreen.element);
+  }
 }
 
-export {gameScreens};
+export {gameData};

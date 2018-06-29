@@ -5,7 +5,9 @@ const Screens = {
   GAME_1: `two-of-two`,
   GAME_2: `tinder-like`,
   GAME_3: `one-of-three`,
-  STAT: `stat`
+  GAME_4: `one-of-three-reverse`,
+  STAT: `stat`,
+  LOAD: `load`
 };
 
 const Velocities = {

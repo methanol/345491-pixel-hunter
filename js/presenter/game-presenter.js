@@ -3,11 +3,12 @@ import {model} from '.././data.js';
 import {Screens} from '.././permanent.js';
 import {Velocities, Times} from '.././permanent.js';
 import Timer from '.././create-timer.js';
+import {gameData} from '.././controller.js';
 
 export default class GamePresenter {
   constructor(data) {
     this.data = data;
-    this.view = new GameOneView(this.data.type);
+    this.view = new GameOneView(gameData[model.counter].type);
     this.timing = new Timer(Times.START_TIME, (time) => this.view.updateTimer(time), () => this.goNext());
   }
 
@@ -45,7 +46,7 @@ export default class GamePresenter {
 
     this.timing.startTimer();
 
-    switch (this.data.type) {
+    switch (gameData[model.counter].type) {
       case Screens.GAME_1:
         this.view.getClick = () => {
           const questions2 = this.view._element.querySelectorAll(`input[name="question2"]`);
@@ -56,8 +57,8 @@ export default class GamePresenter {
             let stopValue = this.timing.time;
             this.timing.stopTimer();
 
-            let code1 = (this.data.answers[0].type === `painting`) ? `01` : `10`;
-            let code2 = (this.data.answers[1].type === `painting`) ? `01` : `10`;
+            let code1 = (gameData[model.counter].answers[0].type === `painting`) ? `01` : `10`;
+            let code2 = (gameData[model.counter].answers[1].type === `painting`) ? `01` : `10`;
 
             model.keyCodes[model.counter] = [code1, code2].join(``);
 
@@ -77,7 +78,7 @@ export default class GamePresenter {
             let stopValue = this.timing.time;
             this.timing.stopTimer();
 
-            let code1 = (this.data.answers[0].type === `painting`) ? `01` : `10`;
+            let code1 = (gameData[model.counter].answers[0].type === `painting`) ? `01` : `10`;
 
             model.keyCodes[model.counter] = code1;
 
@@ -97,10 +98,19 @@ export default class GamePresenter {
 
               let stopValue = this.timing.time;
               this.timing.stopTimer();
+              let code1 = ``;
+              let code2 = ``;
+              let code3 = ``;
 
-              let code1 = (this.data.answers[0].type === `painting`) ? `1` : `0`;
-              let code2 = (this.data.answers[1].type === `painting`) ? `1` : `0`;
-              let code3 = (this.data.answers[2].type === `painting`) ? `1` : `0`;
+              if (gameData[model.counter].question === `Найдите рисунок среди изображений`) {
+                code1 = (gameData[model.counter].answers[0].type === `painting`) ? `1` : `0`;
+                code2 = (gameData[model.counter].answers[1].type === `painting`) ? `1` : `0`;
+                code3 = (gameData[model.counter].answers[2].type === `painting`) ? `1` : `0`;
+              } else {
+                code1 = (gameData[model.counter].answers[0].type === `photo`) ? `1` : `0`;
+                code2 = (gameData[model.counter].answers[1].type === `photo`) ? `1` : `0`;
+                code3 = (gameData[model.counter].answers[2].type === `photo`) ? `1` : `0`;
+              }
 
               model.keyCodes[model.counter] = [code1, code2, code3].join(``);
 
