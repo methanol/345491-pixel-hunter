@@ -9,8 +9,6 @@ import {Screens} from './permanent.js';
 import SplashScreen from './splash-screen.js';
 import ErrorScreen from './error-screen.js';
 
-/* let gameScreens = [Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.STAT];*/
-
 let gameData = [];
 
 const checkStatus = (response) => {
@@ -65,9 +63,6 @@ export default class ScreenRouter {
           showNextScreen: () => new ScreenRouter(gameData[0].type).switchScreen(),
           goBack: () => new ScreenRouter(Screens.GREETING).switchScreen()
         };
-        // console.log(gameData);
-        // console.log(typeof (gameData[0].type));
-        // console.log(gameData[0].type);
         selectSlide(new RulesPresenter(this.data).create());
         break;
 
@@ -118,9 +113,6 @@ export default class ScreenRouter {
           goBack: () => new ScreenRouter(Screens.GREETING).switchScreen()
         };
         selectSlide(new StatPresenter(this.data).create());
-
-        /* gameScreens = [Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.STAT];
-        break;*/
     }
   }
 

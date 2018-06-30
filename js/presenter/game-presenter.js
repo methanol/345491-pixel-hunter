@@ -54,11 +54,11 @@ export default class GamePresenter {
 
           if (((questions1[0].checked) || (questions1[1].checked)) && ((questions2[0].checked) || (questions2[1].checked))) {
 
-            let stopValue = this.timing.time;
+            const stopValue = this.timing.time;
             this.timing.stopTimer();
 
-            let code1 = (gameData[model.counter].answers[0].type === `painting`) ? `01` : `10`;
-            let code2 = (gameData[model.counter].answers[1].type === `painting`) ? `01` : `10`;
+            const code1 = (gameData[model.counter].answers[0].type === `painting`) ? `01` : `10`;
+            const code2 = (gameData[model.counter].answers[1].type === `painting`) ? `01` : `10`;
 
             model.keyCodes[model.counter] = [code1, code2].join(``);
 
@@ -75,10 +75,10 @@ export default class GamePresenter {
 
           if ((questions1[0].checked) || (questions1[1].checked)) {
 
-            let stopValue = this.timing.time;
+            const stopValue = this.timing.time;
             this.timing.stopTimer();
 
-            let code1 = (gameData[model.counter].answers[0].type === `painting`) ? `01` : `10`;
+            const code1 = (gameData[model.counter].answers[0].type === `painting`) ? `01` : `10`;
 
             model.keyCodes[model.counter] = code1;
 
@@ -96,23 +96,12 @@ export default class GamePresenter {
           options.forEach((it) => {
             it.addEventListener(`click`, () => {
 
-              let stopValue = this.timing.time;
+              const stopValue = this.timing.time;
               this.timing.stopTimer();
-              let code1 = ``;
-              let code2 = ``;
-              let code3 = ``;
 
-              if (gameData[model.counter].question === `Найдите рисунок среди изображений`) {
-                code1 = (gameData[model.counter].answers[0].type === `painting`) ? `1` : `0`;
-                code2 = (gameData[model.counter].answers[1].type === `painting`) ? `1` : `0`;
-                code3 = (gameData[model.counter].answers[2].type === `painting`) ? `1` : `0`;
-              } else {
-                code1 = (gameData[model.counter].answers[0].type === `photo`) ? `1` : `0`;
-                code2 = (gameData[model.counter].answers[1].type === `photo`) ? `1` : `0`;
-                code3 = (gameData[model.counter].answers[2].type === `photo`) ? `1` : `0`;
-              }
+              const type = gameData[model.counter].question === `Найдите рисунок среди изображений` ? `painting` : `photo`;
 
-              model.keyCodes[model.counter] = [code1, code2, code3].join(``);
+              model.keyCodes[model.counter] = gameData[model.counter].answers.map((answer) => answer.type === type ? `1` : `0`).join(``);
 
               this.checkAnswer([...options].map((item) => (it === item) ? 1 : 0).join(``), stopValue);
 
