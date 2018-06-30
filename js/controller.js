@@ -1,5 +1,5 @@
 import {selectSlide} from './util.js';
-import {model} from './data.js';
+import {model, statistics} from './data.js';
 import IntroPresenter from './presenter/intro-presenter.js';
 import GreetingPresenter from './presenter/greeting-presenter.js';
 import RulesPresenter from './presenter/rules-presenter.js';
@@ -8,6 +8,7 @@ import StatPresenter from './presenter/stat-presenter.js';
 import {Screens} from './permanent.js';
 import SplashScreen from './splash-screen.js';
 import ErrorScreen from './error-screen.js';
+import Loader from './loader.js';
 
 let gameData = [];
 
@@ -113,6 +114,7 @@ export default class ScreenRouter {
           goBack: () => new ScreenRouter(Screens.GREETING).switchScreen()
         };
         selectSlide(new StatPresenter(this.data).create());
+        Loader.saveResults(statistics, model.userName);
     }
   }
 
@@ -130,4 +132,4 @@ export default class ScreenRouter {
   }
 }
 
-export {gameData};
+export {gameData, checkStatus};
