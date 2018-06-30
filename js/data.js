@@ -3,12 +3,13 @@ class GameModel {
     this.lives = 3;
     this.userName = ``;
     this.answers = [`unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`];
-    this.keyCodes = [`0101`, `10`, `100`, `0101`, `10`, `100`, `0101`, `10`, `100`, `0101`];
+    this.keyCodes = [];
     this.isGameScreen = false;
     this.counter = 0;
     this.fastCounter = 0;
     this.slowCounter = 0;
     this.photoCounter = 0;
+    this.questions = [`Угадайте для каждого изображения фото или рисунок?`, `Угадай, фото или рисунок?`, `Найдите рисунок среди изображений`, `Найдите фото среди изображений`];
   }
 
   switchHeaderBig() {

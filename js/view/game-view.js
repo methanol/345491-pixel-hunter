@@ -2,12 +2,8 @@ import InitialGameView from '.././initial-game-view.js';
 import FooterView from '.././view/footer-view.js';
 import HeaderView from '.././view/header-view.js';
 import {PHOTOS, model} from '.././data.js';
-
-const Screens = {
-  GAME_1: `game-1`,
-  GAME_2: `game-2`,
-  GAME_3: `game-3`
-};
+import {Screens} from '.././permanent.js';
+import {gameData} from '.././controller.js';
 
 export default class GameOneView extends InitialGameView {
   constructor(name) {
@@ -24,7 +20,7 @@ export default class GameOneView extends InitialGameView {
         templ = `<div>
         ${new HeaderView().template}
         <div class="game">
-          <p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>
+          <p class="game__task">${gameData[model.counter].question}</p>
           <form class="game__content">
             <div class="game__option">
               <img src=${PHOTOS[model.photoCounter++]} alt="Option 1" width="468" height="458">
@@ -63,7 +59,7 @@ export default class GameOneView extends InitialGameView {
         templ = `<div>
         ${new HeaderView().template}
         <div class="game">
-          <p class="game__task">Угадай, фото или рисунок?</p>
+          <p class="game__task">${gameData[model.counter].question}</p>
           <form class="game__content  game__content--wide">
             <div class="game__option">
               <img src=${PHOTOS[model.photoCounter++]} alt="Option 1" width="705" height="455">
@@ -92,7 +88,7 @@ export default class GameOneView extends InitialGameView {
         templ = `<div>
         ${new HeaderView().template}
         <div class="game">
-          <p class="game__task">Найдите рисунок среди изображений</p>
+          <p class="game__task">${gameData[model.counter].question}</p>
           <form class="game__content  game__content--triple">
             <div class="game__option">
               <img src=${PHOTOS[model.photoCounter++]} alt="Option 1" width="304" height="455">

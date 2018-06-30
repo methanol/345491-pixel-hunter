@@ -7,9 +7,8 @@ const LIFE_PRICE = 50;
 
 const getScore = (state) => {
   let totalScore = 0;
-  let totalLIves = state.lives;
 
-  if (totalLIves < 0) {
+  if (state.lives < 0) {
     return -1;
   }
 

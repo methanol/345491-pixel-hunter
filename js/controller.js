@@ -6,8 +6,18 @@ import RulesPresenter from './presenter/rules-presenter.js';
 import GamePresenter from './presenter/game-presenter.js';
 import StatPresenter from './presenter/stat-presenter.js';
 import {Screens} from './permanent.js';
+import SplashScreen from './splash-screen.js';
+import ErrorScreen from './error-screen.js';
 
-let gameScreens = [Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.STAT];
+let gameData = [];
+
+const checkStatus = (response) => {
+  if (response.status >= 200 && response.status < 300) {
+    return response;
+  } else {
+    throw new Error(`${response.status}: ${response.statusText}`);
+  }
+};
 
 export default class ScreenRouter {
   constructor(screenType) {
@@ -17,6 +27,23 @@ export default class ScreenRouter {
 
   switchScreen() {
     switch (this.screenType) {
+      case Screens.LOAD:
+
+        const splash = new SplashScreen();
+
+        selectSlide(splash.element);
+        splash.start();
+        window.fetch(`https://es.dump.academy/pixel-hunter/questions`).
+          then(checkStatus).
+          then((response) => response.json()).
+          then((data) => {
+            gameData = data;
+          }).
+          then(() => new ScreenRouter(Screens.INTRO).showIntro()).
+          catch(ScreenRouter.showError).
+          then(() => splash.stop());
+        break;
+
       case Screens.INTRO:
         this.data = {
           showNextScreen: () => new ScreenRouter(Screens.GREETING).switchScreen()
@@ -33,7 +60,7 @@ export default class ScreenRouter {
 
       case Screens.RULES:
         this.data = {
-          showNextScreen: () => new ScreenRouter(gameScreens.shift()).switchScreen(),
+          showNextScreen: () => new ScreenRouter(gameData[0].type).switchScreen(),
           goBack: () => new ScreenRouter(Screens.GREETING).switchScreen()
         };
         selectSlide(new RulesPresenter(this.data).create());
@@ -42,8 +69,8 @@ export default class ScreenRouter {
       case Screens.GAME_1:
         this.data = {
           showNextScreen: () => {
-            if (model.lives >= 0) {
-              new ScreenRouter(gameScreens.shift()).switchScreen();
+            if ((model.lives >= 0) && (model.counter < 10)) {
+              new ScreenRouter(gameData[model.counter].type).switchScreen();
             } else {
               new ScreenRouter(Screens.STAT).switchScreen();
             }
@@ -56,8 +83,8 @@ export default class ScreenRouter {
       case Screens.GAME_2:
         this.data = {
           showNextScreen: () => {
-            if (model.lives >= 0) {
-              new ScreenRouter(gameScreens.shift()).switchScreen();
+            if ((model.lives >= 0) && (model.counter < 10)) {
+              new ScreenRouter(gameData[model.counter].type).switchScreen();
             } else {
               new ScreenRouter(Screens.STAT).switchScreen();
             }
@@ -70,8 +97,8 @@ export default class ScreenRouter {
       case Screens.GAME_3:
         this.data = {
           showNextScreen: () => {
-            if (model.lives >= 0) {
-              new ScreenRouter(gameScreens.shift()).switchScreen();
+            if ((model.lives >= 0) && (model.counter < 10)) {
+              new ScreenRouter(gameData[model.counter].type).switchScreen();
             } else {
               new ScreenRouter(Screens.STAT).switchScreen();
             }
@@ -86,15 +113,21 @@ export default class ScreenRouter {
           goBack: () => new ScreenRouter(Screens.GREETING).switchScreen()
         };
         selectSlide(new StatPresenter(this.data).create());
-
-        gameScreens = [Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.GAME_2, Screens.GAME_3, Screens.GAME_1, Screens.STAT];
-        break;
     }
   }
 
   showIntro() {
     this.switchScreen(Screens.INTRO);
   }
+
+  showLoad() {
+    this.switchScreen(Screens.LOAD);
+  }
+
+  static showError(error) {
+    const errorScreen = new ErrorScreen(error);
+    selectSlide(errorScreen.element);
+  }
 }
 
-export {gameScreens};
+export {gameData};

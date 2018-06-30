@@ -3,12 +3,12 @@ import {model} from '.././data.js';
 import {Screens} from '.././permanent.js';
 import {Velocities, Times} from '.././permanent.js';
 import Timer from '.././create-timer.js';
+import {gameData} from '.././controller.js';
 
 export default class GamePresenter {
-  constructor(data, name) {
+  constructor(data) {
     this.data = data;
-    this.view = new GameOneView(name);
-    this.gameName = name;
+    this.view = new GameOneView(gameData[model.counter].type);
     this.timing = new Timer(Times.START_TIME, (time) => this.view.updateTimer(time), () => this.goNext());
   }
 
@@ -46,7 +46,7 @@ export default class GamePresenter {
 
     this.timing.startTimer();
 
-    switch (this.gameName) {
+    switch (gameData[model.counter].type) {
       case Screens.GAME_1:
         this.view.getClick = () => {
           const questions2 = this.view._element.querySelectorAll(`input[name="question2"]`);
@@ -54,8 +54,13 @@ export default class GamePresenter {
 
           if (((questions1[0].checked) || (questions1[1].checked)) && ((questions2[0].checked) || (questions2[1].checked))) {
 
-            let stopValue = this.timing.time;
+            const stopValue = this.timing.time;
             this.timing.stopTimer();
+
+            const code1 = (gameData[model.counter].answers[0].type === `painting`) ? `01` : `10`;
+            const code2 = (gameData[model.counter].answers[1].type === `painting`) ? `01` : `10`;
+
+            model.keyCodes[model.counter] = [code1, code2].join(``);
 
             this.checkAnswer([...questions1, ...questions2].map((it) => it.checked ? 1 : 0).join(``), stopValue);
 
@@ -70,8 +75,12 @@ export default class GamePresenter {
 
           if ((questions1[0].checked) || (questions1[1].checked)) {
 
-            let stopValue = this.timing.time;
+            const stopValue = this.timing.time;
             this.timing.stopTimer();
+
+            const code1 = (gameData[model.counter].answers[0].type === `painting`) ? `01` : `10`;
+
+            model.keyCodes[model.counter] = code1;
 
             this.checkAnswer([...questions1].map((it) => it.checked ? 1 : 0).join(``), stopValue);
 
@@ -87,8 +96,12 @@ export default class GamePresenter {
           options.forEach((it) => {
             it.addEventListener(`click`, () => {
 
-              let stopValue = this.timing.time;
+              const stopValue = this.timing.time;
               this.timing.stopTimer();
+
+              const type = gameData[model.counter].question === `Найдите рисунок среди изображений` ? `painting` : `photo`;
+
+              model.keyCodes[model.counter] = gameData[model.counter].answers.map((answer) => answer.type === type ? `1` : `0`).join(``);
 
               this.checkAnswer([...options].map((item) => (it === item) ? 1 : 0).join(``), stopValue);
 
