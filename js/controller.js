@@ -1,5 +1,5 @@
 import {selectSlide} from './util.js';
-import {model} from './data.js';
+import {model, statistics} from './data.js';
 import IntroPresenter from './presenter/intro-presenter.js';
 import GreetingPresenter from './presenter/greeting-presenter.js';
 import RulesPresenter from './presenter/rules-presenter.js';
@@ -8,8 +8,10 @@ import StatPresenter from './presenter/stat-presenter.js';
 import {Screens} from './permanent.js';
 import SplashScreen from './splash-screen.js';
 import ErrorScreen from './error-screen.js';
+import Loader from './loader.js';
 
 let gameData = [];
+let serverStatistics = [];
 
 const checkStatus = (response) => {
   if (response.status >= 200 && response.status < 300) {
@@ -19,8 +21,13 @@ const checkStatus = (response) => {
   }
 };
 
+const showError = (error) => {
+  const errorScreen = new ErrorScreen(error);
+  selectSlide(errorScreen.element);
+};
+
 export default class ScreenRouter {
-  constructor(screenType) {
+  constructor(screenType = ``) {
     this.screenType = screenType;
     this.data = {};
   }
@@ -40,7 +47,7 @@ export default class ScreenRouter {
             gameData = data;
           }).
           then(() => new ScreenRouter(Screens.INTRO).showIntro()).
-          catch(ScreenRouter.showError).
+          catch(showError).
           then(() => splash.stop());
         break;
 
@@ -77,7 +84,7 @@ export default class ScreenRouter {
           },
           goBack: () => new ScreenRouter(Screens.GREETING).switchScreen()
         };
-        selectSlide(new GamePresenter(this.data, Screens.GAME_1).create());
+        selectSlide(new GamePresenter(this.data, gameData).create());
         break;
 
       case Screens.GAME_2:
@@ -91,7 +98,7 @@ export default class ScreenRouter {
           },
           goBack: () => new ScreenRouter(Screens.GREETING).switchScreen()
         };
-        selectSlide(new GamePresenter(this.data, Screens.GAME_2).create());
+        selectSlide(new GamePresenter(this.data, gameData).create());
         break;
 
       case Screens.GAME_3:
@@ -105,7 +112,7 @@ export default class ScreenRouter {
           },
           goBack: () => new ScreenRouter(Screens.GREETING).switchScreen()
         };
-        selectSlide(new GamePresenter(this.data, Screens.GAME_3).create());
+        selectSlide(new GamePresenter(this.data, gameData).create());
         break;
 
       case Screens.STAT:
@@ -113,6 +120,12 @@ export default class ScreenRouter {
           goBack: () => new ScreenRouter(Screens.GREETING).switchScreen()
         };
         selectSlide(new StatPresenter(this.data).create());
+        Loader.saveResults(statistics, model.userName).
+          then(() => Loader.loadResults(model.userName)).
+          then((data) => {
+            serverStatistics = data;
+          }).
+          catch(showError);
     }
   }
 
@@ -130,4 +143,4 @@ export default class ScreenRouter {
   }
 }
 
-export {gameData};
+export {checkStatus, serverStatistics};
