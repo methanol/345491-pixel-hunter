@@ -11,6 +11,7 @@ import ErrorScreen from './error-screen.js';
 import Loader from './loader.js';
 
 let gameData = [];
+let serverStatistics = [];
 
 const checkStatus = (response) => {
   if (response.status >= 200 && response.status < 300) {
@@ -21,7 +22,7 @@ const checkStatus = (response) => {
 };
 
 export default class ScreenRouter {
-  constructor(screenType) {
+  constructor(screenType = ``) {
     this.screenType = screenType;
     this.data = {};
   }
@@ -41,7 +42,7 @@ export default class ScreenRouter {
             gameData = data;
           }).
           then(() => new ScreenRouter(Screens.INTRO).showIntro()).
-          catch(ScreenRouter.showError).
+          catch(new ScreenRouter().showError).
           then(() => splash.stop());
         break;
 
@@ -114,7 +115,13 @@ export default class ScreenRouter {
           goBack: () => new ScreenRouter(Screens.GREETING).switchScreen()
         };
         selectSlide(new StatPresenter(this.data).create());
-        Loader.saveResults(statistics, model.userName);
+        Loader.saveResults(statistics).
+          then(() => Loader.loadResults()).
+          then((data) => {
+            serverStatistics = data;
+          }).
+          catch(new ScreenRouter().showError);
+        // console.log(serverStatistics);
     }
   }
 
@@ -132,4 +139,4 @@ export default class ScreenRouter {
   }
 }
 
-export {gameData, checkStatus};
+export {gameData, checkStatus, serverStatistics};
