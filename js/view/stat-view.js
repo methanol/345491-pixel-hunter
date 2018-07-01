@@ -52,7 +52,7 @@ export default class StatView extends InitialGameView {
           <td colspan="5" class="result__total  result__total--final">${getScore(model)}</td>
         </tr>
       </table>
-      ${((serverStatistics.length < 2) || (serverStatistics[serverStatistics.length - 1].length < 2)) ? `` : `<table class="result__table">
+      ${((serverStatistics.length < 1) || (serverStatistics[serverStatistics.length - 1][0] === undefined)) ? `` : `<table class="result__table">
         <tr>
           <td class="result__number">2.</td>
           <td colspan="2">
@@ -88,8 +88,8 @@ export default class StatView extends InitialGameView {
         <tr>
           <td colspan="5" class="result__total  result__total--final">${getScore(serverStatistics[serverStatistics.length - 1][0])}</td>
         </tr>
-      </table>
-      ${((serverStatistics.length < 2) || (serverStatistics[serverStatistics.length - 1].length < 3)) ? `` : `<table class="result__table">
+      </table>`}
+      ${((serverStatistics.length < 1) || (serverStatistics[serverStatistics.length - 1][1] === undefined)) ? `` : `<table class="result__table">
         <tr>
           <td class="result__number">3.</td>
           <td colspan="2">
@@ -126,7 +126,7 @@ export default class StatView extends InitialGameView {
           <td colspan="5" class="result__total  result__total--final">${getScore(serverStatistics[serverStatistics.length - 1][1])}</td>
         </tr>
       </table>
-    </div>`}`}
+    </div>`}
     ${new FooterView().template}`;
   }
 
