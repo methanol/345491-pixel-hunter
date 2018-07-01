@@ -127,6 +127,7 @@ export default class ScreenRouter {
           }).
           catch(showError);
         // console.log(serverStatistics);
+        // console.log(serverStatistics[serverStatistics.length - 1][0].answers);
     }
   }
 
