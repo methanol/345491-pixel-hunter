@@ -21,9 +21,6 @@ class GameModel {
   }
 
   resetState() {
-    if (this.answers.filter((it) => it === `unknown`).length < 10) {
-      statistics.unshift(new GameStatistic(model.answers, model.userName, model.lives, model.counter, model.fastCounter, model.slowCounter));
-    }
     this.lives = 3;
     this.counter = 0;
     this.fastCounter = 0;
@@ -51,10 +48,6 @@ class GameStatistic {
   }
 }
 
-statistics.unshift(new GameStatistic(model.answers));
-statistics.unshift(new GameStatistic(model.answers));
-
-
 const PHOTOS = [`https://k42.kn3.net/CF42609C8.jpg`, `https://k42.kn3.net/D2F0370D6.jpg`, `http://i.imgur.com/1KegWPz.jpg`, `https://k32.kn3.net/5C7060EC5.jpg`, `https://i.imgur.com/DiHM5Zb.jpg`, `http://i.imgur.com/DKR1HtB.jpg`, `https://k42.kn3.net/CF42609C8.jpg`, `https://k42.kn3.net/D2F0370D6.jpg`, `http://i.imgur.com/1KegWPz.jpg`, `https://k32.kn3.net/5C7060EC5.jpg`, `https://i.imgur.com/DiHM5Zb.jpg`, `http://i.imgur.com/DKR1HtB.jpg`, `https://k42.kn3.net/CF42609C8.jpg`, `https://k42.kn3.net/D2F0370D6.jpg`, `http://i.imgur.com/1KegWPz.jpg`, `https://k32.kn3.net/5C7060EC5.jpg`, `https://i.imgur.com/DiHM5Zb.jpg`, `http://i.imgur.com/DKR1HtB.jpg`, `https://k42.kn3.net/CF42609C8.jpg`, `https://k42.kn3.net/D2F0370D6.jpg`];
 
-export {PHOTOS, model, statistics};
+export {PHOTOS, model, statistics, GameStatistic};

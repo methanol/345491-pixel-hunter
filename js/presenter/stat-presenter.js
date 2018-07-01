@@ -1,4 +1,5 @@
 import StatView from '.././view/stat-view.js';
+import {model, statistics, GameStatistic} from '.././data.js';
 
 export default class StatPresenter {
   constructor(data) {
@@ -7,6 +8,8 @@ export default class StatPresenter {
   }
 
   create() {
+    statistics.unshift(new GameStatistic(model.answers, model.userName, model.lives, model.counter, model.fastCounter, model.slowCounter));
+
     this.view.getBackClick = () => {
       this.data.goBack();
     };

@@ -4,6 +4,7 @@ import getScore from '.././get-score.js';
 import FooterView from '.././view/footer-view.js';
 import HeaderView from '.././view/header-view.js';
 import {Velocities} from '.././permanent.js';
+// import {serverStatistics} from '.././controller.js';
 
 const LIFE_PRICE = 50;
 const FAIL = `FAIL`;
@@ -51,46 +52,9 @@ export default class StatView extends InitialGameView {
           <td colspan="5" class="result__total  result__total--final">${getScore(model)}</td>
         </tr>
       </table>
-      <table class="result__table">
+      ${(statistics.length < 2) ? `` : `<table class="result__table">
         <tr>
           <td class="result__number">2.</td>
-          <td colspan="2">
-            <ul class="stats">
-            ${statistics[0].answers.map((it) =>
-    `<li class="stats__result stats__result--${it}"></li>`).join(``)}
-            </ul>
-          </td>
-          <td class="result__points">×&nbsp;100</td>
-          <td class="result__total">${(statistics[0].counter < 10) ? FAIL : statistics[0].answers.filter((it) => it !== Velocities.WRONG_MODE).length * 100}</td>
-        </tr>
-        ${(statistics[0].lives >= 0) ? `<tr>
-          <td></td>
-          <td class="result__extra">Бонус за скорость:</td>
-          <td class="result__extra">${statistics[0].fastCounter}&nbsp;<span class="stats__result stats__result--fast"></span></td>
-          <td class="result__points">×&nbsp;50</td>
-          <td class="result__total">${statistics[0].fastCounter * 50}</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td class="result__extra">Бонус за жизни:</td>
-          <td class="result__extra">${statistics[0].lives}&nbsp;<span class="stats__result stats__result--alive"></span></td>
-          <td class="result__points">×&nbsp;50</td>
-          <td class="result__total">${statistics[0].lives * LIFE_PRICE}</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td class="result__extra">Штраф за медлительность:</td>
-          <td class="result__extra">${statistics[0].slowCounter}&nbsp;<span class="stats__result stats__result--slow"></span></td>
-          <td class="result__points">×&nbsp;50</td>
-          <td class="result__total">${statistics[0].slowCounter * (-50)}</td>
-        </tr>` : ``}
-        <tr>
-          <td colspan="5" class="result__total  result__total--final">${getScore(statistics[0])}</td>
-        </tr>
-      </table>
-      <table class="result__table">
-        <tr>
-          <td class="result__number">3.</td>
           <td colspan="2">
             <ul class="stats">
             ${statistics[1].answers.map((it) =>
@@ -125,7 +89,44 @@ export default class StatView extends InitialGameView {
           <td colspan="5" class="result__total  result__total--final">${getScore(statistics[1])}</td>
         </tr>
       </table>
-    </div>
+      ${(statistics.length < 3) ? `` : `<table class="result__table">
+        <tr>
+          <td class="result__number">3.</td>
+          <td colspan="2">
+            <ul class="stats">
+            ${statistics[2].answers.map((it) =>
+    `<li class="stats__result stats__result--${it}"></li>`).join(``)}
+            </ul>
+          </td>
+          <td class="result__points">×&nbsp;100</td>
+          <td class="result__total">${(statistics[2].counter < 10) ? FAIL : statistics[2].answers.filter((it) => it !== Velocities.WRONG_MODE).length * 100}</td>
+        </tr>
+        ${(statistics[2].lives >= 0) ? `<tr>
+          <td></td>
+          <td class="result__extra">Бонус за скорость:</td>
+          <td class="result__extra">${statistics[2].fastCounter}&nbsp;<span class="stats__result stats__result--fast"></span></td>
+          <td class="result__points">×&nbsp;50</td>
+          <td class="result__total">${statistics[2].fastCounter * 50}</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="result__extra">Бонус за жизни:</td>
+          <td class="result__extra">${statistics[2].lives}&nbsp;<span class="stats__result stats__result--alive"></span></td>
+          <td class="result__points">×&nbsp;50</td>
+          <td class="result__total">${statistics[2].lives * LIFE_PRICE}</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="result__extra">Штраф за медлительность:</td>
+          <td class="result__extra">${statistics[2].slowCounter}&nbsp;<span class="stats__result stats__result--slow"></span></td>
+          <td class="result__points">×&nbsp;50</td>
+          <td class="result__total">${statistics[2].slowCounter * (-50)}</td>
+        </tr>` : ``}
+        <tr>
+          <td colspan="5" class="result__total  result__total--final">${getScore(statistics[2])}</td>
+        </tr>
+      </table>
+    </div>`}`}
     ${new FooterView().template}`;
   }
 

@@ -1,4 +1,4 @@
-import checkStatus from './controller.js';
+import {checkStatus} from './controller.js';
 
 const DEFAULT_NAME = `user`;
 const APP_ID = 1491625;
