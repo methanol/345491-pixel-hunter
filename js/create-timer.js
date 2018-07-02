@@ -4,14 +4,14 @@ const START_TIME = 30;
 
 export default class Timer {
   constructor(time, updateTimer = () => 1, goNext = () => 1) {
+    if (typeof (time) !== `number`) {
+      throw new Error(`type of time should be number`);
+    }
+
     this.currentTime = time;
     this.timer = {};
     this.updateTimer = updateTimer;
     this.goNext = goNext;
-
-    if (typeof (this.currentTime) !== `number`) {
-      throw new Error(`type of time should be number`);
-    }
   }
 
   tick() {

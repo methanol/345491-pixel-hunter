@@ -10,8 +10,13 @@ const LIFE_PRICE = 50;
 const FAIL = `FAIL`;
 
 export default class StatView extends InitialGameView {
+
+
   get template() {
     model.switchHeaderSmall();
+    let PREV_GAME1 = (serverStatistics.length > 1) ? serverStatistics[serverStatistics.length - 1][0] : ``;
+    let PREV_GAME2 = (serverStatistics.length > 1) ? serverStatistics[serverStatistics.length - 1][1] : ``;
+
     return `${new HeaderView().template}
     <div class="result">
       <h1>${(model.lives >= 0) ? `Победа!` : `Поражение!`}</h1>
@@ -52,78 +57,78 @@ export default class StatView extends InitialGameView {
           <td colspan="5" class="result__total  result__total--final">${getScore(model)}</td>
         </tr>
       </table>
-      ${((serverStatistics.length < 1) || (serverStatistics[serverStatistics.length - 1][0] === undefined)) ? `` : `<table class="result__table">
+      ${((serverStatistics.length < 1) || (PREV_GAME1 === undefined)) ? `` : `<table class="result__table">
         <tr>
           <td class="result__number">2.</td>
           <td colspan="2">
             <ul class="stats">
-            ${serverStatistics[serverStatistics.length - 1][0].answers.map((it) =>
+            ${PREV_GAME1.answers.map((it) =>
     `<li class="stats__result stats__result--${it}"></li>`).join(``)}
             </ul>
           </td>
           <td class="result__points">×&nbsp;100</td>
-          <td class="result__total">${(serverStatistics[serverStatistics.length - 1][0].counter < 10) ? FAIL : serverStatistics[serverStatistics.length - 1][0].answers.filter((it) => it !== Velocities.WRONG_MODE).length * 100}</td>
+          <td class="result__total">${(PREV_GAME1.counter < 10) ? FAIL : PREV_GAME1.answers.filter((it) => it !== Velocities.WRONG_MODE).length * 100}</td>
         </tr>
-        ${(serverStatistics[serverStatistics.length - 1][0].lives >= 0) ? `<tr>
+        ${(PREV_GAME1.lives >= 0) ? `<tr>
           <td></td>
           <td class="result__extra">Бонус за скорость:</td>
-          <td class="result__extra">${serverStatistics[serverStatistics.length - 1][0].fastCounter}&nbsp;<span class="stats__result stats__result--fast"></span></td>
+          <td class="result__extra">${PREV_GAME1.fastCounter}&nbsp;<span class="stats__result stats__result--fast"></span></td>
           <td class="result__points">×&nbsp;50</td>
-          <td class="result__total">${serverStatistics[serverStatistics.length - 1][0].fastCounter * 50}</td>
+          <td class="result__total">${PREV_GAME1.fastCounter * 50}</td>
         </tr>
         <tr>
           <td></td>
           <td class="result__extra">Бонус за жизни:</td>
-          <td class="result__extra">${serverStatistics[serverStatistics.length - 1][0].lives}&nbsp;<span class="stats__result stats__result--alive"></span></td>
+          <td class="result__extra">${PREV_GAME1.lives}&nbsp;<span class="stats__result stats__result--alive"></span></td>
           <td class="result__points">×&nbsp;50</td>
-          <td class="result__total">${serverStatistics[serverStatistics.length - 1][0].lives * LIFE_PRICE}</td>
+          <td class="result__total">${PREV_GAME1.lives * LIFE_PRICE}</td>
         </tr>
         <tr>
           <td></td>
           <td class="result__extra">Штраф за медлительность:</td>
-          <td class="result__extra">${serverStatistics[serverStatistics.length - 1][0].slowCounter}&nbsp;<span class="stats__result stats__result--slow"></span></td>
+          <td class="result__extra">${PREV_GAME1.slowCounter}&nbsp;<span class="stats__result stats__result--slow"></span></td>
           <td class="result__points">×&nbsp;50</td>
-          <td class="result__total">${serverStatistics[serverStatistics.length - 1][0].slowCounter * (-50)}</td>
+          <td class="result__total">${PREV_GAME1.slowCounter * (-50)}</td>
         </tr>` : ``}
         <tr>
-          <td colspan="5" class="result__total  result__total--final">${getScore(serverStatistics[serverStatistics.length - 1][0])}</td>
+          <td colspan="5" class="result__total  result__total--final">${getScore(PREV_GAME1)}</td>
         </tr>
       </table>`}
-      ${((serverStatistics.length < 1) || (serverStatistics[serverStatistics.length - 1][1] === undefined)) ? `` : `<table class="result__table">
+      ${((serverStatistics.length < 1) || (PREV_GAME2 === undefined)) ? `` : `<table class="result__table">
         <tr>
           <td class="result__number">3.</td>
           <td colspan="2">
             <ul class="stats">
-            ${serverStatistics[serverStatistics.length - 1][1].answers.map((it) =>
+            ${PREV_GAME2.answers.map((it) =>
     `<li class="stats__result stats__result--${it}"></li>`).join(``)}
             </ul>
           </td>
           <td class="result__points">×&nbsp;100</td>
-          <td class="result__total">${(serverStatistics[serverStatistics.length - 1][0].counter < 10) ? FAIL : serverStatistics[serverStatistics.length - 1][1].answers.filter((it) => it !== Velocities.WRONG_MODE).length * 100}</td>
+          <td class="result__total">${(PREV_GAME2.counter < 10) ? FAIL : PREV_GAME2.answers.filter((it) => it !== Velocities.WRONG_MODE).length * 100}</td>
         </tr>
-        ${(serverStatistics[serverStatistics.length - 1][1].lives >= 0) ? `<tr>
+        ${(PREV_GAME2.lives >= 0) ? `<tr>
           <td></td>
           <td class="result__extra">Бонус за скорость:</td>
-          <td class="result__extra">${serverStatistics[serverStatistics.length - 1][1].fastCounter}&nbsp;<span class="stats__result stats__result--fast"></span></td>
+          <td class="result__extra">${PREV_GAME2.fastCounter}&nbsp;<span class="stats__result stats__result--fast"></span></td>
           <td class="result__points">×&nbsp;50</td>
-          <td class="result__total">${serverStatistics[serverStatistics.length - 1][1].fastCounter * 50}</td>
+          <td class="result__total">${PREV_GAME2.fastCounter * 50}</td>
         </tr>
         <tr>
           <td></td>
           <td class="result__extra">Бонус за жизни:</td>
-          <td class="result__extra">${serverStatistics[serverStatistics.length - 1][1].lives}&nbsp;<span class="stats__result stats__result--alive"></span></td>
+          <td class="result__extra">${PREV_GAME2.lives}&nbsp;<span class="stats__result stats__result--alive"></span></td>
           <td class="result__points">×&nbsp;50</td>
-          <td class="result__total">${serverStatistics[serverStatistics.length - 1][1].lives * LIFE_PRICE}</td>
+          <td class="result__total">${PREV_GAME2.lives * LIFE_PRICE}</td>
         </tr>
         <tr>
           <td></td>
           <td class="result__extra">Штраф за медлительность:</td>
-          <td class="result__extra">${serverStatistics[serverStatistics.length - 1][1].slowCounter}&nbsp;<span class="stats__result stats__result--slow"></span></td>
+          <td class="result__extra">${PREV_GAME2.slowCounter}&nbsp;<span class="stats__result stats__result--slow"></span></td>
           <td class="result__points">×&nbsp;50</td>
-          <td class="result__total">${serverStatistics[serverStatistics.length - 1][1].slowCounter * (-50)}</td>
+          <td class="result__total">${PREV_GAME2.slowCounter * (-50)}</td>
         </tr>` : ``}
         <tr>
-          <td colspan="5" class="result__total  result__total--final">${getScore(serverStatistics[serverStatistics.length - 1][1])}</td>
+          <td colspan="5" class="result__total  result__total--final">${getScore(PREV_GAME2)}</td>
         </tr>
       </table>
     </div>`}

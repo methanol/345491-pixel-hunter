@@ -1,4 +1,4 @@
-import GameOneView from '.././view/game-view.js';
+import GameView from '.././view/game-view.js';
 import {model} from '.././data.js';
 import {Screens} from '.././permanent.js';
 import {Velocities, Times} from '.././permanent.js';
@@ -8,7 +8,7 @@ export default class GamePresenter {
   constructor(data, gameData) {
     this.gameData = gameData;
     this.data = data;
-    this.view = new GameOneView(this.gameData[model.counter].type, this.gameData);
+    this.view = new GameView(this.gameData[model.counter].type, this.gameData);
     this.timing = new Timer(Times.START_TIME, (time) => this.view.updateTimer(time), () => this.goNext());
   }
 

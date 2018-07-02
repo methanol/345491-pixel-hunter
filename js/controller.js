@@ -1,5 +1,5 @@
 import {selectSlide} from './util.js';
-import {model, statistics} from './data.js';
+import {model} from './data.js';
 import IntroPresenter from './presenter/intro-presenter.js';
 import GreetingPresenter from './presenter/greeting-presenter.js';
 import RulesPresenter from './presenter/rules-presenter.js';
@@ -46,9 +46,9 @@ export default class ScreenRouter {
           then((data) => {
             gameData = data;
           }).
-          then(() => new ScreenRouter(Screens.INTRO).showIntro()).
-          catch(showError).
-          then(() => splash.stop());
+          then(() => splash.stop()).
+          catch(showError);
+        new ScreenRouter(Screens.INTRO).switchScreen();
         break;
 
       case Screens.INTRO:
@@ -120,7 +120,7 @@ export default class ScreenRouter {
           goBack: () => new ScreenRouter(Screens.GREETING).switchScreen()
         };
         selectSlide(new StatPresenter(this.data).create());
-        Loader.saveResults(statistics, model.userName).
+        Loader.saveResults(model.statistics, model.userName).
           then(() => Loader.loadResults(model.userName)).
           then((data) => {
             serverStatistics = data;
@@ -129,18 +129,6 @@ export default class ScreenRouter {
     }
   }
 
-  showIntro() {
-    this.switchScreen(Screens.INTRO);
-  }
-
-  showLoad() {
-    this.switchScreen(Screens.LOAD);
-  }
-
-  static showError(error) {
-    const errorScreen = new ErrorScreen(error);
-    selectSlide(errorScreen.element);
-  }
 }
 
 export {checkStatus, serverStatistics};

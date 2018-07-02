@@ -24,8 +24,8 @@ const getScore = (state) => {
     return -1;
   }
 
-  for (let i = 0; i < state.answers.length; i++) {
-    switch (state.answers[i]) {
+  for (let answer of state.answers) {
+    switch (answer) {
       case Velocities.NORMAL_MODE:
         totalScore += NORMAL_SCORE;
         break;
