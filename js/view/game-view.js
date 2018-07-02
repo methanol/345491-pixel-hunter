@@ -131,8 +131,12 @@ export default class GameView extends InitialGameView {
         break;
 
       case Screens.GAME_3:
-        this._element.addEventListener(`mousedown`, () => {
-          this.getClick();
+        const options = this.element.querySelectorAll(`.game__option`);
+
+        options.forEach((it) => {
+          it.addEventListener(`mousedown`, () => {
+            this.getClick();
+          });
         });
         break;
     }
