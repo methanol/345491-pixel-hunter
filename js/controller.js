@@ -47,8 +47,8 @@ export default class ScreenRouter {
             gameData = data;
           }).
           then(() => splash.stop()).
+          then(() => new ScreenRouter(Screens.INTRO).switchScreen()).
           catch(showError);
-        new ScreenRouter(Screens.INTRO).switchScreen();
         break;
 
       case Screens.INTRO:

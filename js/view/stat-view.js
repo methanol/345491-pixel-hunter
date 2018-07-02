@@ -14,8 +14,8 @@ export default class StatView extends InitialGameView {
 
   get template() {
     model.switchHeaderSmall();
-    let PREV_GAME1 = (serverStatistics.length > 1) ? serverStatistics[serverStatistics.length - 1][0] : ``;
-    let PREV_GAME2 = (serverStatistics.length > 1) ? serverStatistics[serverStatistics.length - 1][1] : ``;
+    const PREV_GAME1 = (serverStatistics.length > 1) ? serverStatistics[serverStatistics.length - 1][0] : ``;
+    const PREV_GAME2 = (serverStatistics.length > 1) ? serverStatistics[serverStatistics.length - 1][1] : ``;
 
     return `${new HeaderView().template}
     <div class="result">

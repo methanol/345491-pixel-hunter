@@ -1,5 +1,19 @@
 import StatView from '.././view/stat-view.js';
-import {model, GameStatistic} from '.././data.js';
+import {model} from '.././data.js';
+
+const NO_LIVES = -1;
+const NO_COUNTER = 5;
+
+class GameStatistic {
+  constructor(answers, userName = ``, lives = NO_LIVES, counter = NO_COUNTER, fastCounter = NO_COUNTER, slowCounter = NO_COUNTER) {
+    this.answers = answers;
+    this.userName = userName;
+    this.lives = lives;
+    this.counter = counter;
+    this.fastCounter = fastCounter;
+    this.slowCounter = slowCounter;
+  }
+}
 
 export default class StatPresenter {
   constructor(data) {

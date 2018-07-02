@@ -1,6 +1,3 @@
-const NO_LIVES = -1;
-const NO_COUNTER = 5;
-
 class GameModel {
   constructor() {
     this.lives = 3;
@@ -34,15 +31,5 @@ class GameModel {
 
 const model = new GameModel();
 
-class GameStatistic {
-  constructor(answers, userName = ``, lives = NO_LIVES, counter = NO_COUNTER, fastCounter = NO_COUNTER, slowCounter = NO_COUNTER) {
-    this.answers = answers;
-    this.userName = userName;
-    this.lives = lives;
-    this.counter = counter;
-    this.fastCounter = fastCounter;
-    this.slowCounter = slowCounter;
-  }
-}
 
-export {model, GameStatistic};
+export {model};
