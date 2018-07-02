@@ -1,4 +1,4 @@
-import GameOneView from '.././view/game-view.js';
+import GameView from '.././view/game-view.js';
 import {model} from '.././data.js';
 import {Screens} from '.././permanent.js';
 import {Velocities, Times} from '.././permanent.js';
@@ -8,7 +8,7 @@ export default class GamePresenter {
   constructor(data, gameData) {
     this.gameData = gameData;
     this.data = data;
-    this.view = new GameOneView(this.gameData[model.counter].type, this.gameData);
+    this.view = new GameView(this.gameData[model.counter].type, this.gameData);
     this.timing = new Timer(Times.START_TIME, (time) => this.view.updateTimer(time), () => this.goNext());
   }
 
@@ -93,21 +93,16 @@ export default class GamePresenter {
         this.view.getClick = () => {
           const options = this.view._element.querySelectorAll(`.game__option`);
 
-          options.forEach((it) => {
-            it.addEventListener(`click`, () => {
+          const stopValue = this.timing.time;
+          this.timing.stopTimer();
 
-              const stopValue = this.timing.time;
-              this.timing.stopTimer();
+          const type = this.gameData[model.counter].question === `Найдите рисунок среди изображений` ? `painting` : `photo`;
 
-              const type = this.gameData[model.counter].question === `Найдите рисунок среди изображений` ? `painting` : `photo`;
+          model.keyCodes[model.counter] = this.gameData[model.counter].answers.map((answer) => answer.type === type ? `1` : `0`).join(``);
 
-              model.keyCodes[model.counter] = this.gameData[model.counter].answers.map((answer) => answer.type === type ? `1` : `0`).join(``);
+          this.checkAnswer([...options].map((it) => (it.classList.contains(`game__option--selected`)) ? 1 : 0).join(``), stopValue);
 
-              this.checkAnswer([...options].map((item) => (it === item) ? 1 : 0).join(``), stopValue);
-
-              this.data.showNextScreen();
-            });
-          });
+          this.data.showNextScreen();
         };
         break;
     }

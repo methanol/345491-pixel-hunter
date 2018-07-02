@@ -37,7 +37,7 @@ export default class RulesView extends InitialGameView {
     });
 
     rulesInput.addEventListener(`input`, () => {
-      rulesButton.disabled = (rulesInput.value === ``) ? true : false;
+      rulesButton.disabled = (rulesInput.value === ``);
     });
 
     rulesButton.addEventListener(`click`, (evt) => {
