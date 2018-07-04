@@ -1,14 +1,13 @@
-import GameView from '.././view/game-view.js';
-import {model} from '.././data.js';
-import {Screens} from '.././permanent.js';
-import {Velocities, Times} from '.././permanent.js';
-import Timer from '.././create-timer.js';
+import GameView from '../view/game-view.js';
+import {model} from '../data.js';
+import {Screens, Velocities, Times} from '../permanent.js';
+import Timer from '../create-timer.js';
 
 export default class GamePresenter {
-  constructor(data, gameData) {
-    this.gameData = gameData;
+  constructor(data, inputStates) {
+    this.inputStates = inputStates;
     this.data = data;
-    this.view = new GameView(this.gameData[model.counter].type, this.gameData);
+    this.view = new GameView(this.inputStates[model.counter].type, this.inputStates);
     this.timing = new Timer(Times.START_TIME, (time) => this.view.updateTimer(time), () => this.goNext());
   }
 
@@ -46,7 +45,7 @@ export default class GamePresenter {
 
     this.timing.startTimer();
 
-    switch (this.gameData[model.counter].type) {
+    switch (this.inputStates[model.counter].type) {
       case Screens.GAME_1:
         this.view.getClick = () => {
           const questions2 = this.view._element.querySelectorAll(`input[name="question2"]`);
@@ -57,8 +56,8 @@ export default class GamePresenter {
             const stopValue = this.timing.time;
             this.timing.stopTimer();
 
-            const code1 = (this.gameData[model.counter].answers[0].type === `painting`) ? `01` : `10`;
-            const code2 = (this.gameData[model.counter].answers[1].type === `painting`) ? `01` : `10`;
+            const code1 = (this.inputStates[model.counter].answers[0].type === `painting`) ? `01` : `10`;
+            const code2 = (this.inputStates[model.counter].answers[1].type === `painting`) ? `01` : `10`;
 
             model.keyCodes[model.counter] = [code1, code2].join(``);
 
@@ -78,7 +77,7 @@ export default class GamePresenter {
             const stopValue = this.timing.time;
             this.timing.stopTimer();
 
-            const code1 = (this.gameData[model.counter].answers[0].type === `painting`) ? `01` : `10`;
+            const code1 = (this.inputStates[model.counter].answers[0].type === `painting`) ? `01` : `10`;
 
             model.keyCodes[model.counter] = code1;
 
@@ -96,9 +95,9 @@ export default class GamePresenter {
           const stopValue = this.timing.time;
           this.timing.stopTimer();
 
-          const type = this.gameData[model.counter].question === `Найдите рисунок среди изображений` ? `painting` : `photo`;
+          const type = this.inputStates[model.counter].question === `Найдите рисунок среди изображений` ? `painting` : `photo`;
 
-          model.keyCodes[model.counter] = this.gameData[model.counter].answers.map((answer) => answer.type === type ? `1` : `0`).join(``);
+          model.keyCodes[model.counter] = this.inputStates[model.counter].answers.map((answer) => answer.type === type ? `1` : `0`).join(``);
 
           this.checkAnswer([...options].map((it) => (it.classList.contains(`game__option--selected`)) ? 1 : 0).join(``), stopValue);
 

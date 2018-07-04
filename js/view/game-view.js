@@ -1,14 +1,14 @@
-import InitialGameView from '.././initial-game-view.js';
-import FooterView from '.././view/footer-view.js';
-import HeaderView from '.././view/header-view.js';
-import {model} from '.././data.js';
-import {Screens} from '.././permanent.js';
+import InitialGameView from '../initial-game-view.js';
+import FooterView from '../view/footer-view.js';
+import HeaderView from '../view/header-view.js';
+import {model} from '../data.js';
+import {Screens} from '../permanent.js';
 
 export default class GameView extends InitialGameView {
-  constructor(name, gameData) {
+  constructor(name, inputStates) {
     super();
     this.gameName = name;
-    this.gameData = gameData;
+    this.inputStates = inputStates;
   }
 
   get template() {
@@ -20,10 +20,10 @@ export default class GameView extends InitialGameView {
         templ = `<div>
         ${new HeaderView().template}
         <div class="game">
-          <p class="game__task">${this.gameData[model.counter].question}</p>
+          <p class="game__task">${this.inputStates[model.counter].question}</p>
           <form class="game__content">
             <div class="game__option">
-              <img src=${this.gameData[model.counter].answers[0].image.url} alt="Option 1" width="468" height="458">
+              <img src=${this.inputStates[model.counter].answers[0].image.url} alt="Option 1" width="468" height="458">
               <label class="game__answer game__answer--photo">
                 <input name="question1" type="radio" value="photo">
                 <span>Фото</span>
@@ -34,7 +34,7 @@ export default class GameView extends InitialGameView {
               </label>
             </div>
             <div class="game__option">
-              <img src=${this.gameData[model.counter].answers[1].image.url} alt="Option 2" width="468" height="458">
+              <img src=${this.inputStates[model.counter].answers[1].image.url} alt="Option 2" width="468" height="458">
               <label class="game__answer  game__answer--photo">
                 <input name="question2" type="radio" value="photo">
                 <span>Фото</span>
@@ -59,10 +59,10 @@ export default class GameView extends InitialGameView {
         templ = `<div>
         ${new HeaderView().template}
         <div class="game">
-          <p class="game__task">${this.gameData[model.counter].question}</p>
+          <p class="game__task">${this.inputStates[model.counter].question}</p>
           <form class="game__content  game__content--wide">
             <div class="game__option">
-              <img src=${this.gameData[model.counter].answers[0].image.url} alt="Option 1" width="705" height="455">
+              <img src=${this.inputStates[model.counter].answers[0].image.url} alt="Option 1" width="705" height="455">
               <label class="game__answer  game__answer--photo">
                 <input name="question1" type="radio" value="photo">
                 <span>Фото</span>
@@ -88,16 +88,16 @@ export default class GameView extends InitialGameView {
         templ = `<div>
         ${new HeaderView().template}
         <div class="game">
-          <p class="game__task">${this.gameData[model.counter].question}</p>
+          <p class="game__task">${this.inputStates[model.counter].question}</p>
           <form class="game__content  game__content--triple">
             <div class="game__option">
-              <img src=${this.gameData[model.counter].answers[0].image.url} alt="Option 1" width="304" height="455">
+              <img src=${this.inputStates[model.counter].answers[0].image.url} alt="Option 1" width="304" height="455">
             </div>
             <div class="game__option  game__option--selected">
-              <img src=${this.gameData[model.counter].answers[1].image.url} alt="Option 1" width="304" height="455">
+              <img src=${this.inputStates[model.counter].answers[1].image.url} alt="Option 1" width="304" height="455">
             </div>
             <div class="game__option">
-              <img src=${this.gameData[model.counter].answers[2].image.url} alt="Option 1" width="304" height="455">
+              <img src=${this.inputStates[model.counter].answers[2].image.url} alt="Option 1" width="304" height="455">
             </div>
           </form>
           <div class="stats">

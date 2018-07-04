@@ -1,4 +1,4 @@
-import IntroView from '.././view/intro-view.js';
+import IntroView from '../view/intro-view.js';
 
 export default class IntroPresenter {
   constructor(data) {
