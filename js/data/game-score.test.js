@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import getScore from '.././get-score.js';
+import getScore from '../get-score.js';
 
 const GAME1_SCORE = {
   lives: 3,

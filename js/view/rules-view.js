@@ -1,7 +1,7 @@
-import InitialGameView from '.././initial-game-view.js';
-import FooterView from '.././view/footer-view.js';
-import HeaderView from '.././view/header-view.js';
-import {model} from '.././data.js';
+import InitialGameView from '../initial-game-view.js';
+import FooterView from '../view/footer-view.js';
+import HeaderView from '../view/header-view.js';
+import {model} from '../data.js';
 
 export default class RulesView extends InitialGameView {
   get template() {

@@ -1,6 +1,6 @@
-import InitialGameView from '.././initial-game-view.js';
-import {model} from '.././data.js';
-import {Times} from '.././permanent.js';
+import InitialGameView from '../initial-game-view.js';
+import {model} from '../data.js';
+import {Times} from '../permanent.js';
 
 const MAX_LIVES = 3;
 

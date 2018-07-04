@@ -1,10 +1,10 @@
-import InitialGameView from '.././initial-game-view.js';
-import {model} from '.././data.js';
-import getScore from '.././get-score.js';
-import FooterView from '.././view/footer-view.js';
-import HeaderView from '.././view/header-view.js';
-import {Velocities} from '.././permanent.js';
-import {serverStatistics} from '.././controller.js';
+import InitialGameView from '../initial-game-view.js';
+import {model} from '../data.js';
+import getScore from '../get-score.js';
+import FooterView from '../view/footer-view.js';
+import HeaderView from '../view/header-view.js';
+import {Velocities} from '../permanent.js';
+import {serverStatistics} from '../controller.js';
 
 const LIFE_PRICE = 50;
 const FAIL = `FAIL`;

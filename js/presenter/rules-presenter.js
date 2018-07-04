@@ -1,5 +1,5 @@
-import RulesView from '.././view/rules-view.js';
-import {model} from '.././data.js';
+import RulesView from '../view/rules-view.js';
+import {model} from '../data.js';
 
 export default class RulesPresenter {
   constructor(data) {

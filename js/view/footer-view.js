@@ -1,4 +1,4 @@
-import InitialGameView from '.././initial-game-view.js';
+import InitialGameView from '../initial-game-view.js';
 
 export default class FooterView extends InitialGameView {
   get template() {

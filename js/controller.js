@@ -10,15 +10,16 @@ import SplashScreen from './splash-screen.js';
 import ErrorScreen from './error-screen.js';
 import Loader from './loader.js';
 
-let gameData = [];
+let inputStates = [];
 let serverStatistics = [];
 
 const checkStatus = (response) => {
   if (response.status >= 200 && response.status < 300) {
     return response;
-  } else {
-    throw new Error(`${response.status}: ${response.statusText}`);
   }
+
+  throw new Error(`${response.status}: ${response.statusText}`);
+
 };
 
 const showError = (error) => {
@@ -44,7 +45,7 @@ export default class ScreenRouter {
           then(checkStatus).
           then((response) => response.json()).
           then((data) => {
-            gameData = data;
+            inputStates = data;
           }).
           then(() => splash.stop()).
           then(() => new ScreenRouter(Screens.INTRO).switchScreen()).
@@ -67,7 +68,7 @@ export default class ScreenRouter {
 
       case Screens.RULES:
         this.data = {
-          showNextScreen: () => new ScreenRouter(gameData[0].type).switchScreen(),
+          showNextScreen: () => new ScreenRouter(inputStates[0].type).switchScreen(),
           goBack: () => new ScreenRouter(Screens.GREETING).switchScreen()
         };
         selectSlide(new RulesPresenter(this.data).create());
@@ -77,42 +78,42 @@ export default class ScreenRouter {
         this.data = {
           showNextScreen: () => {
             if ((model.lives >= 0) && (model.counter < 10)) {
-              new ScreenRouter(gameData[model.counter].type).switchScreen();
+              new ScreenRouter(inputStates[model.counter].type).switchScreen();
             } else {
               new ScreenRouter(Screens.STAT).switchScreen();
             }
           },
           goBack: () => new ScreenRouter(Screens.GREETING).switchScreen()
         };
-        selectSlide(new GamePresenter(this.data, gameData).create());
+        selectSlide(new GamePresenter(this.data, inputStates).create());
         break;
 
       case Screens.GAME_2:
         this.data = {
           showNextScreen: () => {
             if ((model.lives >= 0) && (model.counter < 10)) {
-              new ScreenRouter(gameData[model.counter].type).switchScreen();
+              new ScreenRouter(inputStates[model.counter].type).switchScreen();
             } else {
               new ScreenRouter(Screens.STAT).switchScreen();
             }
           },
           goBack: () => new ScreenRouter(Screens.GREETING).switchScreen()
         };
-        selectSlide(new GamePresenter(this.data, gameData).create());
+        selectSlide(new GamePresenter(this.data, inputStates).create());
         break;
 
       case Screens.GAME_3:
         this.data = {
           showNextScreen: () => {
             if ((model.lives >= 0) && (model.counter < 10)) {
-              new ScreenRouter(gameData[model.counter].type).switchScreen();
+              new ScreenRouter(inputStates[model.counter].type).switchScreen();
             } else {
               new ScreenRouter(Screens.STAT).switchScreen();
             }
           },
           goBack: () => new ScreenRouter(Screens.GREETING).switchScreen()
         };
-        selectSlide(new GamePresenter(this.data, gameData).create());
+        selectSlide(new GamePresenter(this.data, inputStates).create());
         break;
 
       case Screens.STAT:

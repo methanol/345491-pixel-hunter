@@ -1,5 +1,5 @@
-import StatView from '.././view/stat-view.js';
-import {model} from '.././data.js';
+import StatView from '../view/stat-view.js';
+import {model} from '../data.js';
 
 const NO_LIVES = -1;
 const NO_COUNTER = 5;

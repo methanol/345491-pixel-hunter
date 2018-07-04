@@ -1,4 +1,4 @@
-import GreetingView from '.././view/greeting-view.js';
+import GreetingView from '../view/greeting-view.js';
 
 export default class GreetingPresenter {
   constructor(data) {
