@@ -30,7 +30,7 @@ export default class StatView extends InitialGameView {
             </ul>
           </td>
           <td class="result__points">×&nbsp;100</td>
-          <td class="result__total">${(model.counter < 10) ? FAIL : model.answers.filter((it) => it !== Velocities.WRONG_MODE).length * 100}</td>
+          <td class="result__total">${(model.lives < 0) ? FAIL : model.answers.filter((it) => it !== Velocities.WRONG_MODE).length * 100}</td>
         </tr>
         ${(model.lives >= 0) ? `<tr>
           <td></td>

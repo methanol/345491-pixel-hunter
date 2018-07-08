@@ -93,7 +93,7 @@ export default class GameView extends InitialGameView {
             <div class="game__option">
               <img src=${this.inputStates[model.counter].answers[0].image.url} alt="Option 1" width="304" height="455">
             </div>
-            <div class="game__option  game__option--selected">
+            <div class="game__option">
               <img src=${this.inputStates[model.counter].answers[1].image.url} alt="Option 1" width="304" height="455">
             </div>
             <div class="game__option">
@@ -135,6 +135,7 @@ export default class GameView extends InitialGameView {
 
         options.forEach((it) => {
           it.addEventListener(`mousedown`, () => {
+            it.classList.add(`game__option--selected`);
             this.getClick();
           });
         });
