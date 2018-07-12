@@ -5,7 +5,6 @@ import GreetingPresenter from './presenter/greeting-presenter.js';
 import RulesPresenter from './presenter/rules-presenter.js';
 import GamePresenter from './presenter/game-presenter.js';
 import StatPresenter from './presenter/stat-presenter.js';
-import {Screens} from './permanent.js';
 import SplashScreen from './splash-screen.js';
 import ErrorScreen from './error-screen.js';
 import Loader from './loader.js';
@@ -28,108 +27,73 @@ const showError = (error) => {
 };
 
 export default class ScreenRouter {
-  constructor(screenType = ``) {
-    this.screenType = screenType;
-    this.data = {};
+
+  static showLoad() {
+    const splash = new SplashScreen();
+
+    selectSlide(splash.element);
+    splash.start();
+    window.fetch(`https://es.dump.academy/pixel-hunter/questions`).
+      then(checkStatus).
+      then((response) => response.json()).
+      then((data) => {
+        inputStates = data;
+      }).
+      then(() => splash.stop()).
+      then(() => ScreenRouter.showIntro()).
+      catch(showError);
   }
 
-  switchScreen() {
-    switch (this.screenType) {
-      case Screens.LOAD:
-
-        const splash = new SplashScreen();
-
-        selectSlide(splash.element);
-        splash.start();
-        window.fetch(`https://es.dump.academy/pixel-hunter/questions`).
-          then(checkStatus).
-          then((response) => response.json()).
-          then((data) => {
-            inputStates = data;
-          }).
-          then(() => splash.stop()).
-          then(() => new ScreenRouter(Screens.INTRO).switchScreen()).
-          catch(showError);
-        break;
-
-      case Screens.INTRO:
-        this.data = {
-          showNextScreen: () => new ScreenRouter(Screens.GREETING).switchScreen()
-        };
-        selectSlide(new IntroPresenter(this.data).create());
-        break;
-
-      case Screens.GREETING:
-        this.data = {
-          showNextScreen: () => new ScreenRouter(Screens.RULES).switchScreen()
-        };
-        selectSlide(new GreetingPresenter(this.data).create());
-        break;
-
-      case Screens.RULES:
-        this.data = {
-          showNextScreen: () => new ScreenRouter(inputStates[0].type).switchScreen(),
-          goBack: () => new ScreenRouter(Screens.GREETING).switchScreen()
-        };
-        selectSlide(new RulesPresenter(this.data).create());
-        break;
-
-      case Screens.GAME_1:
-        this.data = {
-          showNextScreen: () => {
-            if ((model.lives >= 0) && (model.counter < 10)) {
-              new ScreenRouter(inputStates[model.counter].type).switchScreen();
-            } else {
-              new ScreenRouter(Screens.STAT).switchScreen();
-            }
-          },
-          goBack: () => new ScreenRouter(Screens.GREETING).switchScreen()
-        };
-        selectSlide(new GamePresenter(this.data, inputStates).create());
-        break;
-
-      case Screens.GAME_2:
-        this.data = {
-          showNextScreen: () => {
-            if ((model.lives >= 0) && (model.counter < 10)) {
-              new ScreenRouter(inputStates[model.counter].type).switchScreen();
-            } else {
-              new ScreenRouter(Screens.STAT).switchScreen();
-            }
-          },
-          goBack: () => new ScreenRouter(Screens.GREETING).switchScreen()
-        };
-        selectSlide(new GamePresenter(this.data, inputStates).create());
-        break;
-
-      case Screens.GAME_3:
-        this.data = {
-          showNextScreen: () => {
-            if ((model.lives >= 0) && (model.counter < 10)) {
-              new ScreenRouter(inputStates[model.counter].type).switchScreen();
-            } else {
-              new ScreenRouter(Screens.STAT).switchScreen();
-            }
-          },
-          goBack: () => new ScreenRouter(Screens.GREETING).switchScreen()
-        };
-        selectSlide(new GamePresenter(this.data, inputStates).create());
-        break;
-
-      case Screens.STAT:
-        this.data = {
-          goBack: () => new ScreenRouter(Screens.GREETING).switchScreen()
-        };
-        selectSlide(new StatPresenter(this.data).create());
-        Loader.saveResults(model.statistics, model.userName).
-          then(() => Loader.loadResults(model.userName)).
-          then((data) => {
-            serverStatistics = data;
-          }).
-          catch(showError);
-    }
+  static showIntro() {
+    const data = {
+      showNextScreen: () => ScreenRouter.showGreeting()
+    };
+    selectSlide(new IntroPresenter(data).create());
   }
 
+  static showGreeting() {
+    const data = {
+      showNextScreen: () => ScreenRouter.showRules()
+    };
+    selectSlide(new GreetingPresenter(data).create());
+  }
+
+  static showRules() {
+    const data = {
+      showNextScreen: () => {
+        ScreenRouter.showGame();
+      },
+      goBack: () => ScreenRouter.showGreeting()
+    };
+    selectSlide(new RulesPresenter(data).create());
+  }
+
+  static showGame() {
+    const data = {
+      showNextScreen: () => {
+        if ((model.lives >= 0) && (model.counter < 10)) {
+          ScreenRouter.showGame();
+        } else {
+          ScreenRouter.showStat();
+        }
+      },
+      goBack: () => ScreenRouter.showGreeting()
+    };
+    selectSlide(new GamePresenter(data, inputStates).create());
+  }
+
+  static showStat() {
+    const data = {
+      goBack: () => ScreenRouter.showGreeting()
+    };
+    selectSlide(new StatPresenter(data).create());
+    Loader.saveResults(model.statistics, model.userName).
+      then(() => Loader.loadResults(model.userName)).
+      then((dat) => {
+        serverStatistics = dat;
+      }).
+      catch(showError);
+  }
 }
 
 export {checkStatus, serverStatistics};

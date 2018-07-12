@@ -18,10 +18,25 @@ const Velocities = {
   UNKNOWN_MODE: `unknown`
 };
 
+const Frames = {
+  FRAME1: {
+    width: 468,
+    height: 458
+  },
+  FRAME2: {
+    width: 705,
+    height: 455
+  },
+  FRAME3: {
+    width: 304,
+    height: 455
+  }
+};
+
 const Times = {
   START_TIME: 30,
   FAST_TIME: 20,
   SLOW_TIME: 10
 };
 
-export {Screens, Velocities, Times};
+export {Screens, Velocities, Times, Frames};
