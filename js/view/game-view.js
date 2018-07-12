@@ -3,7 +3,7 @@ import FooterView from '../view/footer-view.js';
 import HeaderView from '../view/header-view.js';
 import {model} from '../data.js';
 import {Screens} from '../permanent.js';
-import resize from '../resizer.js';
+// import resize from '../resizer.js';
 
 export default class GameView extends InitialGameView {
   constructor(name, inputStates) {
@@ -152,7 +152,7 @@ export default class GameView extends InitialGameView {
     }
   }
 
-  //здесь будет функция кадрирования
+  // здесь будет функция кадрирования
   /* resizeImage(frame, given) {
     const imgList = this.element.querySelector(`img`);
     const newSize = resize(frame, given);
