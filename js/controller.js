@@ -28,7 +28,7 @@ const showError = (error) => {
 
 export default class ScreenRouter {
 
-  static showLoad() {
+  /* static showLoad() {
     const splash = new SplashScreen();
 
     selectSlide(splash.element);
@@ -38,10 +38,26 @@ export default class ScreenRouter {
       then((response) => response.json()).
       then((data) => {
         inputStates = data;
+        splash.stop();
+        ScreenRouter.showIntro();
       }).
-      then(() => splash.stop()).
-      then(() => ScreenRouter.showIntro()).
       catch(showError);
+  }*/
+
+  static async showLoad() {
+    const splash = new SplashScreen();
+
+    selectSlide(splash.element);
+    splash.start();
+
+    try {
+      inputStates = await window.fetch(`https://es.dump.academy/pixel-hunter/questions`).then(checkStatus).then((response) => response.json());
+      ScreenRouter.showIntro();
+    } catch (error) {
+      showError(error);
+    } finally {
+      splash.stop();
+    }
   }
 
   static showIntro() {
@@ -82,17 +98,31 @@ export default class ScreenRouter {
     selectSlide(new GamePresenter(data, inputStates).create());
   }
 
-  static showStat() {
+  /* static showStat() {
     const data = {
       goBack: () => ScreenRouter.showGreeting()
     };
     selectSlide(new StatPresenter(data).create());
     Loader.saveResults(model.statistics, model.userName).
-      then(() => Loader.loadResults(model.userName)).
-      then((dat) => {
-        serverStatistics = dat;
+      then((info) => {
+        Loader.loadResults(model.userName);
+        serverStatistics = info;
       }).
       catch(showError);
+  }*/
+
+  static async showStat() {
+    const data = {
+      goBack: () => ScreenRouter.showGreeting()
+    };
+    selectSlide(new StatPresenter(data).create());
+
+    try {
+      await Loader.saveResults(model.statistics, model.userName);
+      serverStatistics = await Loader.loadResults(model.userName);
+    } catch (error) {
+      showError(error);
+    }
   }
 }
 

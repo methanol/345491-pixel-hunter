@@ -1,4 +1,4 @@
-function resize(frame, given) {
+export default function resize(frame, given) {
   let newSize = {
     width: given.width,
     height: given.height
@@ -20,5 +20,3 @@ function resize(frame, given) {
 
   return newSize;
 }
-
-export {resize as default};
