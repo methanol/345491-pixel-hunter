@@ -24,7 +24,6 @@ export default class GameView extends InitialGameView {
           <p class="game__task">${this.inputStates[model.counter].question}</p>
           <form class="game__content">
             <div class="game__option">
-              <img src=${this.inputStates[model.counter].answers[0].image.url} alt="Option 1" width="468" height="458">
               <label class="game__answer game__answer--photo">
                 <input name="question1" type="radio" value="photo">
                 <span>Фото</span>
@@ -35,7 +34,6 @@ export default class GameView extends InitialGameView {
               </label>
             </div>
             <div class="game__option">
-              <img src=${this.inputStates[model.counter].answers[1].image.url} alt="Option 2" width="468" height="458">
               <label class="game__answer  game__answer--photo">
                 <input name="question2" type="radio" value="photo">
                 <span>Фото</span>
@@ -63,7 +61,6 @@ export default class GameView extends InitialGameView {
           <p class="game__task">${this.inputStates[model.counter].question}</p>
           <form class="game__content  game__content--wide">
             <div class="game__option">
-              <img src=${this.inputStates[model.counter].answers[0].image.url} alt="Option 1" width="705" height="455">
               <label class="game__answer  game__answer--photo">
                 <input name="question1" type="radio" value="photo">
                 <span>Фото</span>
@@ -92,13 +89,10 @@ export default class GameView extends InitialGameView {
           <p class="game__task">${this.inputStates[model.counter].question}</p>
           <form class="game__content  game__content--triple">
             <div class="game__option">
-              <img src=${this.inputStates[model.counter].answers[0].image.url} alt="Option 1" width="304" height="455">
             </div>
             <div class="game__option">
-              <img src=${this.inputStates[model.counter].answers[1].image.url} alt="Option 1" width="304" height="455">
             </div>
             <div class="game__option">
-              <img src=${this.inputStates[model.counter].answers[2].image.url} alt="Option 1" width="304" height="455">
             </div>
           </form>
           <div class="stats">
@@ -125,16 +119,31 @@ export default class GameView extends InitialGameView {
 
     switch (this.gameName) {
       case Screens.GAME_1:
+        const options1 = this.element.querySelectorAll(`.game__option`);
+        options1.forEach((it, ind) => {
+          it.setAttribute(`style`, `width: 468px; height: 458px; background: url(${this.inputStates[model.counter].answers[ind].image.url}) no-repeat center; background-origin: content-box; background-size: contain`);
+        });
+
+        this._element.addEventListener(`change`, () => {
+          this.getClick();
+        });
+        break;
+
       case Screens.GAME_2:
+        const option2 = this.element.querySelector(`.game__option`);
+        option2.setAttribute(`style`, `width: 705px; height: 455px; background: url(${this.inputStates[model.counter].answers[0].image.url}) no-repeat center; background-origin: content-box; background-size: contain`);
+
         this._element.addEventListener(`change`, () => {
           this.getClick();
         });
         break;
 
       case Screens.GAME_3:
-        const options = this.element.querySelectorAll(`.game__option`);
+        const options3 = this.element.querySelectorAll(`.game__option`);
 
-        options.forEach((it) => {
+        options3.forEach((it, ind) => {
+          it.setAttribute(`style`, `width: 304px; height: 455px; background: url(${this.inputStates[model.counter].answers[ind].image.url}) no-repeat center; background-origin: content-box; background-size: contain`);
+
           it.addEventListener(`mousedown`, () => {
             it.classList.add(`game__option--selected`);
             this.getClick();
@@ -151,13 +160,5 @@ export default class GameView extends InitialGameView {
       timeBox.classList.add(`game__timer--blink`);
     }
   }
-
-  // здесь будет функция кадрирования
-  /* resizeImage(frame, given) {
-    const imgList = this.element.querySelector(`img`);
-    const newSize = resize(frame, given);
-
-    return newSize;
-  }*/
 
 }

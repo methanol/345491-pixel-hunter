@@ -28,7 +28,7 @@ const showError = (error) => {
 
 export default class ScreenRouter {
 
-  /* static showLoad() {
+  static showLoad() {
     const splash = new SplashScreen();
 
     selectSlide(splash.element);
@@ -42,9 +42,9 @@ export default class ScreenRouter {
         ScreenRouter.showIntro();
       }).
       catch(showError);
-  }*/
+  }
 
-  static async showLoad() {
+  /* static async showLoad() {
     const splash = new SplashScreen();
 
     selectSlide(splash.element);
@@ -58,7 +58,7 @@ export default class ScreenRouter {
     } finally {
       splash.stop();
     }
-  }
+  }*/
 
   static showIntro() {
     const data = {
@@ -72,6 +72,7 @@ export default class ScreenRouter {
       showNextScreen: () => ScreenRouter.showRules()
     };
     selectSlide(new GreetingPresenter(data).create());
+
   }
 
   static showRules() {
@@ -98,7 +99,7 @@ export default class ScreenRouter {
     selectSlide(new GamePresenter(data, inputStates).create());
   }
 
-  /* static showStat() {
+  static showStat() {
     const data = {
       goBack: () => ScreenRouter.showGreeting()
     };
@@ -109,9 +110,9 @@ export default class ScreenRouter {
         serverStatistics = info;
       }).
       catch(showError);
-  }*/
+  }
 
-  static async showStat() {
+  /* static async showStat() {
     const data = {
       goBack: () => ScreenRouter.showGreeting()
     };
@@ -123,7 +124,7 @@ export default class ScreenRouter {
     } catch (error) {
       showError(error);
     }
-  }
+  }*/
 }
 
 export {checkStatus, serverStatistics};
