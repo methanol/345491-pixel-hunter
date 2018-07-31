@@ -7,10 +7,6 @@ const toJSON = (res) => res.json();
 
 export default class Loader {
 
-  static loadResults(name = DEFAULT_NAME) {
-    return fetch(`https://es.dump.academy/pixel-hunter/stats/${APP_ID}-${name}`).then(checkStatus).then(toJSON);
-  }
-
   static saveResults(data, name = DEFAULT_NAME) {
     data = Object.assign({name}, data);
     const requestSettings = {
@@ -21,5 +17,9 @@ export default class Loader {
       method: `POST`
     };
     return fetch(`https://es.dump.academy/pixel-hunter/stats/${APP_ID}-${name}`, requestSettings).then(checkStatus);
+  }
+
+  static loadResults(name = DEFAULT_NAME) {
+    return fetch(`https://es.dump.academy/pixel-hunter/stats/${APP_ID}-${name}`).then(checkStatus).then(toJSON);
   }
 }

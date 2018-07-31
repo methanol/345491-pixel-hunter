@@ -9,6 +9,7 @@ import SplashScreen from './splash-screen.js';
 import ErrorScreen from './error-screen.js';
 import Loader from './loader.js';
 
+
 let inputStates = [];
 let serverStatistics = [];
 
@@ -43,22 +44,6 @@ export default class ScreenRouter {
       }).
       catch(showError);
   }
-
-  /* static async showLoad() {
-    const splash = new SplashScreen();
-
-    selectSlide(splash.element);
-    splash.start();
-
-    try {
-      inputStates = await window.fetch(`https://es.dump.academy/pixel-hunter/questions`).then(checkStatus).then((response) => response.json());
-      ScreenRouter.showIntro();
-    } catch (error) {
-      showError(error);
-    } finally {
-      splash.stop();
-    }
-  }*/
 
   static showIntro() {
     const data = {
@@ -104,27 +89,15 @@ export default class ScreenRouter {
       goBack: () => ScreenRouter.showGreeting()
     };
     selectSlide(new StatPresenter(data).create());
+
     Loader.saveResults(model.statistics, model.userName).
+      then(() => Loader.loadResults(model.userName)).
       then((info) => {
-        Loader.loadResults(model.userName);
         serverStatistics = info;
       }).
       catch(showError);
   }
 
-  /* static async showStat() {
-    const data = {
-      goBack: () => ScreenRouter.showGreeting()
-    };
-    selectSlide(new StatPresenter(data).create());
-
-    try {
-      await Loader.saveResults(model.statistics, model.userName);
-      serverStatistics = await Loader.loadResults(model.userName);
-    } catch (error) {
-      showError(error);
-    }
-  }*/
 }
 
 export {checkStatus, serverStatistics};

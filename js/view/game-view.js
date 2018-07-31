@@ -2,8 +2,7 @@ import InitialGameView from '../initial-game-view.js';
 import FooterView from '../view/footer-view.js';
 import HeaderView from '../view/header-view.js';
 import {model} from '../data.js';
-import {Screens} from '../permanent.js';
-// import resize from '../resizer.js';
+import {Screens, Frames} from '../permanent.js';
 
 export default class GameView extends InitialGameView {
   constructor(name, inputStates) {
@@ -110,6 +109,37 @@ export default class GameView extends InitialGameView {
     return templ;
   }
 
+  resizeImage() {
+    switch (this.gameName) {
+      case Screens.GAME_1:
+        const firstGameOptions = this.element.querySelectorAll(`.game__option`);
+
+        firstGameOptions.forEach((it, ind) => {
+          this.changeStyle(it, Frames.FRAME1, ind);
+        });
+        break;
+
+      case Screens.GAME_2:
+        const secondGameOption = this.element.querySelector(`.game__option`);
+
+        this.changeStyle(secondGameOption, Frames.FRAME2);
+        break;
+
+      case Screens.GAME_3:
+        const thirdGameOptions = this.element.querySelectorAll(`.game__option`);
+
+        thirdGameOptions.forEach((it, ind) => {
+          this.changeStyle(it, Frames.FRAME3, ind);
+        });
+        break;
+    }
+
+  }
+
+  changeStyle(elem, frame, ind = 0) {
+    elem.setAttribute(`style`, `width: ${frame.width}px; height: ${frame.height}px; background: url(${this.inputStates[model.counter].answers[ind].image.url}) no-repeat center; background-origin: content-box; background-size: contain`);
+  }
+
   bind() {
     const btnBack = this._element.querySelector(`button.back`);
 
@@ -119,10 +149,6 @@ export default class GameView extends InitialGameView {
 
     switch (this.gameName) {
       case Screens.GAME_1:
-        const options1 = this.element.querySelectorAll(`.game__option`);
-        options1.forEach((it, ind) => {
-          it.setAttribute(`style`, `width: 468px; height: 458px; background: url(${this.inputStates[model.counter].answers[ind].image.url}) no-repeat center; background-origin: content-box; background-size: contain`);
-        });
 
         this._element.addEventListener(`change`, () => {
           this.getClick();
@@ -130,8 +156,6 @@ export default class GameView extends InitialGameView {
         break;
 
       case Screens.GAME_2:
-        const option2 = this.element.querySelector(`.game__option`);
-        option2.setAttribute(`style`, `width: 705px; height: 455px; background: url(${this.inputStates[model.counter].answers[0].image.url}) no-repeat center; background-origin: content-box; background-size: contain`);
 
         this._element.addEventListener(`change`, () => {
           this.getClick();
@@ -141,9 +165,7 @@ export default class GameView extends InitialGameView {
       case Screens.GAME_3:
         const options3 = this.element.querySelectorAll(`.game__option`);
 
-        options3.forEach((it, ind) => {
-          it.setAttribute(`style`, `width: 304px; height: 455px; background: url(${this.inputStates[model.counter].answers[ind].image.url}) no-repeat center; background-origin: content-box; background-size: contain`);
-
+        options3.forEach((it) => {
           it.addEventListener(`mousedown`, () => {
             it.classList.add(`game__option--selected`);
             this.getClick();

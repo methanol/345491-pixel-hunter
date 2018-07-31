@@ -43,7 +43,6 @@ gulp.task(`scripts`, () => {
   return gulp.src(`js/main.js`)
     .pipe(plumber())
     .pipe(sourcemaps.init())
-    // .pipe(rollup({}, `iife`))
     .pipe(rollup({
       plugins: [
         resolve({browser: true}),
