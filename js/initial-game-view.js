@@ -16,6 +16,7 @@ export default class InitialGameView {
       return this._element;
     }
     this._element = this.render();
+    this.resizeImage();
     this.bind(this._element);
     return this._element;
   }
@@ -25,5 +26,8 @@ export default class InitialGameView {
   }
 
   bind() {
+  }
+
+  resizeImage() {
   }
 }

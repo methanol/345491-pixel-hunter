@@ -9,6 +9,7 @@ import SplashScreen from './splash-screen.js';
 import ErrorScreen from './error-screen.js';
 import Loader from './loader.js';
 
+
 let inputStates = [];
 let serverStatistics = [];
 
@@ -38,9 +39,9 @@ export default class ScreenRouter {
       then((response) => response.json()).
       then((data) => {
         inputStates = data;
+        splash.stop();
+        ScreenRouter.showIntro();
       }).
-      then(() => splash.stop()).
-      then(() => ScreenRouter.showIntro()).
       catch(showError);
   }
 
@@ -56,6 +57,7 @@ export default class ScreenRouter {
       showNextScreen: () => ScreenRouter.showRules()
     };
     selectSlide(new GreetingPresenter(data).create());
+
   }
 
   static showRules() {
@@ -87,13 +89,15 @@ export default class ScreenRouter {
       goBack: () => ScreenRouter.showGreeting()
     };
     selectSlide(new StatPresenter(data).create());
+
     Loader.saveResults(model.statistics, model.userName).
       then(() => Loader.loadResults(model.userName)).
-      then((dat) => {
-        serverStatistics = dat;
+      then((info) => {
+        serverStatistics = info;
       }).
       catch(showError);
   }
+
 }
 
 export {checkStatus, serverStatistics};

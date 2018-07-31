@@ -15,7 +15,7 @@ export default class StatView extends InitialGameView {
   get template() {
     model.switchHeaderSmall();
     const prevGame1 = (serverStatistics.length > 1) ? serverStatistics[serverStatistics.length - 1][0] : ``;
-    const prevGame2 = (serverStatistics.length > 1) ? serverStatistics[serverStatistics.length - 1][1] : ``;
+    const prevGame2 = (serverStatistics.length > 2) ? serverStatistics[serverStatistics.length - 1][1] : ``;
 
     return `${new HeaderView().template}
     <div class="result">
@@ -57,7 +57,7 @@ export default class StatView extends InitialGameView {
           <td colspan="5" class="result__total  result__total--final">${getScore(model)}</td>
         </tr>
       </table>
-      ${((serverStatistics.length < 1) || (prevGame1 === undefined)) ? `` : `<table class="result__table">
+      ${((serverStatistics.length < 1) || (prevGame1 === ``)) ? `` : `<table class="result__table">
         <tr>
           <td class="result__number">2.</td>
           <td colspan="2">
@@ -94,7 +94,8 @@ export default class StatView extends InitialGameView {
           <td colspan="5" class="result__total  result__total--final">${getScore(prevGame1)}</td>
         </tr>
       </table>`}
-      ${((serverStatistics.length < 1) || (prevGame2 === undefined)) ? `` : `<table class="result__table">
+      ${((serverStatistics.length < 2) ||
+        (prevGame2 === ``)) ? `` : `<table class="result__table">
         <tr>
           <td class="result__number">3.</td>
           <td colspan="2">
