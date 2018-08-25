@@ -1,3 +1,10 @@
+function GameStatistic(answers, userName = `guest`, lives, counter) {
+  this.answers = answers;
+  this.userName = userName;
+  this.lives = lives;
+  this.counter = counter;
+}
+
 class GameModel {
   constructor() {
     this.lives = 3;
@@ -6,9 +13,21 @@ class GameModel {
     this.keyCodes = [];
     this.isGameScreen = false;
     this.counter = 0;
-    this.fastCounter = 0;
-    this.slowCounter = 0;
     this.statistics = [];
+  }
+
+  saveResult() {
+    this.statistics.unshift(new GameStatistic(this.answers, this.userName, this.lives, this.counter));
+  }
+
+  writeName(name) {
+    this.userName = name;
+  }
+
+  takeLive() {
+    if (this.lives >= 0) {
+      --this.lives;
+    }
   }
 
   switchHeaderBig() {
@@ -22,8 +41,6 @@ class GameModel {
   resetState() {
     this.lives = 3;
     this.counter = 0;
-    this.fastCounter = 0;
-    this.slowCounter = 0;
     this.isGameScreen = false;
     this.answers = [`unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`];
   }

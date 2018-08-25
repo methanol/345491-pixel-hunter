@@ -1,33 +1,26 @@
 import StatView from '../view/stat-view.js';
 import {model} from '../data.js';
+import HeaderPresenter from './header-presenter.js';
+import {selectSlide} from '../util.js';
 
-const NO_LIVES = -1;
-const NO_COUNTER = 5;
-
-class GameStatistic {
-  constructor(answers, userName = ``, lives = NO_LIVES, counter = NO_COUNTER, fastCounter = NO_COUNTER, slowCounter = NO_COUNTER) {
-    this.answers = answers;
-    this.userName = userName;
-    this.lives = lives;
-    this.counter = counter;
-    this.fastCounter = fastCounter;
-    this.slowCounter = slowCounter;
-  }
-}
+/* function GameStatistic(answers, userName = `guest`, lives, counter) {
+  this.answers = answers;
+  this.userName = userName;
+  this.lives = lives;
+  this.counter = counter;
+}*/
 
 export default class StatPresenter {
   constructor(data) {
     this.data = data;
-    this.view = new StatView();
+    this.view = new StatView(model);
   }
 
   create() {
-    model.statistics.unshift(new GameStatistic(model.answers, model.userName, model.lives, model.counter, model.fastCounter, model.slowCounter));
+    model.switchHeaderSmall();
+    model.saveResult();
+    // model.statistics.unshift(new GameStatistic(model.answers, model.userName, model.lives, model.counter));
 
-    this.view.getBackClick = () => {
-      this.data.goBack();
-    };
-
-    return this.view.element;
+    return selectSlide([new HeaderPresenter(this.data).create(), this.view.element]);
   }
 }

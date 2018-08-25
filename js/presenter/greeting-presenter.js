@@ -1,9 +1,10 @@
 import GreetingView from '../view/greeting-view.js';
+import {selectSlide} from '../util.js';
 
 export default class GreetingPresenter {
   constructor(data) {
     this.data = data;
-    this.view = new GreetingView(this.data);
+    this.view = new GreetingView();
   }
 
   create() {
@@ -11,7 +12,7 @@ export default class GreetingPresenter {
       this.data.showNextScreen();
     };
 
-    return this.view.element;
+    return selectSlide([this.view.element]);
   }
 
 }

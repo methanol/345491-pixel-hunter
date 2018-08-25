@@ -4,7 +4,6 @@ import FooterView from './footer-view.js';
 export default class IntroView extends InitialGameView {
   constructor() {
     super();
-    // this.data = data;
   }
 
   get template() {
