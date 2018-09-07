@@ -32,14 +32,12 @@ export default class ScreenRouter {
   static showLoad() {
     const splash = new SplashScreen();
 
-    selectSlide(splash.element);
-    splash.start();
+    selectSlide([splash.element]);
     window.fetch(`https://es.dump.academy/pixel-hunter/questions`).
       then(checkStatus).
       then((response) => response.json()).
       then((data) => {
         inputStates = data;
-        splash.stop();
         ScreenRouter.showIntro();
       }).
       catch(showError);
@@ -49,14 +47,14 @@ export default class ScreenRouter {
     const data = {
       showNextScreen: () => ScreenRouter.showGreeting()
     };
-    selectSlide(new IntroPresenter(data).create());
+    new IntroPresenter(data).create();
   }
 
   static showGreeting() {
     const data = {
       showNextScreen: () => ScreenRouter.showRules()
     };
-    selectSlide(new GreetingPresenter(data).create());
+    new GreetingPresenter(data).create();
 
   }
 
@@ -67,28 +65,23 @@ export default class ScreenRouter {
       },
       goBack: () => ScreenRouter.showGreeting()
     };
-    selectSlide(new RulesPresenter(data).create());
+    new RulesPresenter(data).create();
   }
 
   static showGame() {
     const data = {
-      showNextScreen: () => {
-        if ((model.lives >= 0) && (model.counter < 10)) {
-          ScreenRouter.showGame();
-        } else {
-          ScreenRouter.showStat();
-        }
-      },
+      showNextScreen: () => ScreenRouter.showGame(),
+      showStatScreen: () => ScreenRouter.showStat(),
       goBack: () => ScreenRouter.showGreeting()
     };
-    selectSlide(new GamePresenter(data, inputStates).create());
+    new GamePresenter(data, inputStates).create();
   }
 
   static showStat() {
     const data = {
       goBack: () => ScreenRouter.showGreeting()
     };
-    selectSlide(new StatPresenter(data).create());
+    new StatPresenter(data).create();
 
     Loader.saveResults(model.statistics, model.userName).
       then(() => Loader.loadResults(model.userName)).

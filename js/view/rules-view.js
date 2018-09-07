@@ -1,14 +1,10 @@
 import InitialGameView from '../initial-game-view.js';
 import FooterView from '../view/footer-view.js';
-import HeaderView from '../view/header-view.js';
-import {model} from '../data.js';
 
 export default class RulesView extends InitialGameView {
   get template() {
-    model.switchHeaderSmall();
 
-    return `${new HeaderView().template}
-    <div class="rules">
+    return `<div class="rules">
       <h1 class="rules__title">Правила</h1>
       <p class="rules__description">Угадай 10 раз для каждого изображения фото <img
         src="img/photo_icon.png" width="16" height="16"> или рисунок <img
@@ -30,11 +26,6 @@ export default class RulesView extends InitialGameView {
   bind() {
     const rulesInput = this._element.querySelector(`.rules__input`);
     const rulesButton = this._element.querySelector(`.rules__button`);
-    const btnBack = this._element.querySelector(`button.back`);
-
-    btnBack.addEventListener(`click`, () => {
-      this.getBackClick();
-    });
 
     rulesInput.addEventListener(`input`, () => {
       rulesButton.disabled = (rulesInput.value === ``);

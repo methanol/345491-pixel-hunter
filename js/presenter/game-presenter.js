@@ -2,13 +2,17 @@ import GameView from '../view/game-view.js';
 import {model} from '../data.js';
 import {Screens, Velocities, Times} from '../permanent.js';
 import Timer from '../create-timer.js';
+import {selectSlide} from '../util.js';
+import HeaderPresenter from './header-presenter.js';
 
 export default class GamePresenter {
   constructor(data, inputStates) {
     this.inputStates = inputStates;
     this.data = data;
-    this.view = new GameView(this.inputStates[model.counter].type, this.inputStates);
-    this.timing = new Timer(Times.START_TIME, (time) => this.view.updateTimer(time), () => this.goNext());
+    this.view = new GameView(this.inputStates, model);
+    model.switchHeaderBig();
+    this.headView = new HeaderPresenter(this.data);
+    this.timing = new Timer(Times.START_TIME, (time) => this.headView.view.updateTimer(time), () => this.goNext());
   }
 
   checkAnswer(answerCode, stopValue) {
@@ -17,18 +21,14 @@ export default class GamePresenter {
     if (answerCode === keyCodes[counter]) {
       if (stopValue > Times.FAST_TIME) {
         answers[counter] = Velocities.FAST_MODE;
-        model.fastCounter++;
       } else if ((stopValue < Times.SLOW_TIME) && (stopValue > 0)) {
         answers[counter] = Velocities.SLOW_MODE;
-        model.slowCounter++;
       } else if ((stopValue >= Times.SLOW_TIME) && (stopValue <= Times.FAST_TIME)) {
         answers[counter] = Velocities.NORMAL_MODE;
       }
     } else {
       answers[counter] = Velocities.WRONG_MODE;
-      if (model.lives >= 0) {
-        --model.lives;
-      }
+      model.takeLive();
     }
 
     model.counter++;
@@ -36,11 +36,7 @@ export default class GamePresenter {
 
 
   create() {
-    this.view.getBackClick = () => {
-      this.data.goBack();
-    };
-
-    const timeBox = this.view.element.querySelector(`.game__timer`);
+    const timeBox = this.headView.view.element.querySelector(`.game__timer`);
     timeBox.classList.remove(`game__timer--blink`);
 
     this.timing.startTimer();
@@ -63,7 +59,12 @@ export default class GamePresenter {
 
             this.checkAnswer([...questions1, ...questions2].map((it) => it.checked ? 1 : 0).join(``), stopValue);
 
-            this.data.showNextScreen();
+            if ((model.lives >= 0) && (model.counter < 10)) {
+              this.data.showNextScreen();
+            } else {
+              model.switchHeaderSmall();
+              this.data.showStatScreen();
+            }
           }
         };
         break;
@@ -83,7 +84,12 @@ export default class GamePresenter {
 
             this.checkAnswer([...questions1].map((it) => it.checked ? 1 : 0).join(``), stopValue);
 
-            this.data.showNextScreen();
+            if ((model.lives >= 0) && (model.counter < 10)) {
+              this.data.showNextScreen();
+            } else {
+              model.switchHeaderSmall();
+              this.data.showStatScreen();
+            }
           }
         };
         break;
@@ -101,22 +107,32 @@ export default class GamePresenter {
 
           this.checkAnswer([...options].map((it) => (it.classList.contains(`game__option--selected`)) ? 1 : 0).join(``), stopValue);
 
-          this.data.showNextScreen();
+          if ((model.lives >= 0) && (model.counter < 10)) {
+            this.data.showNextScreen();
+          } else {
+            model.switchHeaderSmall();
+            this.data.showStatScreen();
+          }
         };
         break;
     }
 
-    return this.view.element;
+    return selectSlide([this.headView.create(), this.view.element]);
   }
 
   goNext() {
     model.answers[model.counter] = Velocities.WRONG_MODE;
     model.counter++;
 
-    if (model.lives >= 0) {
-      --model.lives;
-    }
+    model.takeLive();
+
     this.timing.stopTimer();
-    this.data.showNextScreen();
+
+    if ((model.lives >= 0) && (model.counter < 10)) {
+      this.data.showNextScreen();
+    } else {
+      model.switchHeaderSmall();
+      this.data.showStatScreen();
+    }
   }
 }

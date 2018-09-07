@@ -1,26 +1,24 @@
 import InitialGameView from '../initial-game-view.js';
 import FooterView from '../view/footer-view.js';
-import HeaderView from '../view/header-view.js';
-import {model} from '../data.js';
 import {Screens, Frames} from '../permanent.js';
 
 export default class GameView extends InitialGameView {
-  constructor(name, inputStates) {
+  constructor(inputStates, shadowModel) {
     super();
-    this.gameName = name;
     this.inputStates = inputStates;
+    this.counter = shadowModel.counter;
+    this.gameName = inputStates[this.counter].type;
+    this.answers = shadowModel.answers;
   }
 
   get template() {
     let templ = ``;
-    model.switchHeaderBig();
 
     switch (this.gameName) {
       case Screens.GAME_1:
         templ = `<div>
-        ${new HeaderView().template}
         <div class="game">
-          <p class="game__task">${this.inputStates[model.counter].question}</p>
+          <p class="game__task">${this.inputStates[this.counter].question}</p>
           <form class="game__content">
             <div class="game__option">
               <label class="game__answer game__answer--photo">
@@ -45,7 +43,7 @@ export default class GameView extends InitialGameView {
           </form>
           <div class="stats">
             <ul class="stats">
-            ${model.answers.map((it) => `<li class="stats__result stats__result--${it}"></li>`).join(``)}
+            ${this.answers.map((it) => `<li class="stats__result stats__result--${it}"></li>`).join(``)}
             </ul>
           </div>
         </div>
@@ -55,9 +53,8 @@ export default class GameView extends InitialGameView {
 
       case Screens.GAME_2:
         templ = `<div>
-        ${new HeaderView().template}
         <div class="game">
-          <p class="game__task">${this.inputStates[model.counter].question}</p>
+          <p class="game__task">${this.inputStates[this.counter].question}</p>
           <form class="game__content  game__content--wide">
             <div class="game__option">
               <label class="game__answer  game__answer--photo">
@@ -72,7 +69,7 @@ export default class GameView extends InitialGameView {
           </form>
           <div class="stats">
             <ul class="stats">
-            ${model.answers.map((it) =>
+            ${this.answers.map((it) =>
     `<li class="stats__result stats__result--${it}"></li>`).join(``)}
             </ul>
           </div>
@@ -83,9 +80,8 @@ export default class GameView extends InitialGameView {
 
       case Screens.GAME_3:
         templ = `<div>
-        ${new HeaderView().template}
         <div class="game">
-          <p class="game__task">${this.inputStates[model.counter].question}</p>
+          <p class="game__task">${this.inputStates[this.counter].question}</p>
           <form class="game__content  game__content--triple">
             <div class="game__option">
             </div>
@@ -96,7 +92,7 @@ export default class GameView extends InitialGameView {
           </form>
           <div class="stats">
           <ul class="stats">
-          ${model.answers.map((it) =>
+          ${this.answers.map((it) =>
     `<li class="stats__result stats__result--${it}"></li>`).join(``)}
           </ul>
           </div>
@@ -137,16 +133,10 @@ export default class GameView extends InitialGameView {
   }
 
   changeStyle(elem, frame, ind = 0) {
-    elem.setAttribute(`style`, `width: ${frame.width}px; height: ${frame.height}px; background: url(${this.inputStates[model.counter].answers[ind].image.url}) no-repeat center; background-origin: content-box; background-size: contain`);
+    elem.setAttribute(`style`, `width: ${frame.width}px; height: ${frame.height}px; background: url(${this.inputStates[this.counter].answers[ind].image.url}) no-repeat center; background-origin: content-box; background-size: contain`);
   }
 
   bind() {
-    const btnBack = this._element.querySelector(`button.back`);
-
-    btnBack.addEventListener(`click`, () => {
-      this.getBackClick();
-    });
-
     switch (this.gameName) {
       case Screens.GAME_1:
 
@@ -172,14 +162,6 @@ export default class GameView extends InitialGameView {
           });
         });
         break;
-    }
-  }
-
-  updateTimer(time) {
-    const timeBox = this.element.querySelector(`.game__timer`);
-    timeBox.textContent = time;
-    if (time < 6) {
-      timeBox.classList.add(`game__timer--blink`);
     }
   }
 

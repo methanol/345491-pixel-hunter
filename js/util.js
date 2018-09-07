@@ -6,9 +6,12 @@ const render = (template) => {
 
 const mainScreen = document.querySelector(`.central`);
 
-const selectSlide = (element) => {
+const selectSlide = (elements) => {
   mainScreen.innerHTML = ``;
-  mainScreen.appendChild(element);
+
+  for (let element of elements) {
+    mainScreen.appendChild(element);
+  }
 };
 
 export {selectSlide, render};
